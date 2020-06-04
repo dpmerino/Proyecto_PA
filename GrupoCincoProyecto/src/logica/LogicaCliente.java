@@ -5,6 +5,7 @@
  */
 package logica;
 
+import clases.Cliente;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,4 +26,11 @@ public class LogicaCliente {
         archivos.ArchivoGeneral.LeerDAT(ArrayObjetos, fichero);
     }
    
+    public Boolean validarCliente (ArrayList<Cliente> ArrayClientes, String cedula, String clave){
+        for (Cliente objCli : ArrayClientes){
+            if(objCli.getCedula().equals(cedula) && objCli.getClave().equals(clave))
+                return true;
+        }
+        return false;
+    }
 }
