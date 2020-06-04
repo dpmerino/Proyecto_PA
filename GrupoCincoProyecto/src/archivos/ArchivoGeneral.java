@@ -28,7 +28,7 @@ public class ArchivoGeneral {
         oos.close();
     }
 
-    public static void LeerDAT(ArrayList ArrayObjetos, String fichero) {
+    public static void LeerDAT(ArrayList ArrayObjetos, String fichero) throws FileNotFoundException, IOException, ClassNotFoundException {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichero));
             Object aux = ois.readObject();
@@ -40,8 +40,7 @@ public class ArchivoGeneral {
             }
             ois.close();
         } catch (EOFException e1) {
-        } catch (Exception e2) {
-            e2.printStackTrace();
+        } catch (IOException | ClassNotFoundException e2) {
         }
     }
 }
