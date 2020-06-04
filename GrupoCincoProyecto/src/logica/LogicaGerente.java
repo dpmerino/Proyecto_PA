@@ -5,10 +5,22 @@
  */
 package logica;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
  *
  * @author diegomerino
  */
 public class LogicaGerente {
+    static String fichero = "archivos/gerentes.dat";
     
+    public static void EscribirGerenteDAT (ArrayList ArrayObjetos) throws IOException{
+        archivos.ArchivoGeneral.EscribirDAT(ArrayObjetos, fichero);
+    }
+    
+    public static void LeerGerenteDAT (ArrayList ArrayObjetos) throws IOException, FileNotFoundException, ClassNotFoundException{
+        archivos.ArchivoGeneral.LeerDAT(ArrayObjetos, fichero);
+    }
 }
