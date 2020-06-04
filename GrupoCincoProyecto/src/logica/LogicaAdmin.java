@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *
- * @author diegomerino
  */
 public class LogicaAdmin {
     
