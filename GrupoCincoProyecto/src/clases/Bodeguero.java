@@ -98,5 +98,10 @@ public class Bodeguero extends Empleado {
     public void setClave(String clave) {
         this.clave = clave;
     }
+
+    @Override
+    public String toString() {
+        return "Bodeguero{" + "inventarioRecibido=" + inventarioRecibido + '}';
+    }
         
 }

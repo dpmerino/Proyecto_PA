@@ -24,8 +24,9 @@ public class Local implements Serializable{
 	public Bodeguero bodeguero;
 	public Gerente gerente;
 	public Inventario inventario;
+        public String nombre;
 
-    public Local(String direccion, boolean estaDeTurno, Pedido pedido, Vendedor vendedor, Bodeguero bodeguero, Gerente gerente, Inventario inventario) {
+    public Local(String direccion, boolean estaDeTurno, Pedido pedido, Vendedor vendedor, Bodeguero bodeguero, Gerente gerente, Inventario inventario, String nombre) {
         this.direccion = direccion;
         this.estaDeTurno = estaDeTurno;
         this.pedido = pedido;
@@ -33,9 +34,19 @@ public class Local implements Serializable{
         this.bodeguero = bodeguero;
         this.gerente = gerente;
         this.inventario = inventario;
+        this.nombre = nombre;
     }
 
+
     public Local() {
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDireccion() {

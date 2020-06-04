@@ -89,5 +89,10 @@ public class Empleado extends Persona implements Serializable{
     public void setClave(String clave) {
         this.clave = clave;
     }
+
+    @Override
+    public String toString() {
+        return "Empleado{" + "turno=" + turno + ", sueldo=" + sueldo + '}';
+    }
         
 }

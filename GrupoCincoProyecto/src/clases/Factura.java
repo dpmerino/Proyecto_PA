@@ -70,6 +70,11 @@ public class Factura {
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
+
+    @Override
+    public String toString() {
+        return "Factura{" + "leyenda=" + leyenda + ", formaDePago=" + formaDePago + ", descuento=" + descuento + ", valorTotal=" + valorTotal + ", pedido=" + pedido + '}';
+    }
         
 
 }
