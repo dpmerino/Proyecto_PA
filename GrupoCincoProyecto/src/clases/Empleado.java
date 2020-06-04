@@ -20,6 +20,20 @@ public class Empleado extends Persona implements Serializable{
 	public int turno;
 	public double sueldo;
 
+    public Empleado(int turno, double sueldo) {
+        this.turno = turno;
+        this.sueldo = sueldo;
+    }
+
+    
+    public Empleado(int turno, double sueldo, String cedula, String nombre, String apellido, String mail, String clave) {
+        super(cedula, nombre, apellido, mail, clave);
+        this.turno = turno;
+        this.sueldo = sueldo;
+    }
+    public Empleado () {}
+        
+
     public int getTurno() {
         return turno;
     }

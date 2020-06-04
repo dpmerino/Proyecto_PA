@@ -14,4 +14,11 @@ package clases;
 
 
 public class Gerente extends  Empleado {
+
+    public Gerente() {
+    }
+    public Gerente(int turno, double sueldo, String cedula, String nombre, String apellido, String mail, String clave) {
+        super(turno, sueldo, cedula, nombre, apellido, mail, clave);
+    }
+    
 }

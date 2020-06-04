@@ -24,7 +24,7 @@ public class Inventario implements Serializable{
         this.cantidad = cantidad;
         this.producto = producto;
     }
-
+    
     public Inventario() {
     }
 

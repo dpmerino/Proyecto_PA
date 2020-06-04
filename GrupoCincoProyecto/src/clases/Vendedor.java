@@ -19,7 +19,11 @@ import java.io.Serializable;
 public class Vendedor extends Empleado implements Serializable{
 	public int pedidoRealizados;
 
-        
+    public Vendedor(int pedidoRealizados, int turno, double sueldo, String cedula, String nombre, String apellido, String mail, String clave) {
+        super(turno, sueldo, cedula, nombre, apellido, mail, clave);
+        this.pedidoRealizados = pedidoRealizados;
+    }
+
     public Vendedor(int pedidoRealizados) {
         this.pedidoRealizados = pedidoRealizados;
     }

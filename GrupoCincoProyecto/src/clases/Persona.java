@@ -31,6 +31,9 @@ public class Persona implements Serializable{
         this.clave = clave;
     }
 
+    public Persona() {
+    }
+
 
     public String getCedula() {
         return cedula;

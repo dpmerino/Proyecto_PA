@@ -15,4 +15,88 @@ package clases;
 
 public class Bodeguero extends Empleado {
 	public int inventarioRecibido;
+
+    public Bodeguero(int inventarioRecibido) {
+        this.inventarioRecibido = inventarioRecibido;
+    }
+
+    public Bodeguero(int inventarioRecibido, int turno, double sueldo) {
+        super(turno, sueldo);
+        this.inventarioRecibido = inventarioRecibido;
+    }
+
+    public Bodeguero(int inventarioRecibido, int turno, double sueldo, String cedula, String nombre, String apellido, String mail, String clave) {
+        super(turno, sueldo, cedula, nombre, apellido, mail, clave);
+        this.inventarioRecibido = inventarioRecibido;
+    }
+    
+
+    public Bodeguero() {
+    }
+        
+
+    public int getInventarioRecibido() {
+        return inventarioRecibido;
+    }
+
+    public void setInventarioRecibido(int inventarioRecibido) {
+        this.inventarioRecibido = inventarioRecibido;
+    }
+
+    public int getTurno() {
+        return turno;
+    }
+
+    public void setTurno(int turno) {
+        this.turno = turno;
+    }
+
+    public double getSueldo() {
+        return sueldo;
+    }
+
+    public void setSueldo(double sueldo) {
+        this.sueldo = sueldo;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+        
 }
