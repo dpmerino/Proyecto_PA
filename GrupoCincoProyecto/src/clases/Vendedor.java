@@ -27,13 +27,7 @@ public class Vendedor extends Empleado implements Serializable{
     public Vendedor() {
     }
 
-    public Vendedor(String cedula, String nombre, String apellido, String mail, String clave,
-            int turno, double sueldo,
-            ,int pedidoRealizados){
-        super (cedula, nombre, apellido, mail, clave, turno, sueldo)
-        this.pedidoRealizados = pedidoRealizados;
-    }
-    
+
     public int getPedidoRealizados() {
         return pedidoRealizados;
     }
