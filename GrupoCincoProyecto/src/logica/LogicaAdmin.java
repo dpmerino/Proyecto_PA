@@ -5,6 +5,7 @@
  */
 package logica;
 
+import clases.Administrador;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,5 +24,13 @@ public class LogicaAdmin {
     
     public static void LeerAdminDAT (ArrayList ArrayObjetos) throws IOException, FileNotFoundException, ClassNotFoundException{
         archivos.ArchivoGeneral.LeerDAT(ArrayObjetos, fichero);
+    }
+    
+    public Boolean validarAdmin (ArrayList<Administrador> ArrayAdmins, String cedula, String clave){
+        for (Administrador objAdm : ArrayAdmins){
+            if(objAdm.getCedula().equals(cedula) && objAdm.getClave().equals(clave))
+                return true;
+        }
+        return false;
     }
 }
