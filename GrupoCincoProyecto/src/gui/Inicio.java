@@ -44,6 +44,11 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         jButtonEmpleado.setText("Empleado");
+        jButtonEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEmpleadoActionPerformed(evt);
+            }
+        });
 
         jButtonSalir.setText("Salir");
         jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -99,6 +104,10 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButtonSalirActionPerformed
+
+    private void jButtonEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEmpleadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEmpleadoActionPerformed
 
     /**
      * @param args the command line arguments

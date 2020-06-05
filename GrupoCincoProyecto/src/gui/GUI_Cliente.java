@@ -62,6 +62,12 @@ public class GUI_Cliente extends javax.swing.JFrame {
 
         jTextCedula.setText("Cedula");
 
+        jPasswordClave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordClaveActionPerformed(evt);
+            }
+        });
+
         jButtonIngresar.setText("Ingresar");
         jButtonIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,6 +186,10 @@ public class GUI_Cliente extends javax.swing.JFrame {
             model.addRow(NewValor);
         }
     }//GEN-LAST:event_jButtonListarActionPerformed
+
+    private void jPasswordClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordClaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordClaveActionPerformed
 
     /**
      * @param args the command line arguments

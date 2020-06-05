@@ -7,7 +7,6 @@ package grupocincoproyecto;
 
 /**
  *
- * @author Oscar
  */
 public class GrupoCincoProyecto {
 
