@@ -20,11 +20,13 @@ public class Pedido implements Serializable{
 	public String fecha;
 	public int estado;
 	public double valor;
+        public Cliente cliente;
 
-    public Pedido(String fecha, int estado, double valor) {
+    public Pedido(String fecha, int estado, double valor, Cliente cliente) {
         this.fecha = fecha;
         this.estado = estado;
         this.valor = valor;
+        this.cliente = cliente;
     }
 
     public Pedido() {
@@ -53,6 +55,15 @@ public class Pedido implements Serializable{
     public void setValor(double valor) {
         this.valor = valor;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
 
     @Override
     public String toString() {
