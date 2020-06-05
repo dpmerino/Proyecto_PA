@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 /**
  *
- * @author diegomerino
  */
 public class ArchivoGeneral {
 
