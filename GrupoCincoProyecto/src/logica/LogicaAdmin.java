@@ -31,4 +31,13 @@ public class LogicaAdmin {
         }
         return false;
     }
+    
+    public static Boolean ExistenciaAdmin (ArrayList<Administrador> ArrayAdmin, String cedula){
+        boolean flag = false;
+        for (Administrador objAdmin : ArrayAdmin){
+            if (objAdmin.getCedula().equals(cedula))
+                flag = true;
+        }
+        return flag;
+    }
 }

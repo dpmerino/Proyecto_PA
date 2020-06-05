@@ -5,16 +5,33 @@
  */
 package gui;
 
+import clases.Administrador;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import logica.LogicaAdmin;
+
 /**
  *
  */
 public class CrearAdmin extends javax.swing.JFrame {
+
+    ArrayList<Administrador> ArrayAdmins = new ArrayList<>();
+
+    LogicaAdmin objLogAdm = new LogicaAdmin();
 
     /**
      * Creates new form CrearAdmin
      */
     public CrearAdmin() {
         initComponents();
+        try {
+            LogicaAdmin.LeerAdminDAT(ArrayAdmins);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(CrearAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -145,6 +162,24 @@ public class CrearAdmin extends javax.swing.JFrame {
 
     private void jButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearActionPerformed
         // TODO add your handling code here:
+        if (LogicaAdmin.ExistenciaAdmin(ArrayAdmins, this.jTextFieldCedula.getText())) {
+            JOptionPane.showMessageDialog(null, "Ya existe el usuario", "Error", JOptionPane.PLAIN_MESSAGE);
+        } else {
+            Administrador objAdm = new Administrador(
+                    this.jTextFieldCedula.getText(),
+                    this.jTextFieldNombre.getText(),
+                    this.jTextFieldApellido.getText(),
+                    this.jTextFieldMail.getText(),
+                    this.jTextFieldClave.getText()
+            );
+            ArrayAdmins.add(objAdm);
+            try {
+                LogicaAdmin.EscribirAdminDAT(ArrayAdmins);
+            } catch (IOException ex) {
+                Logger.getLogger(CrearAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }//GEN-LAST:event_jButtonCrearActionPerformed
 
     private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
@@ -153,6 +188,7 @@ public class CrearAdmin extends javax.swing.JFrame {
 
     private void jButtonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtrasActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButtonAtrasActionPerformed
 
     private void jTextFieldCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCedulaActionPerformed
