@@ -38,7 +38,7 @@ public class CrearLocal extends javax.swing.JFrame {
     public CrearLocal() {
         initComponents();
         try {
-            LogicaAdmin.LeerAdminDAT(ArrayFarmacias);
+            LogicaLocal.LeerLocalesDAT(ArrayFarmacias);
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(CrearLocal.class.getName()).log(Level.SEVERE, null, ex);
         }
