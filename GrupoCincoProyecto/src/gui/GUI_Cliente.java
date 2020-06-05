@@ -80,11 +80,6 @@ public class GUI_Cliente extends javax.swing.JFrame {
         jLabel1.setText("Farmacias:");
 
         jComboFarmacias.setEnabled(false);
-        jComboFarmacias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboFarmaciasActionPerformed(evt);
-            }
-        });
 
         jButtonListar.setText("Listar Productos");
         jButtonListar.addActionListener(new java.awt.event.ActionListener() {
@@ -131,10 +126,6 @@ public class GUI_Cliente extends javax.swing.JFrame {
                                 .addComponent(jButtonIngresar))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(60, 60, 60)
-<<<<<<< HEAD
-                        .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(183, Short.MAX_VALUE))
-=======
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -142,7 +133,6 @@ public class GUI_Cliente extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(121, Short.MAX_VALUE))
->>>>>>> 4868ece709b8b9ae0266bd9f0b3e16a5425059eb
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,15 +149,11 @@ public class GUI_Cliente extends javax.swing.JFrame {
                     .addComponent(jButtonListar))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-<<<<<<< HEAD
-                .addContainerGap(133, Short.MAX_VALUE))
-=======
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(208, Short.MAX_VALUE))
->>>>>>> 4868ece709b8b9ae0266bd9f0b3e16a5425059eb
         );
 
         pack();
@@ -217,10 +203,6 @@ public class GUI_Cliente extends javax.swing.JFrame {
     private void jPasswordClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordClaveActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordClaveActionPerformed
-
-    private void jComboFarmaciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboFarmaciasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboFarmaciasActionPerformed
 
     /**
      * @param args the command line arguments
