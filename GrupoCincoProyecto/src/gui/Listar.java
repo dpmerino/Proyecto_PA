@@ -54,6 +54,7 @@ public class Listar extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
+<<<<<<< HEAD
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -61,6 +62,12 @@ public class Listar extends javax.swing.JFrame {
         jTableClientes = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jToggleButton1 = new javax.swing.JToggleButton();
+=======
+        jButtonAdmin = new javax.swing.JButton();
+        jButtonLocales = new javax.swing.JButton();
+        jButtonInventarios = new javax.swing.JButton();
+        jButtonSalir = new javax.swing.JButton();
+>>>>>>> 8009d7024e35fcb13e070fa505e8b17e9742a051
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,8 +84,10 @@ public class Listar extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabel1.setText("admin");
 
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabel2.setText("locales");
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -94,7 +103,8 @@ public class Listar extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        jLabel3.setText("Inventarios");
+        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        jLabel3.setText("inventarios");
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -109,24 +119,48 @@ public class Listar extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable3);
 
+<<<<<<< HEAD
         jButton1.setText("Listar Administradores");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
+=======
+        jButtonAdmin.setText("Listar");
+        jButtonAdmin.addActionListener(new java.awt.event.ActionListener() {
+>>>>>>> 8009d7024e35fcb13e070fa505e8b17e9742a051
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonAdminActionPerformed(evt);
             }
         });
 
+<<<<<<< HEAD
         jButton2.setText("Listar Locales");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
+=======
+        jButtonLocales.setText("Listar");
+        jButtonLocales.setActionCommand("Listar");
+        jButtonLocales.addActionListener(new java.awt.event.ActionListener() {
+>>>>>>> 8009d7024e35fcb13e070fa505e8b17e9742a051
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonLocalesActionPerformed(evt);
             }
         });
 
+<<<<<<< HEAD
         jButton3.setText("Listar Inventarios");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
+=======
+        jButtonInventarios.setText("Listar");
+        jButtonInventarios.addActionListener(new java.awt.event.ActionListener() {
+>>>>>>> 8009d7024e35fcb13e070fa505e8b17e9742a051
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtonInventariosActionPerformed(evt);
+            }
+        });
+
+        jButtonSalir.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        jButtonSalir.setText("Salir");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
             }
         });
 
@@ -159,6 +193,7 @@ public class Listar extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+<<<<<<< HEAD
                         .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -197,17 +232,42 @@ public class Listar extends javax.swing.JFrame {
                 .addGap(163, 163, 163)
                 .addComponent(jLabel4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+=======
+                        .addGap(351, 351, 351)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(350, 350, 350)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(333, 333, 333)
+                        .addComponent(jLabel3)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 862, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1))
+                .addGap(87, 87, 87)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonSalir)
+                    .addComponent(jButtonAdmin)
+                    .addComponent(jButtonLocales)
+                    .addComponent(jButtonInventarios))
+                .addGap(70, 70, 70))
+>>>>>>> 8009d7024e35fcb13e070fa505e8b17e9742a051
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
                         .addGap(3, 3, 3)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+<<<<<<< HEAD
                         .addGap(37, 37, 37)
                         .addComponent(jButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
@@ -238,12 +298,34 @@ public class Listar extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addGap(89, 89, 89))))
+=======
+                        .addGap(56, 56, 56)
+                        .addComponent(jButtonAdmin)))
+                .addGap(22, 22, 22)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jButtonLocales)
+                        .addGap(120, 120, 120)
+                        .addComponent(jButtonInventarios)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(jButtonSalir)
+                .addGap(63, 63, 63))
+>>>>>>> 8009d7024e35fcb13e070fa505e8b17e9742a051
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdminActionPerformed
         try {
             // TODO add your handling code here:
             ArrayAdmins.removeAll(ArrayAdmins);
@@ -266,9 +348,9 @@ public class Listar extends javax.swing.JFrame {
             };
             model.addRow(NewValor);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonAdminActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonLocalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLocalesActionPerformed
         try {
             // TODO add your handling code here:
             ArrayLocales.removeAll(ArrayLocales);
@@ -277,7 +359,7 @@ public class Listar extends javax.swing.JFrame {
             Logger.getLogger(Listar.class.getName()).log(Level.SEVERE, null, ex);
         }
         Object columnas[] = {
-            "Nombre", "Codigo", "Direccion", "Nombre_Ge", "Ci_g", "N_V", "CI_V", "N_B", "CI_B", "Clave g", "Clave b", "clave v"
+            "Nombre", "Codigo", "Direccion", "Nombre_Ger", "CI_Ger", "Nombre_Ven", "CI_Ven", "Nombre_Bob", "CI_Bod", "Clave Ger", "Clave Bod", "Clave Ven"
         };
         DefaultTableModel model = new DefaultTableModel(null, columnas);
         this.jTable2.setModel(model);
@@ -298,9 +380,9 @@ public class Listar extends javax.swing.JFrame {
             };
             model.addRow(NewValor);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonLocalesActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButtonInventariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInventariosActionPerformed
         try {
             // TODO add your handling code here:
             ArrayLocales.removeAll(ArrayLocales);
@@ -325,7 +407,13 @@ public class Listar extends javax.swing.JFrame {
                 model.addRow(NewValor);
             }
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButtonInventariosActionPerformed
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        new Inicio().setVisible(true);
+        this.dispose();
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
                 try {
@@ -389,9 +477,10 @@ public class Listar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonAdmin;
+    private javax.swing.JButton jButtonInventarios;
+    private javax.swing.JButton jButtonLocales;
+    private javax.swing.JButton jButtonSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
