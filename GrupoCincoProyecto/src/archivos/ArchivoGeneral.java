@@ -13,10 +13,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import logica.MiObjectOutputStream;
 
 /**
  *
- * @author diegomerino
+
  */
 public class ArchivoGeneral {
 

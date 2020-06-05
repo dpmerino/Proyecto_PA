@@ -9,6 +9,8 @@ import clases.Vendedor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -31,5 +33,15 @@ public class LogicaVendedor {
                 return true;
         }
         return false;
+    }
+    public boolean mailValido(String email) {       
+       Pattern pat = 
+       Pattern.compile("^[\\w-]+(\\.[\\w-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+       Matcher mat = pat.matcher(email);
+       if(mat.find()){
+          return true;
+       }else{
+          return false;
+     }
     }
 }

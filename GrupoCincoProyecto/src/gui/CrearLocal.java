@@ -17,8 +17,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import logica.LogicaAdmin;
+import logica.LogicaBodeguero;
 import logica.LogicaCliente;
+import logica.LogicaGerente;
 import logica.LogicaLocal;
+import logica.LogicaVendedor;
 
 /**
  *
@@ -29,9 +32,10 @@ public class CrearLocal extends javax.swing.JFrame {
     LogicaAdmin objLogAdmin = new LogicaAdmin();
     ArrayList<Local> ArrayFarmacias = new ArrayList<>();
     int auxCero = 0;
-
-
     LogicaLocal objLogLoc = new LogicaLocal();
+    LogicaVendedor objLogVen = new LogicaVendedor();
+    LogicaBodeguero objLogBod = new LogicaBodeguero();
+    LogicaGerente objLogGer = new LogicaGerente();
 
     /**
      * Creates new form CrearLocal
@@ -622,8 +626,21 @@ public class CrearLocal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonIngresarActionPerformed
 
     private void jButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearActionPerformed
-        if (LogicaLocal.ExistenciaLocal(ArrayFarmacias, this.jTextFieldCodigoLocal.getText())) {
-            JOptionPane.showMessageDialog(null, "Ya existe el local", "Error", JOptionPane.PLAIN_MESSAGE);
+        if (LogicaLocal.ExistenciaLocal(ArrayFarmacias, this.jTextFieldCodigoLocal.getText())
+                &&objLogVen.mailValido(jTextFieldMailVendedor.getText())
+                &&objLogBod.mailValido(jTextFieldMailBodeguero.getText())
+                &&objLogGer.mailValido(jTextFieldMailGerente.getText())){
+            if (LogicaLocal.ExistenciaLocal(ArrayFarmacias, this.jTextFieldCodigoLocal.getText())) {
+                JOptionPane.showMessageDialog(null, "Ya existe el local", "Error", JOptionPane.PLAIN_MESSAGE);
+            } else if(objLogVen.mailValido(jTextFieldMailVendedor.getText())){
+                JOptionPane.showMessageDialog(null, "Mail de Vendedor no valido.", "Error", JOptionPane.PLAIN_MESSAGE);
+                } else if(objLogBod.mailValido(jTextFieldMailBodeguero.getText())){
+                    JOptionPane.showMessageDialog(null, "Mail de Bodeguero no valido.", "Error", JOptionPane.PLAIN_MESSAGE);
+                    } else if(objLogGer.mailValido(jTextFieldMailGerente.getText())){
+                        JOptionPane.showMessageDialog(null, "Mail de Gerente no valido.", "Error", JOptionPane.PLAIN_MESSAGE);
+            }
+            
+            
         } else {
             Vendedor objVendedor = new Vendedor(
                     this.auxCero,
