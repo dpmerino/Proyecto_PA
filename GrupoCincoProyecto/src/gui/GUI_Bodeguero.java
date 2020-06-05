@@ -96,7 +96,7 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, -1, -1));
 
         jLabel8.setText("Cedula");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, -1, -1));
@@ -115,8 +115,9 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       Local ObjLocal = ObjLogLoc.BuscarConBodeguero(ArrayLocales, jTextCedula.getText());
-      Producto ObjProd = new Producto(jTextCanti.getText(), jTextNom.getText(),Double.parseDouble(jTextPrec.getText()), jTextVenc.getText());
-      
+      Producto ObjProd = new Producto(this.jTextCod.getText(), this.jTextNom.getText(),Double.parseDouble(this.jTextPrec.getText()), this.jTextVenc.getText());
+      //Inventario objInv = new Inventario(Integer.parseInt(this.jTextCanti.getText()), ObjProd);
+      ObjLocal.AgregarInventario(Integer.parseInt(this.jTextCanti.getText()), ObjProd);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
