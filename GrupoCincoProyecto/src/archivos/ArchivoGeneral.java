@@ -43,4 +43,27 @@ public class ArchivoGeneral {
         } catch (IOException | ClassNotFoundException e2) {
         }
     }
+     public static void anhadeFichero (ArrayList ArrayObjetos,String fichero)
+    {
+        try
+        {
+            // Se usa un ObjectOutputStream que no escriba una cabecera en
+            // el stream.
+            MiObjectOutputStream oos = new MiObjectOutputStream(
+                    new FileOutputStream(fichero,true));
+            // Se hace el new fuera del bucle, s�lo hay una instancia de persona.
+            // Se debe usar entonces writeUnshared().
+            for (Object ObjAux:  ArrayObjetos){
+             //ObjCliente =  (Cliente) ArrayClientes.get(i);
+                oos.writeUnshared(ObjAux);
+                //System.out.println("añadir");
+        }
+        oos.close();  // Se cierra al terminar.
+            oos.close();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
 }

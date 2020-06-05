@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class LogicaAdmin {
     
-    static String fichero = "archivo/admins.dat";
+    static String fichero = "archivos/admins.dat";
     
     public static void EscribirAdminDAT(ArrayList ArrayObjetos) throws IOException{
         archivos.ArchivoGeneral.EscribirDAT(ArrayObjetos, fichero);

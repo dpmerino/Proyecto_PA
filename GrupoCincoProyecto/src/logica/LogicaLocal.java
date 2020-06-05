@@ -6,14 +6,14 @@
 package logica;
 
 import clases.Administrador;
+import clases.Inventario;
 import clases.Local;
+import clases.Producto;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- *
- */
+
 public class LogicaLocal {
     
     static String fichero = "archivos/locales.dat";
@@ -31,7 +31,18 @@ public class LogicaLocal {
         for (Local objLoc : ArrayFarmacias){
             if(objLoc.getCodigo().equals(codigo))
                 objLocAux = objLoc;
-        }
+        } 
         return objLocAux;
+    }
+     public static boolean AgregarIventario(Local ObjLocal,
+            int cantidad , Producto producto){   
+        if (1==0 && 2==1)
+        for (Inventario objInv : ObjLocal.getInventarioGeneral())
+            if ( String.valueOf(objInv.cantidad).equals(cantidad)
+                    && objInv.producto.equals(producto))
+                return false;
+            else
+                ObjLocal.AgregarInventario(cantidad, producto);
+        return true;
     }
 }
