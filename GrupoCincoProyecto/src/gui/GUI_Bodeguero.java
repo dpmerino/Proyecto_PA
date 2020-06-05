@@ -14,6 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import logica.LogicaLocal;
 import clases.Producto;
+import javax.swing.JOptionPane;
+import logica.LogicaBodeguero;
 
 /**
  *
@@ -26,12 +28,21 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
     
     static LogicaLocal ObjLogLoc = new LogicaLocal();
     
-    ArrayList<Local> ArrayLocales = new ArrayList<Local>();
+    ArrayList<Local> ArrayLocales = new ArrayList<>();
     static ArrayList ArrayInventario = new ArrayList<Inventario>();
     static boolean HayLocales;
     
+    LogicaLocal objLogLoc = new LogicaLocal();
+    LogicaBodeguero objLogBod = new LogicaBodeguero();
     public GUI_Bodeguero() {
         initComponents();
+        try {
+            LogicaLocal.LeerLocalesDAT(ArrayLocales);
+        } catch (IOException ex) {
+            Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -59,36 +70,25 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jTextCedula = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jPassword = new javax.swing.JPasswordField();
+        jTextNombreLocal = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Agregar productos a Inventario/Local");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 320, 20));
 
         jLabel2.setText("INTRODUCIR DATOS DEL PRODUCTO");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, -1));
 
         jLabel3.setText("Código");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
 
         jLabel4.setText("Nombre");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
         jLabel5.setText("Precio");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
         jLabel6.setText("Vencimiento");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, -1));
-        getContentPane().add(jTextCod, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 80, -1));
-        getContentPane().add(jTextNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 90, -1));
-        getContentPane().add(jTextPrec, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 60, -1));
-        getContentPane().add(jTextVenc, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 80, -1));
 
         jLabel7.setText("Cantidad");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, -1, -1));
-        getContentPane().add(jTextCanti, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 70, 20));
 
         jButton1.setText("Agregar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -96,11 +96,8 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, -1, -1));
 
         jLabel8.setText("Cedula");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, -1, -1));
-        getContentPane().add(jTextCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, 90, -1));
 
         jButton2.setText("Ingresar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +105,96 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, -1, -1));
+
+        jTextNombreLocal.setEnabled(false);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel2))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel8)
+                .addGap(17, 17, 17)
+                .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(jButton2))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(240, 240, 240)
+                .addComponent(jTextNombreLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addComponent(jLabel3)
+                .addGap(15, 15, 15)
+                .addComponent(jTextCod, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addComponent(jLabel4)
+                .addGap(10, 10, 10)
+                .addComponent(jTextNom, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90)
+                .addComponent(jLabel7)
+                .addGap(4, 4, 4)
+                .addComponent(jTextCanti, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addComponent(jLabel5)
+                .addGap(12, 12, 12)
+                .addComponent(jTextPrec, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addComponent(jLabel6)
+                .addGap(2, 2, 2)
+                .addComponent(jTextVenc, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110)
+                .addComponent(jButton1))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel2)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addGap(18, 18, 18)
+                .addComponent(jTextNombreLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jTextCanti, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jTextNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextPrec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jTextVenc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1)))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -122,6 +208,14 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        if(objLogBod.validarBodeguero(ArrayLocales, this.jTextCedula.getText(), String.valueOf(this.jPassword.getPassword()))){
+            Local ObjLocal = ObjLogLoc.BuscarConBodeguero(ArrayLocales, jTextCedula.getText());
+            this.jTextNombreLocal.setText(ObjLocal.getNombre());
+        }else{
+            JOptionPane.showMessageDialog(null, "No existe", "Erroe", JOptionPane.PLAIN_MESSAGE);
+        }
+        System.out.println(this.jTextCedula.getText());
+        System.out.println(String.valueOf(this.jPassword.getPassword()));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -177,10 +271,12 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JPasswordField jPassword;
     private javax.swing.JTextField jTextCanti;
     private javax.swing.JTextField jTextCedula;
     private javax.swing.JTextField jTextCod;
     private javax.swing.JTextField jTextNom;
+    private javax.swing.JTextField jTextNombreLocal;
     private javax.swing.JTextField jTextPrec;
     private javax.swing.JTextField jTextVenc;
     // End of variables declaration//GEN-END:variables

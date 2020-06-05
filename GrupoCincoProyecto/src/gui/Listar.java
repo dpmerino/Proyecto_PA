@@ -21,11 +21,11 @@ import logica.LogicaLocal;
  */
 public class Listar extends javax.swing.JFrame {
 
-    
     ArrayList<Administrador> ArrayAdmins = new ArrayList<>();
     ArrayList<Local> ArrayLocales = new ArrayList<>();
-    
+
     LogicaLocal objLogLoc = new LogicaLocal();
+
     /**
      * Creates new form Listar
      */
@@ -128,6 +128,12 @@ public class Listar extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(200, 200, 200)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(71, 71, 71))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -138,22 +144,17 @@ public class Listar extends javax.swing.JFrame {
                         .addGap(204, 204, 204)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(200, 200, 200)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(198, 198, 198)
                         .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
-                .addContainerGap(135, Short.MAX_VALUE))
+                        .addComponent(jButton3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 667, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,14 +169,11 @@ public class Listar extends javax.swing.JFrame {
                         .addGap(37, 37, 37)
                         .addComponent(jButton1)))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jButton2)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jButton2))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,7 +183,7 @@ public class Listar extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(74, 74, 74)
                         .addComponent(jButton3)))
-                .addContainerGap(280, Short.MAX_VALUE))
+                .addContainerGap(274, Short.MAX_VALUE))
         );
 
         pack();
@@ -200,11 +198,11 @@ public class Listar extends javax.swing.JFrame {
             Logger.getLogger(Listar.class.getName()).log(Level.SEVERE, null, ex);
         }
         Object columnas[] = {
-            "Nombre","Apellido","Cedula","mail","clave"
+            "Nombre", "Apellido", "Cedula", "mail", "clave"
         };
         DefaultTableModel model = new DefaultTableModel(null, columnas);
         this.jTable1.setModel(model);
-        for (Administrador objA : ArrayAdmins){
+        for (Administrador objA : ArrayAdmins) {
             String NewValor[] = {
                 objA.getNombre(),
                 objA.getApellido(),
@@ -224,12 +222,12 @@ public class Listar extends javax.swing.JFrame {
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(Listar.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Object columnas [] = {
-            "Nombre","Codigo","Direccion","Nombre_Ge","Ci_g","N_V","CI_V","N_B","CI_B"
+        Object columnas[] = {
+            "Nombre", "Codigo", "Direccion", "Nombre_Ge", "Ci_g", "N_V", "CI_V", "N_B", "CI_B", "Clave g", "Clave b", "clave v"
         };
         DefaultTableModel model = new DefaultTableModel(null, columnas);
         this.jTable2.setModel(model);
-        for (Local objLoc : ArrayLocales){
+        for (Local objLoc : ArrayLocales) {
             String NewValor[] = {
                 objLoc.getNombre(),
                 objLoc.getCodigo(),
@@ -239,7 +237,10 @@ public class Listar extends javax.swing.JFrame {
                 objLoc.getVendedor().getNombre(),
                 objLoc.getVendedor().getCedula(),
                 objLoc.getBodeguero().getNombre(),
-                objLoc.getBodeguero().getCedula()
+                objLoc.getBodeguero().getCedula(),
+                objLoc.getGerente().getClave(),
+                objLoc.getBodeguero().getClave(),
+                objLoc.getVendedor().getClave()
             };
             model.addRow(NewValor);
         }
@@ -258,10 +259,10 @@ public class Listar extends javax.swing.JFrame {
         Object columnas[] = {"Local", "Codigo", "Nombre", "cantidad", "precio", "vencimiento"};
         DefaultTableModel model = new DefaultTableModel(null, columnas);
         this.jTable3.setModel(model);
-        for (Local objLoc : ArrayLocales){
-            for (Inventario objInv : objLoc.inventarioGeneral){
+        for (Local objLoc : ArrayLocales) {
+            for (Inventario objInv : objLoc.inventarioGeneral) {
                 String NewValor[] = {
-                 objLoc.getNombre(),
+                    objLoc.getNombre(),
                     objInv.getProducto().getCodigo(),
                     objInv.getProducto().getNombre(),
                     String.valueOf(objInv.getProducto().precio),
