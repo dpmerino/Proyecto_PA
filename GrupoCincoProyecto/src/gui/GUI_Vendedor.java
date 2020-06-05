@@ -6,11 +6,14 @@
 package gui;
 
 import clases.Administrador;
+import clases.Inventario;
+import clases.Pedido;
 import clases.Vendedor;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import logica.LogicaVendedor;
 
 /**
@@ -20,6 +23,7 @@ public class GUI_Vendedor extends javax.swing.JFrame {
     
     ArrayList<Vendedor> ArrayVen = new ArrayList<>();
     LogicaVendedor objLogVen = new LogicaVendedor();
+    ArrayList<Pedido> ArrayPed = new ArrayList<>();
 
     /**
      * Creates new form GUI_Empleado
@@ -105,6 +109,11 @@ public class GUI_Vendedor extends javax.swing.JFrame {
         jButtonListarPedidos.setText("Listar Pedidos");
         jButtonListarPedidos.setActionCommand("");
         jButtonListarPedidos.setEnabled(false);
+        jButtonListarPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonListarPedidosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -204,6 +213,31 @@ public class GUI_Vendedor extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButtonIngresarActionPerformed
+
+    private void jButtonListarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListarPedidosActionPerformed
+        
+        Object columnas [] = {
+            "Fecha","Estado","Valor","Cliente","Nombre Producto","Cantidad","Vencimiento","Precio"
+        };
+        DefaultTableModel model = new DefaultTableModel(null, columnas);
+        this.jTable1.setModel(model);
+        for (Pedido objP : ArrayPed) {
+            for(Inventario objInv : objP.productosPedidos){
+                String NewValor[] = {
+                objP.getFecha(),
+                String.valueOf(objP.getEstado()),
+                String.valueOf(objP.getValor()),
+                objP.getCliente().getNombre(),
+                objInv.getProducto().getNombre(),
+                String.valueOf(objInv.getCantidad()),
+                objInv.getProducto().getVencimiento(),
+                String.valueOf(objP.getValor())
+                };
+            }
+        }
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButtonListarPedidosActionPerformed
 
     /**
      * @param args the command line arguments
