@@ -201,9 +201,16 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       Local ObjLocal = ObjLogLoc.BuscarConBodeguero(ArrayLocales, jTextCedula.getText());
+      int indexLocal = ArrayLocales.indexOf(ObjLocal);
       Producto ObjProd = new Producto(this.jTextCod.getText(), this.jTextNom.getText(),Double.parseDouble(this.jTextPrec.getText()), this.jTextVenc.getText());
       //Inventario objInv = new Inventario(Integer.parseInt(this.jTextCanti.getText()), ObjProd);
       ObjLocal.AgregarInventario(Integer.parseInt(this.jTextCanti.getText()), ObjProd);
+      ArrayLocales.add(indexLocal, ObjLocal);
+        try {
+            LogicaLocal.EscribirLocalesDAT(ArrayLocales);
+        } catch (IOException ex) {
+            Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -211,11 +218,10 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
         if(objLogBod.validarBodeguero(ArrayLocales, this.jTextCedula.getText(), String.valueOf(this.jPassword.getPassword()))){
             Local ObjLocal = ObjLogLoc.BuscarConBodeguero(ArrayLocales, jTextCedula.getText());
             this.jTextNombreLocal.setText(ObjLocal.getNombre());
+            this.jTextCanti.setEnabled(true);
         }else{
             JOptionPane.showMessageDialog(null, "No existe", "Erroe", JOptionPane.PLAIN_MESSAGE);
         }
-        System.out.println(this.jTextCedula.getText());
-        System.out.println(String.valueOf(this.jPassword.getPassword()));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
