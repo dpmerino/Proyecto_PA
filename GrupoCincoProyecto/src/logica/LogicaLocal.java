@@ -18,7 +18,7 @@ public class LogicaLocal {
     
     static String fichero = "archivos/locales.dat";
     
-    public static void EscribriLocalesDAT (ArrayList ArrayObjetos) throws IOException{
+    public static void EscribirLocalesDAT (ArrayList ArrayObjetos) throws IOException{
         archivos.ArchivoGeneral.EscribirDAT(ArrayObjetos, fichero);
     }
     
