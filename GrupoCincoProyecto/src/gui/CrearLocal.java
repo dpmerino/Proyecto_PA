@@ -545,21 +545,18 @@ public class CrearLocal extends javax.swing.JFrame {
             );
             Local objLocal = new Local(
                     this.jTextFieldDireccionLocal.getText(),
-                    this.objVendedor,
-                    Double.parseDouble(this.jTextFieldSueldoGerente.getText()),
-                    this.jTextFieldCedulaGerente.getText(),
+                    objVendedor,
+                    objBodeguero,
+                    objGerente,
                     this.jTextFieldNombreGerente.getText(),
-                    this.jTextFieldApellidoGerente.getText(),
-                    this.jTextFieldMailGerente.getText(),
-                    this.jTextFieldClaveGerente.getText()
+                    this.jTextFieldCodigoLocal.getText()
             );
             
-            
-            ArrayAdmins.add(objAdm);
+            ArrayFarmacias.add(objLocal);
             try {
-                LogicaAdmin.EscribirAdminDAT(ArrayAdmins);
+                LogicaLocal.EscribirLocalesDAT(ArrayFarmacias);
             } catch (IOException ex) {
-                Logger.getLogger(CrearAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CrearLocal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

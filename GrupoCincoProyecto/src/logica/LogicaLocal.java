@@ -18,7 +18,7 @@ public class LogicaLocal {
     
     static String fichero = "archivos/locales.dat";
     
-    public static void EscribriLocalesDAT (ArrayList ArrayObjetos) throws IOException{
+    public static void EscribirLocalesDAT (ArrayList ArrayObjetos) throws IOException{
         archivos.ArchivoGeneral.EscribirDAT(ArrayObjetos, fichero);
     }
     
@@ -50,5 +50,13 @@ public class LogicaLocal {
     public static Local AddInventario (Local objLocal, int cantidad, Producto producto){
         objLocal.inventarioGeneral.add(new Inventario(cantidad, producto));
         return objLocal;
+    }
+     public static Boolean ExistenciaLocal (ArrayList<Local> ArrayFarmacias, String codigo){
+        boolean flag = false;
+        for (Local objLocal : ArrayFarmacias){
+            if (objLocal.getCodigo().equals(codigo))
+                flag = true;
+        }
+        return flag;
     }
 }
