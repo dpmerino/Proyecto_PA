@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class Local implements Serializable {
 
     public String direccion;
-    public boolean estaDeTurno;
     public Pedido pedido;
     public Vendedor vendedor;
     public Bodeguero bodeguero;
@@ -25,20 +24,17 @@ public class Local implements Serializable {
     public String nombre;
     public String codigo;
 
-    public Local(String direccion, boolean estaDeTurno, Pedido pedido, Vendedor vendedor, Bodeguero bodeguero, Gerente gerente, Inventario inventario, String nombre) {
+    public Local(String direccion, Vendedor vendedor, Bodeguero bodeguero, Gerente gerente, String nombre, String codigo) {
         this.direccion = direccion;
-        this.estaDeTurno = estaDeTurno;
-        this.pedido = pedido;
         this.vendedor = vendedor;
         this.bodeguero = bodeguero;
         this.gerente = gerente;
-        this.inventario = inventario;
         this.nombre = nombre;
+        this.codigo = codigo;
     }
 
     public Local(String direccion, boolean estaDeTurno, Pedido pedido, Vendedor vendedor, Bodeguero bodeguero, Gerente gerente, String nombre, String codigo, Producto producto, int cantidad) {
         this.direccion = direccion;
-        this.estaDeTurno = estaDeTurno;
         this.pedido = pedido;
         this.vendedor = vendedor;
         this.bodeguero = bodeguero;
@@ -54,8 +50,13 @@ public class Local implements Serializable {
     public void AgregarInventario(int cantidad, Producto producto){
         this.inventarioGeneral.add(new Inventario(cantidad, producto));
     }
+    public void AgregarPedidos(String fecha, int estado, double valor, Cliente cliente){
+        this.ArrayPedidos.add(new Pedido (fecha, estado, valor, cliente));
+    }
     
     public ArrayList<Inventario> inventarioGeneral = new ArrayList<>();
+    
+    public ArrayList<Pedido> ArrayPedidos = new ArrayList<>();
     
     public String getNombre() {
         return nombre;
@@ -71,14 +72,6 @@ public class Local implements Serializable {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public boolean isEstaDeTurno() {
-        return estaDeTurno;
-    }
-
-    public void setEstaDeTurno(boolean estaDeTurno) {
-        this.estaDeTurno = estaDeTurno;
     }
 
     public Pedido getPedido() {
@@ -136,11 +129,19 @@ public class Local implements Serializable {
     public void setInventarioGeneral(ArrayList<Inventario> inventarioGeneral) {
         this.inventarioGeneral = inventarioGeneral;
     }
+
+    public ArrayList<Pedido> getArrayPedidos() {
+        return ArrayPedidos;
+    }
+
+    public void setArrayPedidos(ArrayList<Pedido> ArrayPedidos) {
+        this.ArrayPedidos = ArrayPedidos;
+    }
     
 
     @Override
     public String toString() {
-        return "Local{" + "direccion=" + direccion + ", estaDeTurno=" + estaDeTurno + ", pedido=" + pedido + ", vendedor=" + vendedor + ", bodeguero=" + bodeguero + ", gerente=" + gerente + ", inventario=" + inventario + '}';
+        return "Local{" + "direccion=" + direccion + ", pedido=" + pedido + ", vendedor=" + vendedor + ", bodeguero=" + bodeguero + ", gerente=" + gerente + ", inventario=" + inventario + '}';
     }
 
 }
