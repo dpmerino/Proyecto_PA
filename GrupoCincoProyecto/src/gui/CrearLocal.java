@@ -5,7 +5,6 @@
  */
 package gui;
 
-import clases.Administrador;
 import clases.Bodeguero;
 import clases.Cliente;
 import clases.Gerente;
@@ -511,9 +510,9 @@ public class CrearLocal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonIngresarActionPerformed
 
     private void jButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearActionPerformed
-        if (LogicaLocal.ExistenciaLocal(ArrayFarmacias, this.jTextFieldCodigoLocal.getText())) {
-            JOptionPane.showMessageDialog(null, "Ya existe el local", "Error", JOptionPane.PLAIN_MESSAGE);
-        } else {
+//        if (LogicaLocal.ExistenciaLocal(ArrayFarmacias, this.jTextFieldCodigoLocal.getText())) {
+//            JOptionPane.showMessageDialog(null, "Ya existe el local", "Error", JOptionPane.PLAIN_MESSAGE);
+//        } else {
             Vendedor objVendedor = new Vendedor(
                     this.auxCero,
                     this.jComboVendedor.getSelectedIndex(),
@@ -553,12 +552,13 @@ public class CrearLocal extends javax.swing.JFrame {
             );
             
             ArrayFarmacias.add(objLocal);
+            System.out.println(ArrayFarmacias);
             try {
                 LogicaLocal.EscribirLocalesDAT(ArrayFarmacias);
             } catch (IOException ex) {
                 Logger.getLogger(CrearLocal.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+//        }
 
 // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCrearActionPerformed
