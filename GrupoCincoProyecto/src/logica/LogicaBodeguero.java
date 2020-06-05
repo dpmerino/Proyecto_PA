@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author diegomerino
+
  */
 public class LogicaBodeguero {
     static String fichero = "archivos/bodegueros.dat";

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author USUARIO
+
  */
 public class LogicaProducto {
     static String fichero = "productos.dat";

@@ -18,7 +18,6 @@ import logica.LogicaLocal;
 
 /**
  *
- * @author diegomerino
  */
 public class Listar extends javax.swing.JFrame {
 

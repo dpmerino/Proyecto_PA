@@ -17,7 +17,6 @@ import clases.Producto;
 
 /**
  *
- * @author USUARIO
  */
 public class GUI_Bodeguero extends javax.swing.JFrame {
 

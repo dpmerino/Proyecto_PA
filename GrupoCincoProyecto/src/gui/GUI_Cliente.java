@@ -21,7 +21,6 @@ import logica.ValorCombo;
 
 /**
  *
- * @author diegomerino
  */
 public class GUI_Cliente extends javax.swing.JFrame {
 

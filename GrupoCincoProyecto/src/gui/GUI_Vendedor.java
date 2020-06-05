@@ -7,7 +7,6 @@ package gui;
 
 /**
  *
- * @author USUARIO
  */
 public class GUI_Vendedor extends javax.swing.JFrame {
 

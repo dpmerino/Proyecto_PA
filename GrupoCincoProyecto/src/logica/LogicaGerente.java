@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author diegomerino
  */
 public class LogicaGerente {
     static String fichero = "archivos/gerentes.dat";
