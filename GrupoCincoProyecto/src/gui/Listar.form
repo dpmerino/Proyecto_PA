@@ -56,7 +56,11 @@
                       <Component id="jButton3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
+<<<<<<< HEAD
+              <EmptySpace pref="186" max="32767" attributes="0"/>
+=======
               <EmptySpace pref="135" max="32767" attributes="0"/>
+>>>>>>> 7c3827068e402153e8ef045e4c7ee83c81c75be8
           </Group>
       </Group>
     </DimensionLayout>
@@ -185,7 +189,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton1"/>
+        <Property name="text" type="java.lang.String" value="Listar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
