@@ -103,7 +103,7 @@ public class Listar extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable3);
 
-        jButton1.setText("Listar");
+        jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -151,15 +151,10 @@ public class Listar extends javax.swing.JFrame {
                         .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-<<<<<<< HEAD
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(186, Short.MAX_VALUE))
-=======
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)))
                 .addContainerGap(135, Short.MAX_VALUE))
->>>>>>> 7c3827068e402153e8ef045e4c7ee83c81c75be8
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,11 +262,13 @@ public class Listar extends javax.swing.JFrame {
         for (Local objLoc : ArrayLocales){
             for (Inventario objInv : objLoc.inventarioGeneral){
                 String NewValor[] = {
-                    objLoc.getNombre(),
+                 objLoc.getNombre(),
                     objInv.getProducto().getCodigo(),
                     objInv.getProducto().getNombre(),
-                    
-                }
+                    String.valueOf(objInv.getProducto().precio),
+                    objInv.getProducto().getVencimiento()
+                };
+                model.addRow(NewValor);
             }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
