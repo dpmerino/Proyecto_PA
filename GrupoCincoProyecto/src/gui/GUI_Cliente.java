@@ -9,7 +9,6 @@ import clases.Cliente;
 import clases.Inventario;
 import clases.Local;
 import clases.Pedido;
-import clases.Producto;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,6 +23,7 @@ import logica.LogicaLocal;
 import logica.ValorCombo;
 import logica.LogicaProducto;
 import logica.LogicaInventario;
+import logica.LogicaPedidos;
 
 /**
  *
@@ -39,6 +39,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
     LogicaLocal objLogLoc = new LogicaLocal();
     LogicaProducto objLogPro = new LogicaProducto();
     LogicaInventario objLogInv = new LogicaInventario();
+    LogicaPedidos objLogPed = new LogicaPedidos();
     
     String fecha;
     /**
@@ -49,8 +50,15 @@ public class GUI_Cliente extends javax.swing.JFrame {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         fecha = sdf.format(new Date());
         this.jTextFecha.setText(fecha);
-        this.jLabel1.setVisible(false);
-        this.jComboFarmacias.setVisible(false);
+         
+        try {
+            LogicaLocal.LeerLocalesDAT(ArrayFarmacias);
+            // this.jLabel1.setVisible(false);
+            //this.jComboFarmacias.setVisible(false);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        CargarCombo();
     }
 
     /**
@@ -97,7 +105,6 @@ public class GUI_Cliente extends javax.swing.JFrame {
 
         jLabel1.setText("Farmacias:");
 
-        jComboFarmacias.setEnabled(false);
         jComboFarmacias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboFarmaciasActionPerformed(evt);
@@ -158,7 +165,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonListar)
                                 .addGap(45, 45, 45)
-                                .addComponent(jTextFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
@@ -217,9 +224,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             LogicaCliente.LeerClientesDAT(ArrayClientes);
-        } catch (IOException ex) {
-            Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (objLogCli.validarCliente(ArrayClientes, this.jTextCedula.getText(), String.valueOf(this.jPasswordClave.getPassword()))) {
@@ -282,6 +287,11 @@ public class GUI_Cliente extends javax.swing.JFrame {
         Local objLocal = objLogLoc.BuscarLocal(ArrayFarmacias, this.jComboFarmacias.getSelectedItem().toString());
         Pedido objPedido = new Pedido(fecha,0,total,objCli, productosPedidos,objLocal);
         ArrayPedidos.add(objPedido);
+        try {
+            LogicaPedidos.EscribirPedidosDAT(ArrayPedidos);
+        } catch (IOException ex) {
+            Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
