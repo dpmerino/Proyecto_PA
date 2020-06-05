@@ -23,4 +23,11 @@ public class LogicaInventario {
         }
         return objInv;
     }
+    public static double valor (ArrayList<Inventario> listaInventario){
+        double total = 0.0;
+        for (Inventario objInv : listaInventario){
+            total += objInv.getProducto().getPrecio();
+        }
+        return total;
+    }
 }

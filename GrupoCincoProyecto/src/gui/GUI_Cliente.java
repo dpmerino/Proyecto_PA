@@ -11,7 +11,9 @@ import clases.Local;
 import clases.Pedido;
 import clases.Producto;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -32,15 +34,21 @@ public class GUI_Cliente extends javax.swing.JFrame {
     LogicaCliente objLogCli = new LogicaCliente();
     ArrayList<Local> ArrayFarmacias = new ArrayList<>();
     ArrayList<Pedido> ArrayPedidos = new ArrayList<>();
+    ArrayList<Inventario> productosPedidos = new ArrayList<>();
     
     LogicaLocal objLogLoc = new LogicaLocal();
     LogicaProducto objLogPro = new LogicaProducto();
     LogicaInventario objLogInv = new LogicaInventario();
+    
+    String fecha;
     /**
      * Creates new form GUI_Cliente
      */
     public GUI_Cliente() {
         initComponents();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        fecha = sdf.format(new Date());
+        this.jTextFecha.setText(fecha);
         this.jLabel1.setVisible(false);
         this.jComboFarmacias.setVisible(false);
     }
@@ -67,6 +75,8 @@ public class GUI_Cliente extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextCantidad = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jTextFecha = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,10 +128,17 @@ public class GUI_Cliente extends javax.swing.JFrame {
 
         jLabel2.setText("Cantidad:");
 
-        jButton1.setText("Pedido");
+        jButton1.setText("Agregar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Guardar Pedido");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -139,7 +156,9 @@ public class GUI_Cliente extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jComboFarmacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButtonListar))
+                                .addComponent(jButtonListar)
+                                .addGap(45, 45, 45)
+                                .addComponent(jTextFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
@@ -158,7 +177,8 @@ public class GUI_Cliente extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))))
+                            .addComponent(jButton1)
+                            .addComponent(jButton2))))
                 .addContainerGap(121, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -173,7 +193,8 @@ public class GUI_Cliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jComboFarmacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonListar))
+                    .addComponent(jButtonListar)
+                    .addComponent(jTextFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -184,7 +205,9 @@ public class GUI_Cliente extends javax.swing.JFrame {
                     .addComponent(jTextCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jButton1)
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(jButton2)
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         pack();
@@ -242,8 +265,24 @@ public class GUI_Cliente extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Local objLocal = objLogLoc.BuscarLocal(ArrayFarmacias, this.jComboFarmacias.getSelectedItem().toString());
-        Inventario objInv = objLogI
+        Inventario objInv = objLogInv.BuscarProducto(objLocal.getInventarioGeneral(), this.jTextCodigo.getText());
+        if(Integer.parseInt(this.jTextCantidad.getText()) > objInv.cantidad){
+            JOptionPane.showMessageDialog(null, "No hay cantidad suficiente", "Error", JOptionPane.PLAIN_MESSAGE);
+        } else{
+            productosPedidos.add(new Inventario(Integer.parseInt(this.jTextCantidad.getText()), objInv.getProducto()));
+            this.jTextCodigo.setText("");
+            this.jTextCantidad.setText("");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        double total = objLogInv.valor(productosPedidos);
+        Cliente objCli = objLogCli.cargarCliente(ArrayClientes, this.jTextCedula.getText());
+        Local objLocal = objLogLoc.BuscarLocal(ArrayFarmacias, this.jComboFarmacias.getSelectedItem().toString());
+        Pedido objPedido = new Pedido(fecha,0,total,objCli, productosPedidos,objLocal);
+        ArrayPedidos.add(objPedido);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,6 +325,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonIngresar;
     private javax.swing.JButton jButtonListar;
     private javax.swing.JComboBox<String> jComboFarmacias;
@@ -298,5 +338,6 @@ public class GUI_Cliente extends javax.swing.JFrame {
     private javax.swing.JTextField jTextCantidad;
     private javax.swing.JTextField jTextCedula;
     private javax.swing.JTextField jTextCodigo;
+    private javax.swing.JTextField jTextFecha;
     // End of variables declaration//GEN-END:variables
 }

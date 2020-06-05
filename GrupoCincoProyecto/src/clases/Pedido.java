@@ -23,13 +23,16 @@ public class Pedido implements Serializable{
 	public double valor;
         public Cliente cliente;
         public ArrayList<Inventario> productosPedidos = new ArrayList<>();
+        public Local farmacia;
+        
 
-    public Pedido(String fecha, int estado, double valor, Cliente cliente, ArrayList<Inventario> productosPedidos) {
+    public Pedido(String fecha, int estado, double valor, Cliente cliente, ArrayList<Inventario> productosPedidos, Local farmacia) {
         this.fecha = fecha;
         this.estado = estado;
         this.valor = valor;
         this.cliente = cliente;
         this.productosPedidos = productosPedidos;
+        this.farmacia = farmacia;
     }
 
     public Pedido() {
@@ -74,6 +77,15 @@ public class Pedido implements Serializable{
     public void setProductosPedidos(ArrayList<Inventario> productosPedidos) {
         this.productosPedidos = productosPedidos;
     }
+
+    public Local getFarmacia() {
+        return farmacia;
+    }
+
+    public void setFarmacia(Local farmacia) {
+        this.farmacia = farmacia;
+    }
+    
     
 
     @Override

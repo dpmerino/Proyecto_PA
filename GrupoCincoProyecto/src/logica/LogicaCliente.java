@@ -32,4 +32,13 @@ public class LogicaCliente {
         }
         return false;
     }
+    
+    public static Cliente cargarCliente (ArrayList<Cliente> ArrayClientes, String cedula){
+        Cliente objCliente = new Cliente();
+        for (Cliente objAux : ArrayClientes){
+            if (objAux.getCedula().equals(cedula))
+                objCliente = objAux;
+        }
+        return objCliente;
+    }
 }
