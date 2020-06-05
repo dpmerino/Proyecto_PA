@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 /**
  *
+ * @author diegomerino
  */
 public class LogicaGerente {
     static String fichero = "archivos/gerentes.dat";
