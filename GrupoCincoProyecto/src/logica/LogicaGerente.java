@@ -8,10 +8,11 @@ package logica;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
- * @author diegomerino
  */
 public class LogicaGerente {
     static String fichero = "archivos/gerentes.dat";
@@ -22,5 +23,15 @@ public class LogicaGerente {
     
     public static void LeerGerenteDAT (ArrayList ArrayObjetos) throws IOException, FileNotFoundException, ClassNotFoundException{
         archivos.ArchivoGeneral.LeerDAT(ArrayObjetos, fichero);
+    }
+    public boolean mailValido(String email) {       
+       Pattern pat = 
+       Pattern.compile("^[\\w-]+(\\.[\\w-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+       Matcher mat = pat.matcher(email);
+       if(mat.find()){
+          return true;
+       }else{
+          return false;
+     }
     }
 }

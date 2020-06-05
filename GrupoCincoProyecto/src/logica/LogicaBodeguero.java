@@ -6,6 +6,7 @@
 package logica;
 
 import clases.Bodeguero;
+import clases.Local;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author diegomerino
+
  */
 public class LogicaBodeguero {
     static String fichero = "archivos/bodegueros.dat";
@@ -27,9 +28,9 @@ public class LogicaBodeguero {
         archivos.ArchivoGeneral.LeerDAT(ArrayObjetos, fichero);
     }
     
-    public Boolean validarBodeguero(ArrayList<Bodeguero> ArrayBodegueros, String cedula, String clave){
-        for(Bodeguero objBod: ArrayBodegueros){
-            if(objBod.getCedula().equals(cedula) && objBod.getClave().equals(clave))
+    public Boolean validarBodeguero(ArrayList<Local> Farmacias, String cedula, String clave){
+        for (Local objLoc : Farmacias){
+            if(objLoc.getBodeguero().getCedula().equals(cedula) && objLoc.getBodeguero().getClave().equals(clave))
                 return true;
         }
         return false;

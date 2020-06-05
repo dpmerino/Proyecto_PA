@@ -5,6 +5,7 @@
  */
 package logica;
 
+import clases.Administrador;
 import clases.Cliente;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,5 +32,22 @@ public class LogicaCliente {
                 return true;
         }
         return false;
+    }
+    
+    public static Cliente cargarCliente (ArrayList<Cliente> ArrayClientes, String cedula){
+        Cliente objCliente = new Cliente();
+        for (Cliente objAux : ArrayClientes){
+            if (objAux.getCedula().equals(cedula))
+                objCliente = objAux;
+        }
+        return objCliente;
+    }
+    public static Boolean ExistenciaCliente (ArrayList<Cliente> ArrayCliente, String cedula){
+        boolean flag = false;
+        for (Cliente objCliente : ArrayCliente){
+            if (objCliente.getCedula().equals(cedula))
+                flag = true;
+        }
+        return flag;
     }
 }

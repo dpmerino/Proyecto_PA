@@ -6,6 +6,7 @@
 package logica;
 
 import archivos.ArchivoGeneral;
+import clases.Inventario;
 import clases.Producto;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author USUARIO
+
  */
 public class LogicaProducto {
     static String fichero = "productos.dat";
@@ -31,6 +32,13 @@ public class LogicaProducto {
         ArchivoGeneral.anhadeFichero(ArrayObjetos,fichero);
     }
     
-    
+    public static Producto BuscarProducto(ArrayList<Inventario> Inventario, String codigo){
+        Producto objPro = new Producto();
+        for (Inventario objAux : Inventario){
+            if(objAux.getProducto().getCodigo().equals(codigo))
+                objPro = objAux.getProducto();
+        }
+        return objPro;
+    }
     
 }

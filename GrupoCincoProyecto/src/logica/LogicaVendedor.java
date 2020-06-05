@@ -5,14 +5,16 @@
  */
 package logica;
 
+import clases.Local;
 import clases.Vendedor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
- * @author diegomerino
  */
 public class LogicaVendedor {
     
@@ -26,11 +28,21 @@ public class LogicaVendedor {
         archivos.ArchivoGeneral.LeerDAT(ArrayVendedores, fichero);
     }
     
-    public Boolean ValidarVendedor (ArrayList<Vendedor> ArrayVendedores, String cedula, String clave){
-        for (Vendedor objVen : ArrayVendedores){
-            if(objVen.getCedula().equals(cedula) && objVen.clave.equals(clave))
+    public Boolean ValidarVendedor (ArrayList<Local> Farmacias, String cedula, String clave){
+        for (Local objVen : Farmacias){
+            if(objVen.getVendedor().getCedula().equals(cedula) && objVen.getVendedor().getClave().equals(clave)) 
                 return true;
         }
         return false;
+    }
+    public boolean mailValido(String email) {       
+       Pattern pat = 
+       Pattern.compile("^[\\w-]+(\\.[\\w-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+       Matcher mat = pat.matcher(email);
+       if(mat.find()){
+          return true;
+       }else{
+          return false;
+     }
     }
 }

@@ -137,11 +137,13 @@ public class Local implements Serializable {
     public void setArrayPedidos(ArrayList<Pedido> ArrayPedidos) {
         this.ArrayPedidos = ArrayPedidos;
     }
-    
 
     @Override
     public String toString() {
-        return "Local{" + "direccion=" + direccion + ", pedido=" + pedido + ", vendedor=" + vendedor + ", bodeguero=" + bodeguero + ", gerente=" + gerente + ", inventario=" + inventario + '}';
+        return "Local{" + "direccion=" + direccion + ", pedido=" + pedido + ", vendedor=" + vendedor + ", bodeguero=" + bodeguero + ", gerente=" + gerente + ", inventario=" + inventario + ", nombre=" + nombre + ", codigo=" + codigo + ", inventarioGeneral=" + inventarioGeneral + ", ArrayPedidos=" + ArrayPedidos + '}';
     }
+    
+
+    
 
 }
