@@ -45,4 +45,12 @@ public class LogicaLocal {
                 ObjLocal.AgregarInventario(cantidad, producto);
         return true;
     }
+     public static Boolean ExistenciaLocal (ArrayList<Local> ArrayFarmacias, String codigo){
+        boolean flag = false;
+        for (Local objLocal : ArrayFarmacias){
+            if (objLocal.getCodigo().equals(codigo))
+                flag = true;
+        }
+        return flag;
+    }
 }
