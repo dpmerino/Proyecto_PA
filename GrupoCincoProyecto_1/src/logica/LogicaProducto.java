@@ -26,6 +26,10 @@ public class LogicaProducto {
     public static void LeerProductos(ArrayList ArrayObjetos) throws IOException, FileNotFoundException, ClassNotFoundException {
         ArchivoGeneral.LeerDAT(ArrayObjetos,fichero);
     }
+    public static void InsertarProductos(ArrayList ArrayObjetos) throws IOException {
+        // agregar objetos sobre lo que toene el archivo
+        ArchivoGeneral.anhadeFichero(ArrayObjetos,fichero);
+    }
     
     
     
