@@ -115,9 +115,9 @@ public class GUI_Cliente extends javax.swing.JFrame {
                                 .addGap(31, 31, 31)
                                 .addComponent(jButtonIngresar))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
+                        .addGap(60, 60, 60)
                         .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,9 +132,9 @@ public class GUI_Cliente extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jComboFarmacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonListar))
-                .addGap(55, 55, 55)
+                .addGap(33, 33, 33)
                 .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(226, Short.MAX_VALUE))
+                .addContainerGap(248, Short.MAX_VALUE))
         );
 
         pack();
@@ -168,6 +168,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
             "Nombre", "Codigo", "Precio", "Cantidad"
         };
         DefaultTableModel model = new DefaultTableModel(null, columnas);
+        this.jTable1.setModel(model);
         Local objLocal = objLogLoc.BuscarLocal(ArrayFarmacias, this.jComboFarmacias.getSelectedItem().toString());
         for (Inventario objInv : objLocal.getInventarioGeneral()) {
             String NewValor[] = {

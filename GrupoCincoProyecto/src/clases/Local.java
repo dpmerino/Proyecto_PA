@@ -48,11 +48,13 @@ public class Local implements Serializable {
         this.inventarioGeneral.add(new Inventario(cantidad, producto));
     }
 
-
-
     public Local() {
     }
 
+    public void AgregarInventario(int cantidad, Producto producto){
+        this.inventarioGeneral.add(new Inventario(cantidad, producto));
+    }
+    
     public ArrayList<Inventario> inventarioGeneral = new ArrayList<>();
     
     public String getNombre() {
