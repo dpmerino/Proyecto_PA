@@ -5,6 +5,7 @@
  */
 package gui;
 
+import clases.Administrador;
 import clases.Bodeguero;
 import clases.Cliente;
 import clases.Gerente;
@@ -24,8 +25,8 @@ import logica.LogicaLocal;
  */
 public class CrearLocal extends javax.swing.JFrame {
     
-    ArrayList<Cliente> ArrayClientes = new ArrayList<>();
-    LogicaCliente objLogCli = new LogicaCliente();
+    ArrayList<Administrador> ArrayAdmins = new ArrayList<>();
+    LogicaAdmin objLogAdmin = new LogicaAdmin();
     ArrayList<Local> ArrayFarmacias = new ArrayList<>();
     int auxCero = 0;
 
@@ -38,7 +39,7 @@ public class CrearLocal extends javax.swing.JFrame {
     public CrearLocal() {
         initComponents();
         try {
-            LogicaAdmin.LeerAdminDAT(ArrayFarmacias);
+            LogicaLocal.LeerLocalesDAT(ArrayFarmacias);
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(CrearLocal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,10 +110,14 @@ public class CrearLocal extends javax.swing.JFrame {
         jTextFieldMailBodeguero = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
         jTextFieldMailVendedor = new javax.swing.JTextField();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jButtonAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabel1.setText("CREAR LOCAL");
 
         jLabel2.setText("Nombre");
@@ -121,18 +126,23 @@ public class CrearLocal extends javax.swing.JFrame {
 
         jLabel4.setText("Direccion");
 
+        jTextFieldNombreLocal.setEnabled(false);
         jTextFieldNombreLocal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreLocalActionPerformed(evt);
             }
         });
 
+        jTextFieldCodigoLocal.setEnabled(false);
         jTextFieldCodigoLocal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCodigoLocalActionPerformed(evt);
             }
         });
 
+        jTextFieldDireccionLocal.setEnabled(false);
+
+        jLabel5.setFont(new java.awt.Font("Arial Black", 0, 11)); // NOI18N
         jLabel5.setText("Crear gerente");
 
         jLabel6.setText("Nombre");
@@ -141,15 +151,25 @@ public class CrearLocal extends javax.swing.JFrame {
 
         jLabel8.setText("Apellido");
 
-        jTextCedula.setText("Cedula");
+        jTextFieldNombreGerente.setEnabled(false);
 
-        jPasswordClave.setText("Clave");
+        jTextFieldApellidoGerente.setEnabled(false);
+
+        jTextFieldCedulaGerente.setEnabled(false);
+
+        jTextCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextCedulaActionPerformed(evt);
+            }
+        });
+
         jPasswordClave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordClaveActionPerformed(evt);
             }
         });
 
+        jButtonIngresar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jButtonIngresar.setText("Ingresar");
         jButtonIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,19 +181,31 @@ public class CrearLocal extends javax.swing.JFrame {
 
         jLabel10.setText("Sueldo");
 
+        jTextFieldSueldoGerente.setEnabled(false);
+
         jLabel11.setText("Cedula");
 
         jLabel12.setText("Apellido");
 
+        jTextFieldNombreVendedor.setEnabled(false);
+
         jLabel13.setText("Sueldo");
+
+        jTextFieldSueldoVendedor.setEnabled(false);
+
+        jTextFieldApellidoVendedor.setEnabled(false);
+
+        jTextFieldCedulaVendedor.setEnabled(false);
 
         jLabel14.setText("Turno");
 
+        jLabel15.setFont(new java.awt.Font("Arial Black", 0, 11)); // NOI18N
         jLabel15.setText("Crear vendedor");
 
         jLabel16.setText("Nombre");
 
         jComboGerente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Diurno", "Vespertino" }));
+        jComboGerente.setEnabled(false);
         jComboGerente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboGerenteActionPerformed(evt);
@@ -181,24 +213,37 @@ public class CrearLocal extends javax.swing.JFrame {
         });
 
         jComboVendedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Diurno", "Vespertino" }));
+        jComboVendedor.setEnabled(false);
 
         jLabel17.setText("Cedula");
 
         jLabel18.setText("Apellido");
 
+        jTextFieldNombreBodeguero.setEnabled(false);
+
         jLabel19.setText("Sueldo");
+
+        jTextFieldSueldoBodeguero.setEnabled(false);
+
+        jTextFieldApellidoBodeguero.setEnabled(false);
+
+        jTextFieldCedulaBodeguero.setEnabled(false);
 
         jLabel20.setText("Turno");
 
+        jLabel21.setFont(new java.awt.Font("Arial Black", 0, 11)); // NOI18N
         jLabel21.setText("Crear bodeguero");
 
         jLabel22.setText("Nombre");
 
         jComboBodeguero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Diurno", "Vespertino" }));
+        jComboBodeguero.setEnabled(false);
 
+        jButtonCrear.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButtonCrear.setText(" Crear Local");
         jButtonCrear.setToolTipText("");
         jButtonCrear.setActionCommand("");
+        jButtonCrear.setEnabled(false);
         jButtonCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCrearActionPerformed(evt);
@@ -207,6 +252,9 @@ public class CrearLocal extends javax.swing.JFrame {
 
         jLabel23.setText("Clave");
 
+        jTextFieldClaveGerente.setEnabled(false);
+
+        jTextFieldClaveBodeguero.setEnabled(false);
         jTextFieldClaveBodeguero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldClaveBodegueroActionPerformed(evt);
@@ -215,13 +263,36 @@ public class CrearLocal extends javax.swing.JFrame {
 
         jLabel24.setText("Clave");
 
+        jTextFieldClaveVendedor.setEnabled(false);
+
         jLabel25.setText("Clave");
 
         jLabel26.setText("Mail");
 
+        jTextFieldMailGerente.setEnabled(false);
+
         jLabel27.setText("Mail");
 
+        jTextFieldMailBodeguero.setEnabled(false);
+
         jLabel28.setText("Mail");
+
+        jTextFieldMailVendedor.setEnabled(false);
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel29.setText("Admiistrador:");
+
+        jLabel30.setText("cedula");
+
+        jLabel31.setText("clave");
+
+        jButtonAtras.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jButtonAtras.setText("Atras");
+        jButtonAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAtrasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -255,53 +326,44 @@ public class CrearLocal extends javax.swing.JFrame {
                                     .addComponent(jComboGerente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jTextFieldClaveGerente)
                                     .addComponent(jTextFieldMailGerente))))))
-                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(51, 51, 51)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(jLabel21))
+                                .addGap(5, 5, 5)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel24)
+                                    .addComponent(jLabel27))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldMailBodeguero)
+                                    .addComponent(jTextFieldClaveBodeguero)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel19)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldSueldoBodeguero))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBodeguero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel18)
+                                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldCedulaBodeguero)
+                                    .addComponent(jTextFieldApellidoBodeguero)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel22)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldNombreBodeguero))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel19)
-                                        .addGap(15, 15, 15))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel20)
-                                        .addGap(18, 18, 18))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel17)
-                                        .addGap(18, 18, 18))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel18)
-                                        .addGap(18, 18, 18)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldApellidoBodeguero)
-                                    .addComponent(jTextFieldCedulaBodeguero)
-                                    .addComponent(jTextFieldSueldoBodeguero)
-                                    .addComponent(jComboBodeguero, 0, 102, Short.MAX_VALUE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jTextFieldNombreBodeguero)))
+                        .addGap(93, 93, 93))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel27)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldMailBodeguero))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel24)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextFieldClaveBodeguero, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButtonCrear))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)))))
-                .addGap(90, 90, 90)
+                        .addGap(109, 109, 109)
+                        .addComponent(jLabel21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel16)
@@ -333,9 +395,21 @@ public class CrearLocal extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addGap(27, 27, 27)))
-                .addGap(21, 21, 21))
+                .addGap(18, 18, 18))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel31)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel29)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel30)))
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextCedula, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPasswordClave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(294, 294, 294)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -352,25 +426,41 @@ public class CrearLocal extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jTextFieldNombreLocal)
-                                        .addComponent(jTextFieldCodigoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
-                        .addComponent(jPasswordClave, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jButtonIngresar)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(jTextFieldCodigoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonAtras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 69, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButtonCrear)
+                .addGap(258, 258, 258))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonIngresar))
-                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel30)
+                        .addGap(44, 44, 44))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButtonIngresar)
+                                    .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButtonAtras)
+                                    .addComponent(jPasswordClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel31)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(59, 59, 59)
+                                .addComponent(jLabel29)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -438,19 +528,15 @@ public class CrearLocal extends javax.swing.JFrame {
                             .addComponent(jTextFieldClaveGerente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel24)
                             .addComponent(jTextFieldClaveBodeguero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel26)
-                                    .addComponent(jTextFieldMailGerente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel27)
-                                    .addComponent(jTextFieldMailBodeguero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel26)
+                            .addComponent(jTextFieldMailGerente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldMailBodeguero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel27))
+                        .addGap(33, 33, 33)
+                        .addComponent(jButtonCrear)
+                        .addContainerGap(30, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addGap(18, 18, 18)
@@ -481,9 +567,7 @@ public class CrearLocal extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel28)
                             .addComponent(jTextFieldMailVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)))
-                .addComponent(jButtonCrear)
-                .addGap(22, 22, 22))
+                        .addGap(98, 98, 98))))
         );
 
         pack();
@@ -498,21 +582,49 @@ public class CrearLocal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordClaveActionPerformed
 
     private void jButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarActionPerformed
+        
         try {
             // TODO add your handling code here:
-            LogicaCliente.LeerClientesDAT(ArrayClientes);
+            LogicaAdmin.LeerAdminDAT(ArrayAdmins);
         } catch (IOException ex) {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        if (objLogAdmin.validarAdmin(ArrayAdmins, this.jTextCedula.getText(), String.valueOf(this.jPasswordClave.getPassword()))) {
+            this.jTextFieldNombreLocal.setEnabled(true);
+            this.jTextFieldCodigoLocal.setEnabled(true);
+            this.jTextFieldDireccionLocal.setEnabled(true);
+            this.jTextFieldNombreGerente.setEnabled(true);
+            this.jTextFieldApellidoGerente.setEnabled(true);
+            this.jTextFieldCedulaGerente.setEnabled(true);
+            this.jComboGerente.setEnabled(true);
+            this.jTextFieldSueldoGerente.setEnabled(true);
+            this.jTextFieldClaveGerente.setEnabled(true);
+            this.jTextFieldMailGerente.setEnabled(true);
+            this.jTextFieldNombreBodeguero.setEnabled(true);
+            this.jTextFieldApellidoBodeguero.setEnabled(true);
+            this.jTextFieldCedulaBodeguero.setEnabled(true);
+            this.jComboBodeguero.setEnabled(true);
+            this.jTextFieldSueldoBodeguero.setEnabled(true);
+            this.jTextFieldClaveBodeguero.setEnabled(true);
+            this.jTextFieldMailBodeguero.setEnabled(true);
+            this.jTextFieldNombreVendedor.setEnabled(true);
+            this.jTextFieldApellidoVendedor.setEnabled(true);
+            this.jTextFieldCedulaVendedor.setEnabled(true);
+            this.jComboVendedor.setEnabled(true);
+            this.jTextFieldSueldoVendedor.setEnabled(true);
+            this.jTextFieldClaveVendedor.setEnabled(true);
+            this.jTextFieldMailVendedor.setEnabled(true);
+            this.jButtonCrear.setEnabled(true);
+            ///this.jButtonAtras.setEnabled(true);
+        }
     }//GEN-LAST:event_jButtonIngresarActionPerformed
 
     private void jButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearActionPerformed
-//        if (LogicaLocal.ExistenciaLocal(ArrayFarmacias, this.jTextFieldCodigoLocal.getText())) {
-//            JOptionPane.showMessageDialog(null, "Ya existe el local", "Error", JOptionPane.PLAIN_MESSAGE);
-//        } else {
+        if (LogicaLocal.ExistenciaLocal(ArrayFarmacias, this.jTextFieldCodigoLocal.getText())) {
+            JOptionPane.showMessageDialog(null, "Ya existe el local", "Error", JOptionPane.PLAIN_MESSAGE);
+        } else {
             Vendedor objVendedor = new Vendedor(
                     this.auxCero,
                     this.jComboVendedor.getSelectedIndex(),
@@ -547,18 +659,17 @@ public class CrearLocal extends javax.swing.JFrame {
                     objVendedor,
                     objBodeguero,
                     objGerente,
-                    this.jTextFieldNombreGerente.getText(),
+                    this.jTextFieldNombreLocal.getText(),
                     this.jTextFieldCodigoLocal.getText()
             );
             
             ArrayFarmacias.add(objLocal);
-            System.out.println(ArrayFarmacias);
             try {
                 LogicaLocal.EscribirLocalesDAT(ArrayFarmacias);
             } catch (IOException ex) {
                 Logger.getLogger(CrearLocal.class.getName()).log(Level.SEVERE, null, ex);
             }
-//        }
+        }
 
 // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCrearActionPerformed
@@ -574,6 +685,16 @@ public class CrearLocal extends javax.swing.JFrame {
     private void jComboGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboGerenteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboGerenteActionPerformed
+
+    private void jTextCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextCedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextCedulaActionPerformed
+
+    private void jButtonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtrasActionPerformed
+        new Inicio().setVisible(true);
+        this.dispose();
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAtrasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -611,6 +732,7 @@ public class CrearLocal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAtras;
     private javax.swing.JButton jButtonCrear;
     private javax.swing.JButton jButtonIngresar;
     private javax.swing.JComboBox<String> jComboBodeguero;
@@ -637,7 +759,10 @@ public class CrearLocal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

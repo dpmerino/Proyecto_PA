@@ -50,9 +50,9 @@ public class Local implements Serializable {
     public void AgregarInventario(int cantidad, Producto producto){
         this.inventarioGeneral.add(new Inventario(cantidad, producto));
     }
-    public void AgregarPedidos(String fecha, int estado, double valor, Cliente cliente){
-        this.ArrayPedidos.add(new Pedido (fecha, estado, valor, cliente));
-    }
+//    public void AgregarPedidos(String fecha, int estado, double valor, Cliente cliente){
+//        this.ArrayPedidos.add(new Pedido (fecha, estado, valor, cliente));
+//    }
     
     public ArrayList<Inventario> inventarioGeneral = new ArrayList<>();
     

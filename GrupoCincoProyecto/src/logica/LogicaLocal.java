@@ -20,7 +20,6 @@ public class LogicaLocal {
     
     public static void EscribirLocalesDAT (ArrayList ArrayObjetos) throws IOException{
         archivos.ArchivoGeneral.EscribirDAT(ArrayObjetos, fichero);
-        System.out.println("grabado");
     }
     
     public static void LeerLocalesDAT (ArrayList ArrayObjetos) throws IOException, FileNotFoundException, ClassNotFoundException{
