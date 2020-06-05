@@ -5,6 +5,7 @@
  */
 package logica;
 
+import clases.Administrador;
 import clases.Local;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,7 +13,6 @@ import java.util.ArrayList;
 
 /**
  *
- * @author diegomerino
  */
 public class LogicaLocal {
     

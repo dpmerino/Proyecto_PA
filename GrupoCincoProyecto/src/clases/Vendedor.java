@@ -17,15 +17,15 @@ import java.io.Serializable;
 
 
 public class Vendedor extends Empleado implements Serializable{
-	public int pedidoRealizados;
+	public int pedidoVendidos;
 
     public Vendedor(int pedidoRealizados, int turno, double sueldo, String cedula, String nombre, String apellido, String mail, String clave) {
         super(turno, sueldo, cedula, nombre, apellido, mail, clave);
-        this.pedidoRealizados = pedidoRealizados;
+        this.pedidoVendidos = pedidoRealizados;
     }
 
     public Vendedor(int pedidoRealizados) {
-        this.pedidoRealizados = pedidoRealizados;
+        this.pedidoVendidos = pedidoRealizados;
     }
 
     public Vendedor() {
@@ -33,11 +33,11 @@ public class Vendedor extends Empleado implements Serializable{
 
 
     public int getPedidoRealizados() {
-        return pedidoRealizados;
+        return pedidoVendidos;
     }
 
     public void setPedidoRealizado(int pedidoRealizados) {
-        this.pedidoRealizados = pedidoRealizados;
+        this.pedidoVendidos = pedidoRealizados;
     }
 
     public int getTurno() {
@@ -98,7 +98,7 @@ public class Vendedor extends Empleado implements Serializable{
 
     @Override
     public String toString() {
-        return "Vendedor{" + "pedidoRealizado=" + pedidoRealizados + '}';
+        return "Vendedor{" + "pedidoRealizado=" + pedidoVendidos + '}';
     }
         
         
