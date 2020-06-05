@@ -274,6 +274,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
             this.jTextCantidad.setEditable(true);
             this.jButtonAgregar.setEnabled(true);
             this.jButtonGuardar.setEnabled(true);
+            this.jTextCantidad.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(null, "Usuario no existe o incorrecto", "Error", JOptionPane.PLAIN_MESSAGE);
         }
@@ -313,9 +314,18 @@ public class GUI_Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboFarmaciasActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            LogicaLocal.LeerLocalesDAT(ArrayFarmacias);
+        } catch (IOException ex) {
+            Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Local objLocal = objLogLoc.BuscarLocal(ArrayFarmacias, this.jComboFarmacias.getSelectedItem().toString());
-        Inventario objInv = objLogInv.BuscarProducto(objLocal.getInventarioGeneral(), this.jTextCodigo.getText());
+        System.out.println(objLocal.inventarioGeneral);
+        Inventario objInv = objLogInv.buscarPro(ArrayFarmacias, this.jTextCodigo.getText());
+        System.out.println(objInv);
         if(Integer.parseInt(this.jTextCantidad.getText()) > objInv.cantidad){
             JOptionPane.showMessageDialog(null, "No hay cantidad suficiente", "Error", JOptionPane.PLAIN_MESSAGE);
         } else{

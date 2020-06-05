@@ -75,5 +75,5 @@ public class LogicaLocal {
         }
         return objLocal;
     }
-
+    
 }

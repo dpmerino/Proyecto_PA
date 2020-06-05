@@ -108,7 +108,6 @@ public class GUI_Vendedor extends javax.swing.JFrame {
 
         jButtonListarPedidos.setText("Listar Pedidos");
         jButtonListarPedidos.setActionCommand("");
-        jButtonListarPedidos.setEnabled(false);
         jButtonListarPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonListarPedidosActionPerformed(evt);
@@ -153,7 +152,6 @@ public class GUI_Vendedor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(13, 13, 13)
@@ -171,11 +169,10 @@ public class GUI_Vendedor extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jLabel29)))
-                .addGap(18, 18, 18)
                 .addComponent(jButtonListarPedidos)
                 .addGap(49, 49, 49)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap(221, Short.MAX_VALUE))
         );
 
         pack();

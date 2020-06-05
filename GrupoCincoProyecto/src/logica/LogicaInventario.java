@@ -6,7 +6,7 @@
 package logica;
 
 import clases.Inventario;
-import clases.Producto;
+import clases.Local;
 import java.util.ArrayList;
 
 /**
@@ -29,5 +29,17 @@ public class LogicaInventario {
             total += objInv.getProducto().getPrecio();
         }
         return total;
+    }
+    
+    public static Inventario buscarPro (ArrayList<Local> ArrayLocales, String codigo){
+        Inventario objInv = new Inventario();
+        for (Local objLoc : ArrayLocales){
+            for (int i = 0; i < objLoc.getInventarioGeneral().size();i++){
+                if (objLoc.getInventarioGeneral().get(i).getProducto().getCodigo().equals(codigo)){
+                    objInv = objLoc.getInventarioGeneral().get(i);
+                }
+            }
+        }
+        return objInv;
     }
 }
