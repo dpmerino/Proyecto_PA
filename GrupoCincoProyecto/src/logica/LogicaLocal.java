@@ -27,7 +27,7 @@ public class LogicaLocal {
     public static Local BuscarLocal(ArrayList<Local> ArrayFarmacias, String codigo) {
         Local objLocAux = new Local();
         for (Local objLoc : ArrayFarmacias) {
-            if (objLoc.getCodigo().equals(codigo)) {
+            if (objLoc.getNombre().equals(codigo)) {
                 objLocAux = objLoc;
             }
         }

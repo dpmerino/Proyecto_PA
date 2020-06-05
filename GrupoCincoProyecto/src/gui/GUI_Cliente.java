@@ -292,7 +292,8 @@ public class GUI_Cliente extends javax.swing.JFrame {
         };
         DefaultTableModel model = new DefaultTableModel(null, columnas);
         this.jTable1.setModel(model);
-        Local objLocal = objLogLoc.BuscarLocal(ArrayFarmacias, this.jComboFarmacias.getSelectedItem().toString());
+        Local objLocal = LogicaLocal.BuscarLocal(ArrayFarmacias, this.jComboFarmacias.getSelectedItem().toString());
+        System.out.println(objLocal.inventarioGeneral);
         for (Inventario objInv : objLocal.getInventarioGeneral()) {
             String NewValor[] = {
                 objInv.getProducto().getNombre(),
