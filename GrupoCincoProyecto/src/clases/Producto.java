@@ -17,28 +17,32 @@ import java.io.Serializable;
 
 
 public class Producto implements Serializable{
-	public int codigo;
+	public String codigo;
 	public String nombre;
 	public double precio;
 	public String vencimiento;
 
-    public Producto(int codigo, String nombre, double precio, String vencimiento) {
+    public Producto(String codigo, String nombre, double precio, String vencimiento) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.precio = precio;
         this.vencimiento = vencimiento;
     }
 
+   
+
     public Producto() {
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
+
+   
 
     public String getNombre() {
         return nombre;

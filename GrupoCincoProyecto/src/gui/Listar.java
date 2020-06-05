@@ -6,6 +6,7 @@
 package gui;
 
 import clases.Administrador;
+import clases.Inventario;
 import clases.Local;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -259,7 +260,14 @@ public class Listar extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel(null, columnas);
         this.jTable3.setModel(model);
         for (Local objLoc : ArrayLocales){
-            
+            for (Inventario objInv : objLoc.inventarioGeneral){
+                String NewValor[] = {
+                    objLoc.getNombre(),
+                    objInv.getProducto().getCodigo(),
+                    objInv.getProducto().getNombre(),
+                    
+                }
+            }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
