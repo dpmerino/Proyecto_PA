@@ -5,6 +5,7 @@
  */
 package logica;
 
+import clases.Local;
 import clases.Vendedor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -27,9 +28,9 @@ public class LogicaVendedor {
         archivos.ArchivoGeneral.LeerDAT(ArrayVendedores, fichero);
     }
     
-    public Boolean ValidarVendedor (ArrayList<Vendedor> ArrayVendedores, String cedula, String clave){
-        for (Vendedor objVen : ArrayVendedores){
-            if(objVen.getCedula().equals(cedula) && objVen.clave.equals(clave))
+    public Boolean ValidarVendedor (ArrayList<Local> Farmacias, String cedula, String clave){
+        for (Local objVen : Farmacias){
+            if(objVen.getVendedor().getCedula().equals(cedula) && objVen.getVendedor().getClave().equals(clave)) 
                 return true;
         }
         return false;

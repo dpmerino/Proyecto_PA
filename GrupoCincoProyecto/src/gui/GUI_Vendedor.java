@@ -7,6 +7,7 @@ package gui;
 
 import clases.Administrador;
 import clases.Inventario;
+import clases.Local;
 import clases.Pedido;
 import clases.Vendedor;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import logica.LogicaLocal;
 import logica.LogicaVendedor;
 
 /**
@@ -24,12 +26,21 @@ public class GUI_Vendedor extends javax.swing.JFrame {
     ArrayList<Vendedor> ArrayVen = new ArrayList<>();
     LogicaVendedor objLogVen = new LogicaVendedor();
     ArrayList<Pedido> ArrayPed = new ArrayList<>();
+    ArrayList<Local> Farmacias = new ArrayList<>();
 
     /**
      * Creates new form GUI_Empleado
      */
     public GUI_Vendedor() {
         initComponents();
+        
+        try {
+            LogicaLocal.LeerLocalesDAT(Farmacias);
+        } catch (IOException ex) {
+            Logger.getLogger(GUI_Vendedor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUI_Vendedor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -108,6 +119,7 @@ public class GUI_Vendedor extends javax.swing.JFrame {
 
         jButtonListarPedidos.setText("Listar Pedidos");
         jButtonListarPedidos.setActionCommand("");
+        jButtonListarPedidos.setEnabled(false);
         jButtonListarPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonListarPedidosActionPerformed(evt);
@@ -203,7 +215,7 @@ public class GUI_Vendedor extends javax.swing.JFrame {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if (objLogVen.ValidarVendedor(ArrayVen, jTextCedula.getText(), String.valueOf(this.jPasswordClave.getPassword()))){
+        if (objLogVen.ValidarVendedor(Farmacias, jTextCedula.getText(), String.valueOf(this.jPasswordClave.getPassword()))){
             this.jTable1.setEnabled(true);
             this.jButtonListarPedidos.setEnabled(true);
         }
@@ -212,7 +224,15 @@ public class GUI_Vendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonIngresarActionPerformed
 
     private void jButtonListarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListarPedidosActionPerformed
-        
+
+        try {
+            Farmacias.removeAll(Farmacias);
+            LogicaLocal.LeerLocalesDAT(Farmacias);
+        } catch (IOException ex) {
+            Logger.getLogger(GUI_Vendedor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUI_Vendedor.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Object columnas [] = {
             "Fecha","Estado","Valor","Cliente","Nombre Producto","Cantidad","Vencimiento","Precio"
         };
@@ -230,6 +250,7 @@ public class GUI_Vendedor extends javax.swing.JFrame {
                 objInv.getProducto().getVencimiento(),
                 String.valueOf(objP.getValor())
                 };
+                model.addRow(NewValor);
             }
         }
 
