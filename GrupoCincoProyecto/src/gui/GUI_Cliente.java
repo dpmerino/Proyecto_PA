@@ -6,12 +6,19 @@
 package gui;
 
 import clases.Cliente;
+import clases.Inventario;
+import clases.Local;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import logica.LogicaCliente;
+import logica.LogicaLocal;
+import logica.ValorCombo;
+
 /**
  *
  * @author diegomerino
@@ -20,6 +27,10 @@ public class GUI_Cliente extends javax.swing.JFrame {
 
     ArrayList<Cliente> ArrayClientes = new ArrayList<>();
     LogicaCliente objLogCli = new LogicaCliente();
+    ArrayList<Local> ArrayFarmacias = new ArrayList<>();
+
+    LogicaLocal objLogLoc = new LogicaLocal();
+
     /**
      * Creates new form GUI_Cliente
      */
@@ -27,7 +38,6 @@ public class GUI_Cliente extends javax.swing.JFrame {
         initComponents();
         this.jLabel1.setVisible(false);
         this.jComboFarmacias.setVisible(false);
-        this.jScrollTabla.setVisible(false);
     }
 
     /**
@@ -44,7 +54,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
         jButtonIngresar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jComboFarmacias = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        jButtonListar = new javax.swing.JButton();
         jScrollTabla = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -63,10 +73,10 @@ public class GUI_Cliente extends javax.swing.JFrame {
 
         jComboFarmacias.setEnabled(false);
 
-        jButton1.setText("Listar Productos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonListar.setText("Listar Productos");
+        jButtonListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonListarActionPerformed(evt);
             }
         });
 
@@ -88,22 +98,26 @@ public class GUI_Cliente extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboFarmacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton1))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboFarmacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonListar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(jPasswordClave, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(jButtonIngresar))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jPasswordClave, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(jButtonIngresar)))
-                .addContainerGap(157, Short.MAX_VALUE))
+                        .addGap(52, 52, 52)
+                        .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,10 +131,10 @@ public class GUI_Cliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jComboFarmacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jButtonListar))
+                .addGap(55, 55, 55)
                 .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(269, Short.MAX_VALUE))
+                .addContainerGap(226, Short.MAX_VALUE))
         );
 
         pack();
@@ -135,21 +149,36 @@ public class GUI_Cliente extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (objLogCli.validarCliente(ArrayClientes, this.jTextCedula.getText(), String.valueOf(this.jPasswordClave.getPassword()))){
-            
+        if (objLogCli.validarCliente(ArrayClientes, this.jTextCedula.getText(), String.valueOf(this.jPasswordClave.getPassword()))) {
+            CargarCombo();
         } else {
             JOptionPane.showMessageDialog(null, "Usuario no existe o incorrecto", "Error", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_jButtonIngresarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        this.jScrollTabla.revalidate();
-        this.jScrollTabla.repaint();
-        this.jScrollTabla.setVisible(true);
-        this.jTable1.setVisible(true);
-        System.out.println("test");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButtonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListarActionPerformed
+        try {
+            // TODO add your handling code here:
+            ArrayFarmacias.removeAll(ArrayFarmacias);
+            logica.LogicaLocal.LeerLocalesDAT(ArrayFarmacias);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Object columnas[] = {
+            "Nombre", "Codigo", "Precio", "Cantidad"
+        };
+        DefaultTableModel model = new DefaultTableModel(null, columnas);
+        Local objLocal = objLogLoc.BuscarLocal(ArrayFarmacias, this.jComboFarmacias.getSelectedItem().toString());
+        for (Inventario objInv : objLocal.getInventarioGeneral()) {
+            String NewValor[] = {
+                objInv.getProducto().getNombre(),
+                String.valueOf(objInv.getProducto().getCodigo()),
+                String.valueOf(objInv.getProducto().getPrecio()),
+                String.valueOf(objInv.cantidad)
+            };
+            model.addRow(NewValor);
+        }
+    }//GEN-LAST:event_jButtonListarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,9 +215,13 @@ public class GUI_Cliente extends javax.swing.JFrame {
         });
     }
 
+    public void CargarCombo() {
+        logica.ValorCombo objCargar = new ValorCombo();
+        this.jComboFarmacias.setModel(new DefaultComboBoxModel(objCargar.CargarFarmacias(ArrayFarmacias).toArray()));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonIngresar;
+    private javax.swing.JButton jButtonListar;
     private javax.swing.JComboBox<String> jComboFarmacias;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPasswordField jPasswordClave;
