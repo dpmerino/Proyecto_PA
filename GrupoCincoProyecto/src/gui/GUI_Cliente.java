@@ -82,9 +82,11 @@ public class GUI_Cliente extends javax.swing.JFrame {
         jTextCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTextCantidad = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonAgregar = new javax.swing.JButton();
+        jButtonGuardar = new javax.swing.JButton();
         jTextFecha = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jButtonNuevoCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,6 +98,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
             }
         });
 
+        jButtonIngresar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButtonIngresar.setText("Ingresar");
         jButtonIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,13 +108,16 @@ public class GUI_Cliente extends javax.swing.JFrame {
 
         jLabel1.setText("Farmacias:");
 
+        jComboFarmacias.setEnabled(false);
         jComboFarmacias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboFarmaciasActionPerformed(evt);
             }
         });
 
+        jButtonListar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButtonListar.setText("Listar Productos");
+        jButtonListar.setEnabled(false);
         jButtonListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonListarActionPerformed(evt);
@@ -129,23 +135,46 @@ public class GUI_Cliente extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setEnabled(false);
         jScrollTabla.setViewportView(jTable1);
 
         jLabel3.setText("Codigo:");
 
+        jTextCodigo.setEnabled(false);
+
         jLabel2.setText("Cantidad:");
 
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jTextCantidad.setEnabled(false);
+
+        jButtonAgregar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButtonAgregar.setText("Agregar");
+        jButtonAgregar.setEnabled(false);
+        jButtonAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonAgregarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Guardar Pedido");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonGuardar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButtonGuardar.setText("Guardar Pedido");
+        jButtonGuardar.setEnabled(false);
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
+
+        jTextFecha.setEnabled(false);
+
+        jLabel4.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jLabel4.setText("AGREGAR PEDIDO");
+
+        jButtonNuevoCliente.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButtonNuevoCliente.setText("Nuevo Cliente");
+        jButtonNuevoCliente.setActionCommand("");
+        jButtonNuevoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevoClienteActionPerformed(evt);
             }
         });
 
@@ -156,46 +185,55 @@ public class GUI_Cliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboFarmacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonListar)
-                                .addGap(45, 45, 45)
-                                .addComponent(jTextFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(jPasswordClave, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(jButtonIngresar))))
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTextCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTextCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButtonAgregar)
+                                    .addComponent(jButtonGuardar)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jComboFarmacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButtonListar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(30, 30, 30)
+                                    .addComponent(jPasswordClave, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(31, 31, 31)
+                                    .addComponent(jButtonIngresar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButtonNuevoCliente)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))))
-                .addContainerGap(121, Short.MAX_VALUE))
+                        .addGap(248, 248, 248)
+                        .addComponent(jLabel4)))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPasswordClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonIngresar))
+                    .addComponent(jButtonIngresar)
+                    .addComponent(jButtonNuevoCliente))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -211,10 +249,10 @@ public class GUI_Cliente extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTextCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addComponent(jButton1)
+                .addComponent(jButtonAgregar)
                 .addGap(34, 34, 34)
-                .addComponent(jButton2)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addComponent(jButtonGuardar)
+                .addGap(53, 53, 53))
         );
 
         pack();
@@ -229,6 +267,13 @@ public class GUI_Cliente extends javax.swing.JFrame {
         }
         if (objLogCli.validarCliente(ArrayClientes, this.jTextCedula.getText(), String.valueOf(this.jPasswordClave.getPassword()))) {
             CargarCombo();
+            this.jComboFarmacias.setEnabled(true);
+            this.jButtonListar.setEnabled(true);
+            this.jTable1.setEnabled(true);
+            this.jTextCodigo.setEnabled(true);
+            this.jTextCantidad.setEditable(true);
+            this.jButtonAgregar.setEnabled(true);
+            this.jButtonGuardar.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(null, "Usuario no existe o incorrecto", "Error", JOptionPane.PLAIN_MESSAGE);
         }
@@ -267,7 +312,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboFarmaciasActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
         // TODO add your handling code here:
         Local objLocal = objLogLoc.BuscarLocal(ArrayFarmacias, this.jComboFarmacias.getSelectedItem().toString());
         Inventario objInv = objLogInv.BuscarProducto(objLocal.getInventarioGeneral(), this.jTextCodigo.getText());
@@ -278,9 +323,9 @@ public class GUI_Cliente extends javax.swing.JFrame {
             this.jTextCodigo.setText("");
             this.jTextCantidad.setText("");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonAgregarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         // TODO add your handling code here:
         double total = objLogInv.valor(productosPedidos);
         Cliente objCli = objLogCli.cargarCliente(ArrayClientes, this.jTextCedula.getText());
@@ -292,7 +337,13 @@ public class GUI_Cliente extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jButtonNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoClienteActionPerformed
+        new CrearCliente().setVisible(true);
+        this.dispose();
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButtonNuevoClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -334,14 +385,16 @@ public class GUI_Cliente extends javax.swing.JFrame {
         this.jComboFarmacias.setModel(new DefaultComboBoxModel(objCargar.CargarFarmacias(ArrayFarmacias).toArray()));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAgregar;
+    private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonIngresar;
     private javax.swing.JButton jButtonListar;
+    private javax.swing.JButton jButtonNuevoCliente;
     private javax.swing.JComboBox<String> jComboFarmacias;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPasswordField jPasswordClave;
     private javax.swing.JScrollPane jScrollTabla;
     private javax.swing.JTable jTable1;
