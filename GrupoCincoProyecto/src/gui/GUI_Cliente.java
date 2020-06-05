@@ -80,6 +80,11 @@ public class GUI_Cliente extends javax.swing.JFrame {
         jLabel1.setText("Farmacias:");
 
         jComboFarmacias.setEnabled(false);
+        jComboFarmacias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboFarmaciasActionPerformed(evt);
+            }
+        });
 
         jButtonListar.setText("Listar Productos");
         jButtonListar.addActionListener(new java.awt.event.ActionListener() {
@@ -203,6 +208,10 @@ public class GUI_Cliente extends javax.swing.JFrame {
     private void jPasswordClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordClaveActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordClaveActionPerformed
+
+    private void jComboFarmaciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboFarmaciasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboFarmaciasActionPerformed
 
     /**
      * @param args the command line arguments
