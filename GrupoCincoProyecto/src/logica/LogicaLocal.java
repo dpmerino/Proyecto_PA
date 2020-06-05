@@ -43,7 +43,13 @@ public class LogicaLocal {
                 return false;
             else
                 ObjLocal.AgregarInventario(cantidad, producto);
-        return true;
+
+       ObjLocal.inventarioGeneral.add(new Inventario(cantidad, producto));
+               return true;
+    }
+    public static Local AddInventario (Local objLocal, int cantidad, Producto producto){
+        objLocal.inventarioGeneral.add(new Inventario(cantidad, producto));
+        return objLocal;
     }
      public static Boolean ExistenciaLocal (ArrayList<Local> ArrayFarmacias, String codigo){
         boolean flag = false;
@@ -53,4 +59,12 @@ public class LogicaLocal {
         }
         return flag;
     }
+     public static Local BuscarConBodeguero(ArrayList<Local> ArrayFarmacias, String cedula){
+         Local objLocal = new Local();
+         for (Local objAuxLoc : ArrayFarmacias){
+             if (objAuxLoc.getBodeguero().getCedula().equals(cedula))
+                 objLocal = objAuxLoc;
+         }
+         return objLocal;
+     }
 }
