@@ -57,6 +57,8 @@ public class GUI_Cliente extends javax.swing.JFrame {
         jButtonListar = new javax.swing.JButton();
         jScrollTabla = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jTextCodigo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,6 +106,8 @@ public class GUI_Cliente extends javax.swing.JFrame {
         ));
         jScrollTabla.setViewportView(jTable1);
 
+        jLabel2.setText("Codigo:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -116,8 +120,8 @@ public class GUI_Cliente extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboFarmacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(jComboFarmacias, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
                                 .addComponent(jButtonListar))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -127,8 +131,18 @@ public class GUI_Cliente extends javax.swing.JFrame {
                                 .addComponent(jButtonIngresar))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(60, 60, 60)
+<<<<<<< HEAD
                         .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(183, Short.MAX_VALUE))
+=======
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(121, Short.MAX_VALUE))
+>>>>>>> 4868ece709b8b9ae0266bd9f0b3e16a5425059eb
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +159,15 @@ public class GUI_Cliente extends javax.swing.JFrame {
                     .addComponent(jButtonListar))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< HEAD
                 .addContainerGap(133, Short.MAX_VALUE))
+=======
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(208, Short.MAX_VALUE))
+>>>>>>> 4868ece709b8b9ae0266bd9f0b3e16a5425059eb
         );
 
         pack();
@@ -244,9 +266,11 @@ public class GUI_Cliente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonListar;
     private javax.swing.JComboBox<String> jComboFarmacias;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField jPasswordClave;
     private javax.swing.JScrollPane jScrollTabla;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextCedula;
+    private javax.swing.JTextField jTextCodigo;
     // End of variables declaration//GEN-END:variables
 }
