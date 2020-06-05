@@ -9,6 +9,7 @@ import clases.Cliente;
 import clases.Inventario;
 import clases.Local;
 import clases.Pedido;
+import clases.Producto;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -19,6 +20,8 @@ import javax.swing.table.DefaultTableModel;
 import logica.LogicaCliente;
 import logica.LogicaLocal;
 import logica.ValorCombo;
+import logica.LogicaProducto;
+import logica.LogicaInventario;
 
 /**
  *
@@ -31,7 +34,8 @@ public class GUI_Cliente extends javax.swing.JFrame {
     ArrayList<Pedido> ArrayPedidos = new ArrayList<>();
     
     LogicaLocal objLogLoc = new LogicaLocal();
-
+    LogicaProducto objLogPro = new LogicaProducto();
+    LogicaInventario objLogInv = new LogicaInventario();
     /**
      * Creates new form GUI_Cliente
      */
@@ -61,7 +65,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTextCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextCantidad = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -152,7 +156,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1))))
                 .addContainerGap(121, Short.MAX_VALUE))
@@ -177,7 +181,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jTextCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jButton1)
                 .addContainerGap(160, Short.MAX_VALUE))
@@ -237,6 +241,8 @@ public class GUI_Cliente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        Local objLocal = objLogLoc.BuscarLocal(ArrayFarmacias, this.jComboFarmacias.getSelectedItem().toString());
+        Inventario objInv = objLogI
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -289,8 +295,8 @@ public class GUI_Cliente extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordClave;
     private javax.swing.JScrollPane jScrollTabla;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextCantidad;
     private javax.swing.JTextField jTextCedula;
     private javax.swing.JTextField jTextCodigo;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
