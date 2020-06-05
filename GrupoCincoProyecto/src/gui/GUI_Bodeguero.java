@@ -104,6 +104,11 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
         getContentPane().add(jTextCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, 90, -1));
 
         jButton2.setText("Ingresar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, -1, -1));
 
         pack();
@@ -114,6 +119,10 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
       Producto ObjProd = new Producto(jTextCanti.getText(), jTextNom.getText(),Double.parseDouble(jTextPrec.getText()), jTextVenc.getText());
       
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
