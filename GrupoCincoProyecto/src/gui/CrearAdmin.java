@@ -7,7 +7,6 @@ package gui;
 
 /**
  *
- * @author Oscar
  */
 public class CrearAdmin extends javax.swing.JFrame {
 
