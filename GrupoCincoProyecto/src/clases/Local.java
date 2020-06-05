@@ -23,8 +23,6 @@ public class Local implements Serializable {
     public Inventario inventario;
     public String nombre;
     public String codigo;
-    public ArrayList<Inventario> inventarioGeneral = new ArrayList<>();
-    public ArrayList<Pedido> ArrayPedidos = new ArrayList<>();
 
     public Local(String direccion, Vendedor vendedor, Bodeguero bodeguero, Gerente gerente, String nombre, String codigo) {
         this.direccion = direccion;
@@ -56,7 +54,9 @@ public class Local implements Serializable {
         this.ArrayPedidos.add(new Pedido (fecha, estado, valor, cliente));
     }
     
-
+    public ArrayList<Inventario> inventarioGeneral = new ArrayList<>();
+    
+    public ArrayList<Pedido> ArrayPedidos = new ArrayList<>();
     
     public String getNombre() {
         return nombre;
