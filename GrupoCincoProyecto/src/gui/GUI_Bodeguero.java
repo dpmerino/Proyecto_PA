@@ -50,10 +50,10 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        jTextCod = new javax.swing.JTextField();
+        jTextNom = new javax.swing.JTextField();
+        jTextPrec = new javax.swing.JTextField();
+        jTextVenc = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jTextCanti = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -82,10 +82,10 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
 
         jLabel6.setText("Vencimiento");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, -1));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 80, -1));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 90, -1));
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 60, -1));
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 80, -1));
+        getContentPane().add(jTextCod, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 80, -1));
+        getContentPane().add(jTextNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 90, -1));
+        getContentPane().add(jTextPrec, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 60, -1));
+        getContentPane().add(jTextVenc, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 80, -1));
 
         jLabel7.setText("Cantidad");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, -1, -1));
@@ -111,8 +111,7 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       Local ObjLocal = ObjLogLoc.BuscarConBodeguero(ArrayLocales, jTextCedula.getText());
-      Producto ObjProd = new Producto(WIDTH, nombre, ERROR, vencimiento);
-      
+      Producto ObjProd = new Producto(jTextCanti.getText(), jTextNom.getText(),Double.parseDouble(jTextPrec.getText()), jTextVenc.getText());
       
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -171,9 +170,9 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField jTextCanti;
     private javax.swing.JTextField jTextCedula;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextCod;
+    private javax.swing.JTextField jTextNom;
+    private javax.swing.JTextField jTextPrec;
+    private javax.swing.JTextField jTextVenc;
     // End of variables declaration//GEN-END:variables
 }
