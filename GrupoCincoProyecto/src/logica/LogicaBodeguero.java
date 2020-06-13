@@ -5,7 +5,6 @@
  */
 package logica;
 
-import clases.Bodeguero;
 import clases.Local;
 import java.io.FileNotFoundException;
 import java.io.IOException;

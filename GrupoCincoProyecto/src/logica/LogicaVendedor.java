@@ -6,7 +6,6 @@
 package logica;
 
 import clases.Local;
-import clases.Vendedor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;

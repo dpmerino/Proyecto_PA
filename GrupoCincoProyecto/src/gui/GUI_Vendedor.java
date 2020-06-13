@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.LogicaLocal;
 import logica.LogicaVendedor;
@@ -205,7 +206,6 @@ public class GUI_Vendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAtrasActionPerformed
 
     private void jButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarActionPerformed
-
         try {
             // TODO add your handling code here:
             objLogVen.LeerVendedoresDAT(ArrayVen);
@@ -218,9 +218,9 @@ public class GUI_Vendedor extends javax.swing.JFrame {
         if (objLogVen.ValidarVendedor(Farmacias, jTextCedula.getText(), String.valueOf(this.jPasswordClave.getPassword()))){
             this.jTable1.setEnabled(true);
             this.jButtonListarPedidos.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Vendedor no existe");
         }
-        
-        
     }//GEN-LAST:event_jButtonIngresarActionPerformed
 
     private void jButtonListarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListarPedidosActionPerformed
