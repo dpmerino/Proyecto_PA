@@ -7,7 +7,6 @@ package gui;
 
 import clases.Inventario;
 import clases.Local;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -15,6 +14,7 @@ import java.util.logging.Logger;
 import logica.LogicaLocal;
 import clases.Producto;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import logica.LogicaBodeguero;
 
 /**
@@ -27,15 +27,23 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
      * Creates new form GUI_Bodeguero_V2
      */
     static LogicaLocal ObjLogLoc = new LogicaLocal();
-    
+
     ArrayList<Local> ArrayLocales = new ArrayList<>();
     static ArrayList ArrayInventario = new ArrayList<Inventario>();
     static boolean HayLocales;
-    
+
     LogicaLocal objLogLoc = new LogicaLocal();
     LogicaBodeguero objLogBod = new LogicaBodeguero();
+
     public GUI_Bodeguero_V2() {
         initComponents();
+        try {
+            LogicaLocal.LeerLocalesDAT(ArrayLocales);
+        } catch (IOException ex) {
+            Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -70,7 +78,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextCanti = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableInventario = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -135,7 +143,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
 
         jTextCanti.setEnabled(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableInventario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -146,8 +154,8 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setEnabled(false);
-        jScrollPane1.setViewportView(jTable1);
+        jTableInventario.setEnabled(false);
+        jScrollPane1.setViewportView(jTableInventario);
 
         jButton1.setText("Guardar Inventario");
 
@@ -272,7 +280,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
         Local ObjLocal = ObjLogLoc.BuscarConBodeguero(ArrayLocales, jTextCedula.getText());
         int indexLocal = ArrayLocales.indexOf(ObjLocal);
-        Producto ObjProd = new Producto(this.jTextCod.getText(), this.jTextNom.getText(),Double.parseDouble(this.jTextPrec.getText()), this.jTextVenc.getText());
+        Producto ObjProd = new Producto(this.jTextCod.getText(), this.jTextNom.getText(), Double.parseDouble(this.jTextPrec.getText()), this.jTextVenc.getText());
         //Inventario objInv = new Inventario(Integer.parseInt(this.jTextCanti.getText()), ObjProd);
         ObjLocal.AgregarInventario(Integer.parseInt(this.jTextCanti.getText()), ObjProd);
         ArrayLocales.add(indexLocal, ObjLocal);
@@ -285,7 +293,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
 
     private void jButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarActionPerformed
         // TODO add your handling code here:
-        if(objLogBod.validarBodeguero(ArrayLocales, this.jTextCedula.getText(), String.valueOf(this.jPassword.getPassword()))){
+        if (objLogBod.validarBodeguero(ArrayLocales, this.jTextCedula.getText(), String.valueOf(this.jPassword.getPassword()))) {
             Local ObjLocal = ObjLogLoc.BuscarConBodeguero(ArrayLocales, jTextCedula.getText());
             this.jTextNombreLocal.setText(ObjLocal.getNombre());
             this.jTextCanti.setEnabled(true);
@@ -294,7 +302,10 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
             this.jTextPrec.setEnabled(true);
             this.jTextVenc.setEnabled(true);
             this.jButtonAgregar.setEnabled(true);
-        }else{
+            this.jTextCedula.setEnabled(false);
+            this.jPassword.setEnabled(false);
+            CargarInventario();
+        } else {
             JOptionPane.showMessageDialog(null, "No existe", "Erroe", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_jButtonIngresarActionPerformed
@@ -340,6 +351,24 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
         });
     }
 
+    void CargarInventario() {
+        Object columnas[] = {
+            "Codigo", "Nombre", "Cantidad", "Precio", "Vencimiento"
+        };
+        DefaultTableModel model = new DefaultTableModel(null, columnas);
+        Local objLocal = ObjLogLoc.BuscarConBodeguero(ArrayLocales, jTextCedula.getText());
+        this.jTableInventario.setModel(model);
+        for (Inventario objInv : objLocal.getInventarioGeneral()) {
+            String NewValor[] = {
+                objInv.getProducto().getCodigo(),
+                objInv.getProducto().getNombre(),
+                String.valueOf(objInv.getCantidad()),
+                String.valueOf(objInv.getProducto().getPrecio()),
+                objInv.getProducto().getVencimiento()
+            };
+            model.addRow(NewValor);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAgregar;
@@ -358,7 +387,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPasswordField jPassword;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableInventario;
     private javax.swing.JTextField jTextCanti;
     private javax.swing.JTextField jTextCedula;
     private javax.swing.JTextField jTextCod;
