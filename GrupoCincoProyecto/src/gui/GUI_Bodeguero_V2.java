@@ -352,6 +352,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
     }
 
     void CargarInventario() {
+        
         Object columnas[] = {
             "Codigo", "Nombre", "Cantidad", "Precio", "Vencimiento"
         };
