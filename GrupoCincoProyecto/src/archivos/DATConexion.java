@@ -11,7 +11,6 @@ import java.sql.SQLException;
 
 /**
  *
- * @author diegomerino
  */
 public class DATConexion {
 

@@ -13,7 +13,6 @@ import java.sql.Statement;
 
 /**
  *
- * @author diegomerino
  */
 public class DATCLiente {
 
