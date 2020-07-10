@@ -19,21 +19,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class LogicaLocal {
-    
+
     static String fichero = "archivos/locales.dat";
     DATLocal objDatLoc = new DATLocal();
     LogicaGerente objLogGer = new LogicaGerente();
     LogicaBodeguero objLogBod = new LogicaBodeguero();
     LogicaVendedor objLogVen = new LogicaVendedor();
-    
+
+    public LogicaLocal() {
+    }
+
     public static void EscribirLocalesDAT(ArrayList ArrayObjetos) throws IOException {
         archivos.ArchivoGeneral.EscribirDAT(ArrayObjetos, fichero);
     }
-    
+
     public static void LeerLocalesDAT(ArrayList ArrayObjetos) throws IOException, FileNotFoundException, ClassNotFoundException {
         archivos.ArchivoGeneral.LeerDAT(ArrayObjetos, fichero);
     }
-    
+
     public static Local BuscarLocal(ArrayList<Local> ArrayFarmacias, String codigo) {
         Local objLocAux = new Local();
         for (Local objLoc : ArrayFarmacias) {
@@ -43,7 +46,7 @@ public class LogicaLocal {
         }
         return objLocAux;
     }
-    
+
     public static boolean AgregarIventario(Local ObjLocal,
             int cantidad, Producto producto) {
         if (1 == 0 && 2 == 1) {
@@ -56,16 +59,16 @@ public class LogicaLocal {
                 }
             }
         }
-        
+
         ObjLocal.inventarioGeneral.add(new Inventario(cantidad, producto));
         return true;
     }
-    
+
     public static Local AddInventario(Local objLocal, int cantidad, Producto producto) {
         objLocal.inventarioGeneral.add(new Inventario(cantidad, producto));
         return objLocal;
     }
-    
+
     public static Boolean ExistenciaLocal(ArrayList<Local> ArrayFarmacias, String codigo) {
         boolean flag = false;
         for (Local objLocal : ArrayFarmacias) {
@@ -75,8 +78,8 @@ public class LogicaLocal {
         }
         return flag;
     }
-    
-     public static Local BuscarConBodeguero(ArrayList<Local> ArrayFarmacias, String cedula) {
+
+    public static Local BuscarConBodeguero(ArrayList<Local> ArrayFarmacias, String cedula) {
         Local objLocal = new Local();
         for (Local objAuxLoc : ArrayFarmacias) {
             if (objAuxLoc.getBodeguero().getCedula().equals(cedula)) {
@@ -85,7 +88,8 @@ public class LogicaLocal {
         }
         return objLocal;
     }
-     public  ArrayList<Local> LeerLocales(ArrayList<Local> ArrayLocales) throws ClassNotFoundException, SQLException{
+
+    public ArrayList<Local> LeerLocales(ArrayList<Local> ArrayLocales) throws ClassNotFoundException, SQLException {
         ResultSet rs = objDatLoc.ConsultarLocal();
         ResultSetMetaData rm = rs.getMetaData();
         //Recupera los campos de la tabla
@@ -97,21 +101,24 @@ public class LogicaLocal {
         }
         //Envia los datos a la Clase
         while (rs.next()) {
-            Local objLocal= new Local();
+            Local objLocal = new Local();
             for (String columnName : columnas) {
                 String value = rs.getString(columnName);
-                if (columnName.equals("nombre"))
+                if (columnName.equals("nombre")) {
                     objLocal.setNombre(value);
-                if (columnName.equals("codigo"))
+                }
+                if (columnName.equals("codigo")) {
                     objLocal.setCodigo(value);
-                if (columnName.equals("direccion"))
-                    objLocal.setDireccion(value);               
+                }
+                if (columnName.equals("direccion")) {
+                    objLocal.setDireccion(value);
+                }
             }
             ArrayLocales.add(objLocal);
         }
         return ArrayLocales;
     }
-    
+
     public Local ConsultarLocalConCodigo(String codigo) throws ClassNotFoundException, SQLException {
         Local objLocal = new Local();
         ResultSet rs = objDatLoc.ConsultarLocalCodigo(codigo);
@@ -140,7 +147,7 @@ public class LogicaLocal {
         }
         return objLocal;
     }
-    
+
     public Local ConsultarLocalId(int idLoc) throws ClassNotFoundException, SQLException {
         Local objLoc = new Local();
         ResultSet rs = objDatLoc.ConsultarLocalID(idLoc);
@@ -154,7 +161,7 @@ public class LogicaLocal {
         }
         //Envia los datos a la Clase
         while (rs.next()) {
-            
+
             for (String columnName : columnas) {
                 String value = rs.getString(columnName);
                 if (columnName.equals("nombre")) {
@@ -170,6 +177,36 @@ public class LogicaLocal {
         }
         return objLoc;
     }
+    public Local ConsultarLocalIdConBodeguero(String cedula) throws ClassNotFoundException, SQLException {
+        Local objLoc = new Local();
+        ResultSet rs = objDatLoc.ConsultarLocalConBodeguero(cedula);
+        ResultSetMetaData rm = rs.getMetaData();
+        //Recupera los campos de la tabla
+        int columnCount = rm.getColumnCount();
+        ArrayList<String> columnas = new ArrayList<>();
+        for (int i = 1; i <= columnCount; i++) {
+            String columnName = rm.getColumnName(i);
+            columnas.add(columnName);
+        }
+        //Envia los datos a la Clase
+        while (rs.next()) {
+
+            for (String columnName : columnas) {
+                String value = rs.getString(columnName);
+                if (columnName.equals("nombre")) {
+                    objLoc.setNombre(value);
+                }
+                if (columnName.equals("codigo")) {
+                    objLoc.setCodigo(value);
+                }
+                if (columnName.equals("direccion")) {
+                    objLoc.setDireccion(value);
+                }
+            }
+        }
+        return objLoc;
+    }
+    
 
     public int ConsultarIDLocalConNombre(String nombre) throws ClassNotFoundException, SQLException {
         ResultSet rs = objDatLoc.ConsultarLocalNombre(nombre);
@@ -193,7 +230,7 @@ public class LogicaLocal {
         }
         return idLoc;
     }
-    
+
     public int ConsultarIDLocal(String codigo) throws ClassNotFoundException, SQLException {
         ResultSet rs = objDatLoc.ConsultarLocalCodigo(codigo);
         ResultSetMetaData rm = rs.getMetaData();
@@ -216,7 +253,7 @@ public class LogicaLocal {
         }
         return idLoc;
     }
-    
+
     public void InsertarLocal(Local local, Vendedor vendedor) throws ClassNotFoundException, SQLException {
         //Se insertan los objetos
         objLogGer.InsertarGerente(local.getGerente());
@@ -226,9 +263,9 @@ public class LogicaLocal {
         int idBod = objLogBod.ConsultarIDBodeguero(local.getBodeguero().getCedula());
         //Se inserta el local con los gerentes y bodegueros
         objDatLoc.InsertarLocal(local, idGer, idBod);
-        
+
         int idLoc = ConsultarIDLocal(local.getCodigo());
-        
+
         objLogVen.InsertarVendedor(vendedor, idLoc);
     }
 }

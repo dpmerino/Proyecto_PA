@@ -18,6 +18,7 @@ import clases.Producto;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import logica.LogicaBodeguero;
+import logica.LogicaInventario;
 
 /**
  *
@@ -27,22 +28,22 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
     /**
      * Creates new form GUI_Bodeguero
      */
-    static LogicaLocal ObjLogLoc = new LogicaLocal();
+    LogicaLocal ObjLogLoc = new LogicaLocal();
 
     ArrayList<Local> ArrayLocales = new ArrayList<>();
     static ArrayList ArrayInventario = new ArrayList<Inventario>();
     static boolean HayLocales;
     static Bodeguero objBodeguero;
+    static Local ObjLocal;
 
-    LogicaLocal objLogLoc = new LogicaLocal();
+
     LogicaBodeguero objLogBod = new LogicaBodeguero();
+    LogicaInventario objLogInv = new LogicaInventario();
 
-    public GUI_Bodeguero() {
+    public GUI_Bodeguero() throws SQLException {
         initComponents();
         try {
-            LogicaLocal.LeerLocalesDAT(ArrayLocales);
-        } catch (IOException ex) {
-            Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
+            ObjLogLoc.LeerLocales(ArrayLocales);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -255,15 +256,19 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-        Local ObjLocal = ObjLogLoc.BuscarConBodeguero(ArrayLocales, jTextCedula.getText());
-        int indexLocal = ArrayLocales.indexOf(ObjLocal);
-        //Inventario objInv = new Inventario(Integer.parseInt(this.jTextCanti.getText()), ObjProd);
-//      Producto ObjProd = new Producto(this.jTextCod.getText(), this.jTextNom.getText(),Double.parseDouble(this.jTextPrec.getText()));
-//      ObjLocal.AgregarInventario(Integer.parseInt(this.jTextCanti.getText()), ObjProd);
-        ArrayLocales.add(indexLocal, ObjLocal);
+        ObjLogLoc = new LogicaLocal();
         try {
-            LogicaLocal.EscribirLocalesDAT(ArrayLocales);
-        } catch (IOException ex) {
+            ObjLocal = ObjLogLoc.ConsultarLocalIdConBodeguero(jTextCedula.getText());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//Inventario objInv = new Inventario(Integer.parseInt(this.jTextCanti.getText()), ObjProd);
+        Inventario objInv = new Inventario(Integer.parseInt(this.jTextCanti.getText()), this.jTextCod.getText(), this.jTextNom.getText(), Double.parseDouble(this.jTextPrec.getText()), ObjLocal);
+        try {
+            objLogInv.InsertarInventario(objInv);
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonAgregarActionPerformed
@@ -273,14 +278,16 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
 //        Boolean bandera = objLogBod.validarBodeguero(ArrayLocales, this.jTextCedula.getText(), String.valueOf(this.jPassword.getPassword()));
         try {
             objBodeguero = objLogBod.ConsultarBodegueroConCedula(this.jTextCedula.getText());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (objBodeguero.getCedula().equals(this.jTextCedula.getText()) && objBodeguero.getClave().equals(String.valueOf(this.jPassword.getPassword()))) {
-            Local ObjLocal = ObjLogLoc.BuscarConBodeguero(ArrayLocales, this.jTextCedula.getText());
+            try {
+                ObjLocal = ObjLogLoc.ConsultarLocalIdConBodeguero(jTextCedula.getText());
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.jTextNombreLocal.setText(ObjLocal.getNombre());
             this.jTextCanti.setEnabled(true);
             this.jTextCod.setEnabled(true);
@@ -328,7 +335,11 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI_Bodeguero().setVisible(true);
+                try {
+                    new GUI_Bodeguero().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

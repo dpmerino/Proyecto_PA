@@ -5,6 +5,10 @@
  */
 package gui;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  */
@@ -135,7 +139,11 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jButtonBodegueroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBodegueroActionPerformed
-        new GUI_Bodeguero().setVisible(true);
+        try {
+            new GUI_Bodeguero().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
 // TODO add your handling code here:
     }//GEN-LAST:event_jButtonBodegueroActionPerformed
