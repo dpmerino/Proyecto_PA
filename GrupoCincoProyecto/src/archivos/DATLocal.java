@@ -34,7 +34,15 @@ public class DATLocal {
     public ResultSet ConsultarLocalCodigo(String codigo)
             throws ClassNotFoundException, SQLException {
         Statement st = con.AbrirConexion().createStatement();
-        String Sentencia = "SELECT * FROM local WHERE codigo = '" + codigo +"'";
+        String Sentencia = "SELECT * FROM local WHERE codigo = '" + codigo + "'";
+        rs = st.executeQuery(Sentencia);
+        return rs;
+    }
+
+    public ResultSet ConsultarLocalNombre(String nombre)
+            throws ClassNotFoundException, SQLException {
+        Statement st = con.AbrirConexion().createStatement();
+        String Sentencia = "SELECT * FROM local WHERE nombre = '" + nombre + "'";
         rs = st.executeQuery(Sentencia);
         return rs;
     }

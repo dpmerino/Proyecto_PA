@@ -26,6 +26,21 @@ public class DATCLiente {
         rs = st.executeQuery(sentencia);
         return rs;
     }
+    
+    public ResultSet ConsultarClienteConCedula(String cedula) throws ClassNotFoundException, SQLException {
+        Statement st = con.AbrirConexion().createStatement();
+        String sentencia = "SELECT * FROM cliente WHERE cedula = " + cedula;
+        rs = st.executeQuery(sentencia);
+        return rs;
+    }
+
+    public ResultSet ConsultarClienteConID(int idCli)
+            throws ClassNotFoundException, SQLException {
+        Statement st = con.AbrirConexion().createStatement();
+        String Sentencia = "SELECT * FROM cliente where idCliente = " + idCli;
+        rs = st.executeQuery(Sentencia);
+        return rs;
+    }
 
     public boolean InsertarExterno(Cliente ObjExterno) throws SQLException,
             ClassNotFoundException {

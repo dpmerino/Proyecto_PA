@@ -32,4 +32,12 @@ public class ValorCombo {
         }
         return cantidadProductos;
     }
+    
+    public ArrayList cargarLocal(ArrayList<Local> ArrayFarmacias){
+        ArrayList<String> farmacias = new ArrayList<>();
+        for (Local objLoc : ArrayFarmacias){
+            farmacias.add(objLoc.getNombre());
+        }
+        return farmacias;
+    }
 }

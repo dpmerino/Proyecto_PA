@@ -19,11 +19,56 @@ import java.io.Serializable;
 public class Inventario implements Serializable{
 	public int cantidad;
 	public Producto producto;
+        public String codigo;
+	public String nombre;
+	public double precio;
+        public Local local;
 
     public Inventario(int cantidad, Producto producto) {
         this.cantidad = cantidad;
         this.producto = producto;
     }
+
+    public Inventario(int cantidad, String codigo, String nombre, double precio, Local local) {
+        this.cantidad = cantidad;
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.local = local;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public Local getLocal() {
+        return local;
+    }
+
+    public void setLocal(Local local) {
+        this.local = local;
+    }
+    
     
     public Inventario() {
     }
