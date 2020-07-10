@@ -32,8 +32,16 @@ public class DATBodeguero {
 
     public ResultSet ConsultarBodegueroConCedula(String cedula) throws ClassNotFoundException, SQLException {
         Statement st = con.AbrirConexion().createStatement();
-        String sentencia = "SELECT * FROM admin WHERE cedula = " + cedula;
+        String sentencia = "SELECT * FROM bodeguero WHERE cedula = " + cedula;
         rs = st.executeQuery(sentencia);
+        return rs;
+    }
+
+    public ResultSet ConsultarBodegueroId(int idBod)
+            throws ClassNotFoundException, SQLException {
+        Statement st = con.AbrirConexion().createStatement();
+        String Sentencia = "SELECT * FROM bodeguero where idBodeguero = " + idBod;
+        rs = st.executeQuery(Sentencia);
         return rs;
     }
 
