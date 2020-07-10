@@ -7,6 +7,7 @@ package gui;
 
 import clases.Administrador;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -173,9 +174,15 @@ public class CrearAdmin extends javax.swing.JFrame {
                     this.jTextFieldClave.getText()
             );
             ArrayAdmins.add(objAdm);
+            System.out.println(objAdm);
             try {
-                LogicaAdmin.EscribirAdminDAT(ArrayAdmins);
-            } catch (IOException ex) {
+                objLogAdm.InsertarAdmin(objAdm);
+//            try {
+//                LogicaAdmin.EscribirAdminDAT(ArrayAdmins);
+//            } catch (IOException ex) {
+//                Logger.getLogger(CrearAdmin.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(CrearAdmin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
