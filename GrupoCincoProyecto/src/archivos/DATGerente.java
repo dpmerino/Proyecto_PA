@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,5 +33,17 @@ public class DATGerente {
     public boolean InsertarGerente (Gerente gerente){
         String sql = "INSERT INTO gerente (cedula, nombre, apellido, mail, clave, turno, sueldo) "
                 + "VALUES (?,?,?,?,?,?,?)";
+        try {
+            ps = con.AbrirConexion().prepareStatement(sql);
+            ps.setString(1, gerente.getCedula());
+            ps.setString(2, gerente.getNombre());
+            ps.setString(3, gerente.getApellido());
+            ps.setString(4, gerente.getMail());
+            ps.setString(5, gerente.getClave());
+            ps.setInt(6, gerente.getTurno());
+            ps.setDouble(7, gerente.getSueldo());
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DATGerente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

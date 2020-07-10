@@ -18,9 +18,9 @@ public class DATConexion {
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         String driver = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://den1.mysql2.gear.host:3306/grupo5";
+        String url = "jdbc:mysql://den1.mysql1.gear.host:3306/grupo5";
         Class.forName(driver);
-        return DriverManager.getConnection(url, "grupo5", "St1k?HcX~9J0");
+        return DriverManager.getConnection(url, "grupo5", "Ue8e6SnY_x-L");
     }
 
     public Connection AbrirConexion() throws ClassNotFoundException, SQLException {
