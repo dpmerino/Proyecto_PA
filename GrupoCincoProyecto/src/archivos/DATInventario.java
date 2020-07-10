@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author diegomerino
  */
 public class DATInventario {
 
