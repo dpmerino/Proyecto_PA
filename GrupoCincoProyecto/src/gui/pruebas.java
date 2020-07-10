@@ -25,7 +25,7 @@ public class pruebas {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         local = objLogLoc.ConsultarLocalConCodigo("loc1");
         int idLoc = objLogLoc.ConsultarIDLocal(local.getCodigo());
-        Vendedor objVen = new Vendedor(local, 700, 1, "17888", "juan", "opablo", "asdfa", "jjjjj");
+        Vendedor objVen = new Vendedor(local, 1, 700, "17888", "juan", "opablo", "asdfa", "jjjjj");
         objLogVen.InsertarVendedor(objVen, idLoc);
 ////            Bodeguero bod = objLogBod.ConsultarBodegueroConCedula("2222");
 ////            System.out.println(bod);
