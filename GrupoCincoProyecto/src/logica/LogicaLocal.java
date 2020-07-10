@@ -85,6 +85,32 @@ public class LogicaLocal {
         }
         return objLocal;
     }
+     public  ArrayList<Local> LeerLocales(ArrayList<Local> ArrayLocales) throws ClassNotFoundException, SQLException{
+        ResultSet rs = objDatLoc.ConsultarLocal();
+        ResultSetMetaData rm = rs.getMetaData();
+        //Recupera los campos de la tabla
+        int columnCount = rm.getColumnCount();
+        ArrayList<String> columnas = new ArrayList<>();
+        for (int i = 1; i <= columnCount; i++) {
+            String columnName = rm.getColumnName(i);
+            columnas.add(columnName);
+        }
+        //Envia los datos a la Clase
+        while (rs.next()) {
+            Local objLocal= new Local();
+            for (String columnName : columnas) {
+                String value = rs.getString(columnName);
+                if (columnName.equals("nombre"))
+                    objLocal.setNombre(value);
+                if (columnName.equals("codigo"))
+                    objLocal.setCodigo(value);
+                if (columnName.equals("direccion"))
+                    objLocal.setDireccion(value);               
+            }
+            ArrayLocales.add(objLocal);
+        }
+        return ArrayLocales;
+    }
     
     public Local ConsultarLocalConCodigo(String codigo) throws ClassNotFoundException, SQLException {
         Local objLocal = new Local();
@@ -145,6 +171,28 @@ public class LogicaLocal {
         return objLoc;
     }
 
+    public int ConsultarIDLocalConNombre(String nombre) throws ClassNotFoundException, SQLException {
+        ResultSet rs = objDatLoc.ConsultarLocalNombre(nombre);
+        ResultSetMetaData rm = rs.getMetaData();
+        //Recupera los campos de la tabla
+        int columnCount = rm.getColumnCount();
+        ArrayList<String> columnas = new ArrayList<>();
+        for (int i = 1; i <= columnCount; i++) {
+            String columnName = rm.getColumnName(i);
+            columnas.add(columnName);
+        }
+        //Envia los datos a la Clase
+        int idLoc = 0;
+        while (rs.next()) {
+            for (String columnName : columnas) {
+                String value = rs.getString(columnName);
+                if (columnName.equals("idLocal")) {
+                    idLoc = Integer.parseInt(value);
+                }
+            }
+        }
+        return idLoc;
+    }
     public int ConsultarIDLocal(String codigo) throws ClassNotFoundException, SQLException {
         ResultSet rs = objDatLoc.ConsultarLocalCodigo(codigo);
         ResultSetMetaData rm = rs.getMetaData();

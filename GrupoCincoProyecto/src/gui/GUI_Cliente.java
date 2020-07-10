@@ -10,6 +10,7 @@ import clases.Inventario;
 import clases.Local;
 import clases.Pedido;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,7 +35,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
     LogicaCliente objLogCli = new LogicaCliente();
     ArrayList<Local> ArrayFarmacias = new ArrayList<>();
     ArrayList<Pedido> ArrayPedidos = new ArrayList<>();
-    ArrayList<Inventario> productosPedidos = new ArrayList<>();
+    ArrayList<Inventario> InventarioLocal = new ArrayList<>();
     
     LogicaLocal objLogLoc = new LogicaLocal();
     LogicaProducto objLogPro = new LogicaProducto();
@@ -42,6 +43,8 @@ public class GUI_Cliente extends javax.swing.JFrame {
     LogicaPedidos objLogPed = new LogicaPedidos();
     
     String fecha;
+    Cliente objCli;
+    Local objLocal;
     /**
      * Creates new form GUI_Cliente
      */
@@ -52,10 +55,14 @@ public class GUI_Cliente extends javax.swing.JFrame {
         this.jTextFecha.setText(fecha);
          
         try {
-            LogicaLocal.LeerLocalesDAT(ArrayFarmacias);
-            // this.jLabel1.setVisible(false);
-            //this.jComboFarmacias.setVisible(false);
-        } catch (IOException | ClassNotFoundException ex) {
+            try {
+                objLogLoc.LeerLocales(ArrayFarmacias);
+                // this.jLabel1.setVisible(false);
+                //this.jComboFarmacias.setVisible(false);
+            } catch (SQLException ex) {
+                Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         CargarCombo();
@@ -279,11 +286,11 @@ public class GUI_Cliente extends javax.swing.JFrame {
     private void jButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarActionPerformed
         try {
             // TODO add your handling code here:
-            LogicaCliente.LeerClientesDAT(ArrayClientes);
-        } catch (IOException | ClassNotFoundException ex) {
+            objCli = objLogCli.ConsultarClienteConCedula(this.jTextCedula.getText());
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (objLogCli.validarCliente(ArrayClientes, this.jTextCedula.getText(), String.valueOf(this.jPasswordClave.getPassword()))) {
+        if (objCli.getCedula().equals(this.jTextCedula.getText()) && objCli.getClave().equals(String.valueOf(this.jPasswordClave.getPassword()))) {
             CargarCombo();
             this.jComboFarmacias.setEnabled(true);
             this.jButtonListar.setEnabled(true);
@@ -299,13 +306,16 @@ public class GUI_Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonIngresarActionPerformed
 
     private void jButtonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListarActionPerformed
+        // TODO add your handling code here:
+        ArrayFarmacias.removeAll(ArrayFarmacias);
+        int idLocal;
         try {
-            // TODO add your handling code here:
-            ArrayFarmacias.removeAll(ArrayFarmacias);
-            logica.LogicaLocal.LeerLocalesDAT(ArrayFarmacias);
-        } catch (IOException | ClassNotFoundException ex) {
+            idLocal = objLogLoc.ConsultarIDLocalConNombre(this.jComboFarmacias.getModel().toString());
+            objLogInv.LeerInventario(InventarioLocal, idLocal);
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         Object columnas[] = {
             "Nombre", "Codigo", "Precio", "Cantidad"
         };
@@ -347,7 +357,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
         if(Integer.parseInt(this.jTextCantidad.getText()) > objInv.cantidad){
             JOptionPane.showMessageDialog(null, "No hay cantidad suficiente", "Error", JOptionPane.PLAIN_MESSAGE);
         } else{
-            productosPedidos.add(new Inventario(Integer.parseInt(this.jTextCantidad.getText()), objInv.getProducto()));
+            InventarioLocal.add(new Inventario(Integer.parseInt(this.jTextCantidad.getText()), objInv.getProducto()));
             this.jTextCodigo.setText("");
             this.jTextCantidad.setText("");
         }
@@ -355,10 +365,10 @@ public class GUI_Cliente extends javax.swing.JFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         // TODO add your handling code here:
-        double total = objLogInv.valor(productosPedidos);
+        double total = objLogInv.valor(InventarioLocal);
         Cliente objCli = objLogCli.cargarCliente(ArrayClientes, this.jTextCedula.getText());
         Local objLocal = objLogLoc.BuscarLocal(ArrayFarmacias, this.jComboFarmacias.getSelectedItem().toString());
-        Pedido objPedido = new Pedido(fecha,0,total,objCli, productosPedidos,objLocal);
+        Pedido objPedido = new Pedido(fecha,0,total,objCli, InventarioLocal,objLocal);
         ArrayPedidos.add(objPedido);
         try {
             LogicaPedidos.EscribirPedidosDAT(ArrayPedidos);
@@ -422,7 +432,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
 
     public void CargarCombo() {
         logica.ValorCombo objCargar = new ValorCombo();
-        this.jComboFarmacias.setModel(new DefaultComboBoxModel(objCargar.CargarFarmacias(ArrayFarmacias).toArray()));
+        this.jComboFarmacias.setModel(new DefaultComboBoxModel(objCargar.cargarLocal(ArrayFarmacias).toArray()));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

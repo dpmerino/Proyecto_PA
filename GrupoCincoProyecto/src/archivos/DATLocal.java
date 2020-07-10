@@ -38,6 +38,13 @@ public class DATLocal {
         rs = st.executeQuery(Sentencia);
         return rs;
     }
+       public ResultSet ConsultarLocalNombre(String nombre)
+            throws ClassNotFoundException, SQLException {
+        Statement st = con.AbrirConexion().createStatement();
+        String Sentencia = "SELECT * FROM local WHERE nombre = '" + nombre +"'";
+        rs = st.executeQuery(Sentencia);
+        return rs;
+    }
 
     public ResultSet ConsultarLocalID(int idLoc)
             throws ClassNotFoundException, SQLException {
