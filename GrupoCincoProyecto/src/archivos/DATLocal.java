@@ -42,7 +42,7 @@ public class DATLocal {
     public ResultSet ConsultarLocalID(int idLoc)
             throws ClassNotFoundException, SQLException {
         Statement st = con.AbrirConexion().createStatement();
-        String Sentencia = "SELECT * FROM vendedor where idLocal = " + idLoc;
+        String Sentencia = "SELECT * FROM local where idLocal = " + idLoc;
         rs = st.executeQuery(Sentencia);
         return rs;
     }
