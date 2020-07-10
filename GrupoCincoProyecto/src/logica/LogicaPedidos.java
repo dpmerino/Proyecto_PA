@@ -5,9 +5,11 @@
  */
 package logica;
 
+import archivos.DATPedido;
 import clases.Pedido;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -17,6 +19,10 @@ import java.util.ArrayList;
 public class LogicaPedidos {
     
     static String fichero = "archivos/pedidos.dat";
+    DATPedido objDatPed = new DATPedido();
+    LogicaCliente objLogCli = new LogicaCliente();
+    LogicaLocal objLogLoc = new LogicaLocal();
+    LogicaVendedor objLogicaVendedor = new LogicaVendedor();
     
     public static void EscribirPedidosDAT (ArrayList ArrayObjetos) throws IOException{
         archivos.ArchivoGeneral.EscribirDAT(ArrayObjetos, fichero);
@@ -33,5 +39,12 @@ public class LogicaPedidos {
                 pedidosLocales.add(objPed);
         }
         return pedidosLocales;
+    }
+    
+    public void InsetarPedido(Pedido pedido) throws ClassNotFoundException, SQLException{
+        int idCli = objLogCli.ConsultarIDCliente(pedido.getCliente().getCedula());
+        int idLoc = objLogLoc.ConsultarIDLocal(pedido.getFarmacia().getCodigo());
+        int idVen = objLogicaVendedor.ConsultarIDVendedor(pedido.getVendedor().getCedula());
+        objDatPed.InsertarPedido(pedido, idCli, idLoc, idVen);
     }
 }
