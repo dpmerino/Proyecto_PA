@@ -59,7 +59,7 @@ public class LogicaBodeguero {
         objDatBod.InsertarBodeguero(objBod);
     }
     
-    public Bodeguero ConsultarAdminConCedula(String Cedula) throws ClassNotFoundException, SQLException{
+    public Bodeguero ConsultarBodegueroConCedula(String Cedula) throws ClassNotFoundException, SQLException{
         Bodeguero objBodeguero= new Bodeguero();
         ResultSet rs = objDatBod.ConsultarBodegueroConCedula(Cedula);
         ResultSetMetaData rm = rs.getMetaData();
