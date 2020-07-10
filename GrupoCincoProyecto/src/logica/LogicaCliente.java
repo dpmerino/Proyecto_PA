@@ -5,10 +5,11 @@
  */
 package logica;
 
-import clases.Administrador;
+import archivos.DATCLiente;
 import clases.Cliente;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class LogicaCliente {
     
     static String fichero = "archivos/clientes.dat";
+    DATCLiente objDATCliente= new DATCLiente();
     
     public static void EscribirClientesDAT(ArrayList ArrayObjetos) throws IOException{
         archivos.ArchivoGeneral.EscribirDAT(ArrayObjetos, fichero);
@@ -49,5 +51,8 @@ public class LogicaCliente {
                 flag = true;
         }
         return flag;
+    }
+    public void InsertarCliente(Cliente objeto) throws SQLException, ClassNotFoundException{
+        objDATCliente.InsertarExterno(objeto);
     }
 }

@@ -8,11 +8,12 @@ package gui;
 import clases.Administrador;
 import clases.Cliente;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import logica.LogicaAdmin;
+import logica.LogicaCliente;
 import logica.LogicaCliente;
 
 /**
@@ -21,6 +22,7 @@ import logica.LogicaCliente;
 public class CrearCliente extends javax.swing.JFrame {
 
     ArrayList<Cliente> ArrayClientes = new ArrayList<>();
+    LogicaCliente objLogCliente = new LogicaCliente();
     /**
      * Creates new form CrearCliente
      */
@@ -233,8 +235,15 @@ public class CrearCliente extends javax.swing.JFrame {
             );
             ArrayClientes.add(objCliente);
             try {
-                LogicaCliente.EscribirClientesDAT(ArrayClientes);
-            } catch (IOException ex) {
+                objLogCliente.InsertarCliente(objCliente);
+//            try {
+//                LogicaCliente.EscribirClientesDAT(ArrayClientes);
+//            } catch (IOException ex) {
+//                Logger.getLogger(CrearCliente.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+            } catch (SQLException ex) {
+                Logger.getLogger(CrearCliente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
                 Logger.getLogger(CrearCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
