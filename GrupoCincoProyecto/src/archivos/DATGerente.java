@@ -22,15 +22,30 @@ public class DATGerente {
     DATConexion con = new DATConexion();
     ResultSet rs;
     PreparedStatement ps = null;
-    
-    public ResultSet ConsultarGerente() throws ClassNotFoundException, SQLException{
+
+    public ResultSet ConsultarGerente() throws ClassNotFoundException, SQLException {
         Statement st = con.AbrirConexion().createStatement();
-        String sentencia = "SELECT * FROM Gerente";
+        String sentencia = "SELECT * FROM gerente";
         rs = st.executeQuery(sentencia);
         return rs;
     }
-    
-    public boolean InsertarGerente (Gerente gerente){
+
+    public ResultSet ConsultarGerenteConCedula(String cedula) throws ClassNotFoundException, SQLException {
+        Statement st = con.AbrirConexion().createStatement();
+        String sentencia = "SELECT * FROM gerente WHERE cedula = " + cedula;
+        rs = st.executeQuery(sentencia);
+        return rs;
+    }
+
+    public ResultSet ConsultarGerenteId(int idGer)
+            throws ClassNotFoundException, SQLException {
+        Statement st = con.AbrirConexion().createStatement();
+        String Sentencia = "SELECT * FROM gerente where idGerente = " + idGer;
+        rs = st.executeQuery(Sentencia);
+        return rs;
+    }
+
+    public boolean InsertarGerente(Gerente gerente) {
         String sql = "INSERT INTO gerente (cedula, nombre, apellido, mail, clave, turno, sueldo) "
                 + "VALUES (?,?,?,?,?,?,?)";
         try {

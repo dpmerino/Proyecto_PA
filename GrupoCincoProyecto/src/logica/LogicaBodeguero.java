@@ -54,13 +54,13 @@ public class LogicaBodeguero {
             return false;
         }
     }
-    
-    public void InsertarBodeguero (Bodeguero objBod){
+
+    public void InsertarBodeguero(Bodeguero objBod) {
         objDatBod.InsertarBodeguero(objBod);
     }
-    
-    public Bodeguero ConsultarBodegueroConCedula(String Cedula) throws ClassNotFoundException, SQLException{
-        Bodeguero objBodeguero= new Bodeguero();
+
+    public Bodeguero ConsultarBodegueroConCedula(String Cedula) throws ClassNotFoundException, SQLException {
+        Bodeguero objBodeguero = new Bodeguero();
         ResultSet rs = objDatBod.ConsultarBodegueroConCedula(Cedula);
         ResultSetMetaData rm = rs.getMetaData();
         //Recupera los campos de la tabla
@@ -74,18 +74,95 @@ public class LogicaBodeguero {
         while (rs.next()) {
             for (String columnName : columnas) {
                 String value = rs.getString(columnName);
-                if (columnName.equals("cedula"))
+                if (columnName.equals("cedula")) {
                     objBodeguero.setCedula(value);
-                if (columnName.equals("nombre"))
+                }
+                if (columnName.equals("nombre")) {
                     objBodeguero.setNombre(value);
-                if (columnName.equals("apellido"))
+                }
+                if (columnName.equals("apellido")) {
                     objBodeguero.setApellido(value);
-                if (columnName.equals("mail"))
+                }
+                if (columnName.equals("mail")) {
                     objBodeguero.setMail(value);
-                if (columnName.equals("clave"))
-                    objBodeguero.setClave(value);                
+                }
+                if (columnName.equals("clave")) {
+                    objBodeguero.setClave(value);
+                }
+                if (columnName.equals("turno")) {
+                    objBodeguero.setTurno(Integer.parseInt(value));
+                }
+                if (columnName.equals("sueldo")) {
+                    objBodeguero.setSueldo(Integer.parseInt(value));
+                }
             }
         }
         return objBodeguero;
+    }
+
+    public Bodeguero ConsultarEmpleadoId(int idBod) throws ClassNotFoundException, SQLException {
+        Bodeguero objBodeguero = new Bodeguero();
+        ResultSet rs = objDatBod.ConsultarBodegueroId(idBod);
+        ResultSetMetaData rm = rs.getMetaData();
+        //Recupera los campos de la tabla
+        int columnCount = rm.getColumnCount();
+        ArrayList<String> columnas = new ArrayList<>();
+        for (int i = 1; i <= columnCount; i++) {
+            String columnName = rm.getColumnName(i);
+            columnas.add(columnName);
+        }
+        //Envia los datos a la Clase
+        while (rs.next()) {
+
+            for (String columnName : columnas) {
+                String value = rs.getString(columnName);
+                if (columnName.equals("cedula")) {
+                    objBodeguero.setCedula(value);
+                }
+                if (columnName.equals("nombre")) {
+                    objBodeguero.setNombre(value);
+                }
+                if (columnName.equals("apellido")) {
+                    objBodeguero.setApellido(value);
+                }
+                if (columnName.equals("mail")) {
+                    objBodeguero.setMail(value);
+                }
+                if (columnName.equals("clave")) {
+                    objBodeguero.setClave(value);
+                }
+                if (columnName.equals("turno")) {
+                    objBodeguero.setTurno(Integer.parseInt(value));
+                }
+                if (columnName.equals("sueldo")) {
+                    objBodeguero.setSueldo(Integer.parseInt(value));
+                }
+            }
+
+        }
+        return objBodeguero;
+    }
+
+    public int ConsultarIDBodeguero(String cedula) throws ClassNotFoundException, SQLException {
+        ResultSet rs = objDatBod.ConsultarBodegueroConCedula(cedula);
+        ResultSetMetaData rm = rs.getMetaData();
+        //Recupera los campos de la tabla
+        int columnCount = rm.getColumnCount();
+        ArrayList<String> columnas = new ArrayList<>();
+        for (int i = 1; i <= columnCount; i++) {
+            String columnName = rm.getColumnName(i);
+            columnas.add(columnName);
+        }
+        //Envia los datos a la Clase
+        int idBod = 0;
+        while (rs.next()) {
+            for (String columnName : columnas) {
+                String value = rs.getString(columnName);
+                if (columnName.equals("idBodeguero")) {
+                    idBod = Integer.parseInt(value);
+                }
+            }
+        }
+        return idBod;
     }
 }
