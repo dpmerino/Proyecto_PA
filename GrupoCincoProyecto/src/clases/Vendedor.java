@@ -17,27 +17,27 @@ import java.io.Serializable;
 
 
 public class Vendedor extends Empleado implements Serializable{
-	public int pedidoVendidos;
+	public Local local;
 
-    public Vendedor(int pedidoRealizados, int turno, double sueldo, String cedula, String nombre, String apellido, String mail, String clave) {
+    public Vendedor(Local local, int turno, double sueldo, String cedula, String nombre, String apellido, String mail, String clave) {
         super(turno, sueldo, cedula, nombre, apellido, mail, clave);
-        this.pedidoVendidos = pedidoRealizados;
+        this.local = local;
     }
 
-    public Vendedor(int pedidoRealizados) {
-        this.pedidoVendidos = pedidoRealizados;
+    public Vendedor(Local local) {
+        this.local = local;
     }
 
     public Vendedor() {
     }
 
 
-    public int getPedidoRealizados() {
-        return pedidoVendidos;
+    public Local getPedidoRealizados() {
+        return local;
     }
 
-    public void setPedidoRealizado(int pedidoRealizados) {
-        this.pedidoVendidos = pedidoRealizados;
+    public void setPedidoRealizado(Local local) {
+        this.local = local;
     }
 
     public int getTurno() {
@@ -98,7 +98,7 @@ public class Vendedor extends Empleado implements Serializable{
 
     @Override
     public String toString() {
-        return "Vendedor{" + "pedidoRealizado=" + pedidoVendidos + '}';
+        return "Vendedor{" + "local=" + local + '}';
     }
         
         

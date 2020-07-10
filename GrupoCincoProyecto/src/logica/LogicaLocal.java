@@ -6,11 +6,15 @@
 package logica;
 
 import archivos.DATLocal;
+import clases.Bodeguero;
 import clases.Inventario;
 import clases.Local;
 import clases.Producto;
+import clases.Vendedor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -20,6 +24,7 @@ public class LogicaLocal {
     DATLocal objDatLoc = new DATLocal();
     LogicaGerente objLogGer = new LogicaGerente();
     LogicaBodeguero objLogBod = new LogicaBodeguero();
+    LogicaVendedor objLogVen = new LogicaVendedor();
 
     public static void EscribirLocalesDAT(ArrayList ArrayObjetos) throws IOException {
         archivos.ArchivoGeneral.EscribirDAT(ArrayObjetos, fichero);
@@ -80,14 +85,98 @@ public class LogicaLocal {
         }
         return objLocal;
     }
-    public void InsertarLocal(Local local) throws ClassNotFoundException, SQLException{
+
+    public Local ConsultarLocalConCodigo(String codigo) throws ClassNotFoundException, SQLException {
+        Local objLocal = new Local();
+        ResultSet rs = objDatLoc.ConsultarLocalCodigo(codigo);
+        ResultSetMetaData rm = rs.getMetaData();
+        //Recupera los campos de la tabla
+        int columnCount = rm.getColumnCount();
+        ArrayList<String> columnas = new ArrayList<>();
+        for (int i = 1; i <= columnCount; i++) {
+            String columnName = rm.getColumnName(i);
+            columnas.add(columnName);
+        }
+        //Envia los datos a la Clase
+        while (rs.next()) {
+            for (String columnName : columnas) {
+                String value = rs.getString(columnName);
+                if (columnName.equals("nombre")) {
+                    objLocal.setNombre(value);
+                }
+                if (columnName.equals("codigo")) {
+                    objLocal.setCodigo(value);
+                }
+                if (columnName.equals("direccion")) {
+                    objLocal.setDireccion(value);
+                }
+            }
+        }
+        return objLocal;
+    }
+
+    public Local ConsultarLocalId(int idLoc) throws ClassNotFoundException, SQLException {
+        Local objLoc = new Local();
+        ResultSet rs = objDatLoc.ConsultarLocalID(idLoc);
+        ResultSetMetaData rm = rs.getMetaData();
+        //Recupera los campos de la tabla
+        int columnCount = rm.getColumnCount();
+        ArrayList<String> columnas = new ArrayList<>();
+        for (int i = 1; i <= columnCount; i++) {
+            String columnName = rm.getColumnName(i);
+            columnas.add(columnName);
+        }
+        //Envia los datos a la Clase
+        while (rs.next()) {
+
+            for (String columnName : columnas) {
+                String value = rs.getString(columnName);
+                if (columnName.equals("nombre")) {
+                    objLoc.setNombre(value);
+                }
+                if (columnName.equals("codigo")) {
+                    objLoc.setCodigo(value);
+                }
+                if (columnName.equals("direccion")) {
+                    objLoc.setDireccion(value);
+                }
+            }
+        }
+        return objLoc;
+    }
+     public int ConsultarIDLocal(String codigo) throws ClassNotFoundException, SQLException {
+        ResultSet rs = objDatLoc.ConsultarLocalCodigo(codigo);
+        ResultSetMetaData rm = rs.getMetaData();
+        //Recupera los campos de la tabla
+        int columnCount = rm.getColumnCount();
+        ArrayList<String> columnas = new ArrayList<>();
+        for (int i = 1; i <= columnCount; i++) {
+            String columnName = rm.getColumnName(i);
+            columnas.add(columnName);
+        }
+        //Envia los datos a la Clase
+        int idBod = 0;
+        while (rs.next()) {
+            for (String columnName : columnas) {
+                String value = rs.getString(columnName);
+                if (columnName.equals("idLocal")) {
+                    idBod = Integer.parseInt(value);
+                }
+            }
+        }
+        return idBod;
+    }
+
+    public void InsertarLocal(Local local, Vendedor vendedor) throws ClassNotFoundException, SQLException {
         //Se insertan los objetos
         objLogGer.InsertarGerente(local.getGerente());
         objLogBod.InsertarBodeguero(local.getBodeguero());
         //Se obtienen los ID
         int idGer = objLogGer.ConsultarIDGerente(local.getGerente().getCedula());
         int idBod = objLogBod.ConsultarIDBodeguero(local.getBodeguero().getCedula());
-        
+        //Se inserta el local con los gerentes y bodegueros
         objDatLoc.InsertarLocal(local, idGer, idBod);
+        int idLoc = ConsultarIDLocal(local.getCodigo());
+        objLogVen.InsertarVendedor(vendedor, idLoc);
     }
 }

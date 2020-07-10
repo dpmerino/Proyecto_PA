@@ -26,7 +26,7 @@ import logica.LogicaVendedor;
  *
  */
 public class CrearLocal extends javax.swing.JFrame {
-    
+
     ArrayList<Administrador> ArrayAdmins = new ArrayList<>();
     LogicaAdmin objLogAdmin = new LogicaAdmin();
     ArrayList<Local> ArrayFarmacias = new ArrayList<>();
@@ -35,7 +35,7 @@ public class CrearLocal extends javax.swing.JFrame {
     LogicaVendedor objLogVen = new LogicaVendedor();
     LogicaBodeguero objLogBod = new LogicaBodeguero();
     LogicaGerente objLogGer = new LogicaGerente();
-    
+
     Administrador objAdmin;
 
     /**
@@ -585,11 +585,11 @@ public class CrearLocal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordClaveActionPerformed
 
     private void jButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarActionPerformed
-        
+
         try {
             // TODO add your handling code here:
 //            LogicaAdmin.LeerAdminDAT(ArrayAdmins);
-              objAdmin = objLogAdmin.ConsultarAdminConCedula(this.jTextCedula.getText());
+            objAdmin = objLogAdmin.ConsultarAdminConCedula(this.jTextCedula.getText());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -627,31 +627,20 @@ public class CrearLocal extends javax.swing.JFrame {
 
     private void jButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearActionPerformed
         if (LogicaLocal.ExistenciaLocal(ArrayFarmacias, this.jTextFieldCodigoLocal.getText())
-                &&objLogVen.mailValido(jTextFieldMailVendedor.getText())
-                &&objLogBod.mailValido(jTextFieldMailBodeguero.getText())
-                &&objLogGer.mailValido(jTextFieldMailGerente.getText())){
+                && objLogVen.mailValido(jTextFieldMailVendedor.getText())
+                && objLogBod.mailValido(jTextFieldMailBodeguero.getText())
+                && objLogGer.mailValido(jTextFieldMailGerente.getText())) {
             if (LogicaLocal.ExistenciaLocal(ArrayFarmacias, this.jTextFieldCodigoLocal.getText())) {
                 JOptionPane.showMessageDialog(null, "Ya existe el local", "Error", JOptionPane.PLAIN_MESSAGE);
-            } else if(objLogVen.mailValido(jTextFieldMailVendedor.getText())){
+            } else if (objLogVen.mailValido(jTextFieldMailVendedor.getText())) {
                 JOptionPane.showMessageDialog(null, "Mail de Vendedor no valido.", "Error", JOptionPane.PLAIN_MESSAGE);
-                } else if(objLogBod.mailValido(jTextFieldMailBodeguero.getText())){
-                    JOptionPane.showMessageDialog(null, "Mail de Bodeguero no valido.", "Error", JOptionPane.PLAIN_MESSAGE);
-                    } else if(objLogGer.mailValido(jTextFieldMailGerente.getText())){
-                        JOptionPane.showMessageDialog(null, "Mail de Gerente no valido.", "Error", JOptionPane.PLAIN_MESSAGE);
+            } else if (objLogBod.mailValido(jTextFieldMailBodeguero.getText())) {
+                JOptionPane.showMessageDialog(null, "Mail de Bodeguero no valido.", "Error", JOptionPane.PLAIN_MESSAGE);
+            } else if (objLogGer.mailValido(jTextFieldMailGerente.getText())) {
+                JOptionPane.showMessageDialog(null, "Mail de Gerente no valido.", "Error", JOptionPane.PLAIN_MESSAGE);
             }
-            
-            
+
         } else {
-            Vendedor objVendedor = new Vendedor(
-                    this.auxCero,
-                    this.jComboVendedor.getSelectedIndex(),
-                    Double.parseDouble(this.jTextFieldSueldoVendedor.getText()),
-                    this.jTextFieldCedulaVendedor.getText(),
-                    this.jTextFieldNombreVendedor.getText(),
-                    this.jTextFieldApellidoVendedor.getText(),
-                    this.jTextFieldMailVendedor.getText(),
-                    this.jTextFieldClaveVendedor.getText()
-            );
             Bodeguero objBodeguero = new Bodeguero(
                     this.auxCero,
                     this.jComboBodeguero.getSelectedIndex(),
@@ -673,16 +662,25 @@ public class CrearLocal extends javax.swing.JFrame {
             );
             Local objLocal = new Local(
                     this.jTextFieldDireccionLocal.getText(),
-                    objVendedor,
                     objBodeguero,
                     objGerente,
                     this.jTextFieldNombreLocal.getText(),
                     this.jTextFieldCodigoLocal.getText()
             );
-            
+            Vendedor objVendedor = new Vendedor(
+                    objLocal,
+                    this.jComboVendedor.getSelectedIndex(),
+                    Double.parseDouble(this.jTextFieldSueldoVendedor.getText()),
+                    this.jTextFieldCedulaVendedor.getText(),
+                    this.jTextFieldNombreVendedor.getText(),
+                    this.jTextFieldApellidoVendedor.getText(),
+                    this.jTextFieldMailVendedor.getText(),
+                    this.jTextFieldClaveVendedor.getText()
+            );
+
             ArrayFarmacias.add(objLocal);
             try {
-                objLogLoc.InsertarLocal(objLocal);
+                objLogLoc.InsertarLocal(objLocal, objVendedor);
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(CrearLocal.class.getName()).log(Level.SEVERE, null, ex);
             }

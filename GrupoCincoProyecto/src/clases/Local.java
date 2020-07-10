@@ -33,6 +33,15 @@ public class Local implements Serializable {
         this.codigo = codigo;
     }
 
+    public Local(String direccion, Bodeguero bodeguero, Gerente gerente, String nombre, String codigo) {
+        this.direccion = direccion;
+        this.bodeguero = bodeguero;
+        this.gerente = gerente;
+        this.nombre = nombre;
+        this.codigo = codigo;
+    }
+    
+
     public Local(String direccion, boolean estaDeTurno, Pedido pedido, Vendedor vendedor, Bodeguero bodeguero, Gerente gerente, String nombre, String codigo, Producto producto, int cantidad) {
         this.direccion = direccion;
         this.pedido = pedido;

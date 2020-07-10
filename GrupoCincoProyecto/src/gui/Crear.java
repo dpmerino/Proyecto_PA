@@ -24,8 +24,8 @@ public class Crear {
         ListarVendedores();
     }
     static void CrearVendedores() throws IOException, FileNotFoundException, ClassNotFoundException{
-        ArrayVendedores.add(new Vendedor(0,0,400,"1900","Eduardo","Carrion","ec@gmail.com","vvvv"));
-        ArrayVendedores.add(new Vendedor(0,0,500,"1901","Andrea","Abad","aa@gmail.com","vvvv"));
+        //ArrayVendedores.add(new Vendedor(0,400,"1900","Eduardo","Carrion","ec@gmail.com","vvvv"));
+      //  ArrayVendedores.add(new Vendedor(0,500,"1901","Andrea","Abad","aa@gmail.com","vvvv"));
         
         objLogVen.EscribirVendedorDAT(ArrayVendedores);
     }
