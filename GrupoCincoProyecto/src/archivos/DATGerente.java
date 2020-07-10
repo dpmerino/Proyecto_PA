@@ -42,8 +42,17 @@ public class DATGerente {
             ps.setString(5, gerente.getClave());
             ps.setInt(6, gerente.getTurno());
             ps.setDouble(7, gerente.getSueldo());
+            ps.execute();
+            return true;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DATGerente.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            try {
+                con.CerrarConexion();
+            } catch (SQLException ex) {
+                Logger.getLogger(DATGerente.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

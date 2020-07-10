@@ -5,6 +5,8 @@
  */
 package logica;
 
+import archivos.DATGerente;
+import clases.Gerente;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.regex.Pattern;
  */
 public class LogicaGerente {
     static String fichero = "archivos/gerentes.dat";
+    DATGerente objDatGer = new DATGerente();
     
     public static void EscribirGerenteDAT (ArrayList ArrayObjetos) throws IOException{
         archivos.ArchivoGeneral.EscribirDAT(ArrayObjetos, fichero);
@@ -33,5 +36,8 @@ public class LogicaGerente {
        }else{
           return false;
      }
+    }
+    public void InsertarGerente (Gerente gerente){
+        objDatGer.InsertarGerente(gerente);
     }
 }
