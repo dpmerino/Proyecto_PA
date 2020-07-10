@@ -9,6 +9,8 @@ import archivos.DATAdmin;
 import clases.Administrador;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -48,5 +50,35 @@ public class LogicaAdmin {
 
     public void InsertarAdmin(Administrador admin) throws SQLException, ClassNotFoundException {
          objDatAdmin.InsertarAdmin(admin);
+    }
+    
+    public Administrador ConsultarAdminConCedula(String Cedula) throws ClassNotFoundException, SQLException{
+        Administrador objAdmin= new Administrador();
+        ResultSet rs = objDatAdmin.ConsultarAdminConCedula(Cedula);
+        ResultSetMetaData rm = rs.getMetaData();
+        //Recupera los campos de la tabla
+        int columnCount = rm.getColumnCount();
+        ArrayList<String> columnas = new ArrayList<>();
+        for (int i = 1; i <= columnCount; i++) {
+            String columnName = rm.getColumnName(i);
+            columnas.add(columnName);
+        }
+        //Envia los datos a la Clase
+        while (rs.next()) {
+            for (String columnName : columnas) {
+                String value = rs.getString(columnName);
+                if (columnName.equals("cedula"))
+                    objAdmin.setCedula(value);
+                if (columnName.equals("nombre"))
+                    objAdmin.setNombre(value);
+                if (columnName.equals("apellido"))
+                    objAdmin.setApellido(value);
+                if (columnName.equals("mail"))
+                    objAdmin.setMail(value);
+                if (columnName.equals("clave"))
+                    objAdmin.setClave(value);                
+            }
+        }
+        return objAdmin;
     }
 }

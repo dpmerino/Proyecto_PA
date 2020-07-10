@@ -7,18 +7,17 @@ package gui;
 
 import clases.Administrador;
 import clases.Bodeguero;
-import clases.Cliente;
 import clases.Gerente;
 import clases.Local;
 import clases.Vendedor;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import logica.LogicaAdmin;
 import logica.LogicaBodeguero;
-import logica.LogicaCliente;
 import logica.LogicaGerente;
 import logica.LogicaLocal;
 import logica.LogicaVendedor;
@@ -36,6 +35,8 @@ public class CrearLocal extends javax.swing.JFrame {
     LogicaVendedor objLogVen = new LogicaVendedor();
     LogicaBodeguero objLogBod = new LogicaBodeguero();
     LogicaGerente objLogGer = new LogicaGerente();
+    
+    Administrador objAdmin;
 
     /**
      * Creates new form CrearLocal
@@ -587,13 +588,14 @@ public class CrearLocal extends javax.swing.JFrame {
         
         try {
             // TODO add your handling code here:
-            LogicaAdmin.LeerAdminDAT(ArrayAdmins);
-        } catch (IOException ex) {
-            Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+//            LogicaAdmin.LeerAdminDAT(ArrayAdmins);
+              objAdmin = objLogAdmin.ConsultarAdminConCedula(this.jTextCedula.getText());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CrearLocal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (objLogAdmin.validarAdmin(ArrayAdmins, this.jTextCedula.getText(), String.valueOf(this.jPasswordClave.getPassword()))) {
+        if (objAdmin.getCedula().equals(this.jTextCedula.getText()) && objAdmin.getClave().equals(String.valueOf(this.jPasswordClave.getPassword()))) {
             this.jTextFieldNombreLocal.setEnabled(true);
             this.jTextFieldCodigoLocal.setEnabled(true);
             this.jTextFieldDireccionLocal.setEnabled(true);
