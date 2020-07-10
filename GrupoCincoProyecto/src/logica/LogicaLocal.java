@@ -76,7 +76,7 @@ public class LogicaLocal {
         return flag;
     }
     
-    public static Local BuscarConBodeguero(ArrayList<Local> ArrayFarmacias, String cedula) {
+     public static Local BuscarConBodeguero(ArrayList<Local> ArrayFarmacias, String cedula) {
         Local objLocal = new Local();
         for (Local objAuxLoc : ArrayFarmacias) {
             if (objAuxLoc.getBodeguero().getCedula().equals(cedula)) {
