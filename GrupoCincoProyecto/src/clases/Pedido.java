@@ -37,6 +37,19 @@ public class Pedido implements Serializable{
         this.vendedor = vendedor;
     }
 
+    public Pedido(String fecha, int estado, double valor, Cliente cliente, ArrayList<Inventario> productosPedidos, Local farmacia) {
+        this.fecha = fecha;
+        this.estado = estado;
+        this.valor = valor;
+        this.cliente = cliente;
+        this.farmacia = farmacia;
+        this.productosPedidos = productosPedidos;
+    }
+
+   
+    
+    
+
     public Vendedor getVendedor() {
         return vendedor;
     }

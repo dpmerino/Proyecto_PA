@@ -25,7 +25,7 @@ public class DATBodeguero {
 
     public ResultSet ConsultarBodeguero() throws ClassNotFoundException, SQLException {
         Statement st = con.AbrirConexion().createStatement();
-        String sentencia = "SELCT * FROM Bodeguero";
+        String sentencia = "SELECT * FROM Bodeguero";
         rs = st.executeQuery(sentencia);
         return rs;
     }
