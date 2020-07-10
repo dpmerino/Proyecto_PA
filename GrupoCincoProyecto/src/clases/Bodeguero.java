@@ -10,11 +10,9 @@ package clases;
 //
 //
 
-
-
-
 public class Bodeguero extends Empleado {
-	public int inventarioRecibido;
+
+    public int inventarioRecibido;
 
     public Bodeguero(int inventarioRecibido) {
         this.inventarioRecibido = inventarioRecibido;
@@ -29,11 +27,9 @@ public class Bodeguero extends Empleado {
         super(turno, sueldo, cedula, nombre, apellido, mail, clave);
         this.inventarioRecibido = inventarioRecibido;
     }
-    
 
     public Bodeguero() {
     }
-        
 
     public int getInventarioRecibido() {
         return inventarioRecibido;
@@ -103,5 +99,5 @@ public class Bodeguero extends Empleado {
     public String toString() {
         return "Bodeguero{" + "inventarioRecibido=" + inventarioRecibido + '}';
     }
-        
+
 }
