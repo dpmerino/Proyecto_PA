@@ -193,6 +193,7 @@ public class LogicaLocal {
         }
         return idLoc;
     }
+    
     public int ConsultarIDLocal(String codigo) throws ClassNotFoundException, SQLException {
         ResultSet rs = objDatLoc.ConsultarLocalCodigo(codigo);
         ResultSetMetaData rm = rs.getMetaData();

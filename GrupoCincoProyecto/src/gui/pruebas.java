@@ -38,7 +38,9 @@ public class pruebas {
 ////            System.out.println(bod);
 //        Cliente objCli = new Cliente("Azuay y 18 de nov", "097784", "David", "Sanchez", "ds@gmail.com", "dddd");
 //        objLogCli.InsertarCliente(objCli);
-    Inventario objInv = new Inventario(33, "005", "Finalin", 0.50, local);
-    objLogInv.InsertarInventario(objInv);
+//    Inventario objInv = new Inventario(33, "005", "Finalin", 0.50, local);
+//    objLogInv.InsertarInventario(objInv);
+int idLoc = objLogLoc.ConsultarIDLocalConNombre("ahorro");
+        System.out.println(idLoc);
     }
 }

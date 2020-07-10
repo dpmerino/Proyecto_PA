@@ -310,7 +310,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
         ArrayFarmacias.removeAll(ArrayFarmacias);
         int idLocal;
         try {
-            idLocal = objLogLoc.ConsultarIDLocalConNombre(this.jComboFarmacias.getModel().toString());
+            idLocal = objLogLoc.ConsultarIDLocalConNombre(this.jComboFarmacias.getModel().getSelectedItem().toString());
             objLogInv.LeerInventario(InventarioLocal, idLocal);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -321,13 +321,12 @@ public class GUI_Cliente extends javax.swing.JFrame {
         };
         DefaultTableModel model = new DefaultTableModel(null, columnas);
         this.jTable1.setModel(model);
-        Local objLocal = LogicaLocal.BuscarLocal(ArrayFarmacias, this.jComboFarmacias.getSelectedItem().toString());
-        for (Inventario objInv : objLocal.getInventarioGeneral()) {
+        for (Inventario objInv : InventarioLocal) {
             String NewValor[] = {
-                objInv.getProducto().getNombre(),
-                String.valueOf(objInv.getProducto().getCodigo()),
-                String.valueOf(objInv.getProducto().getPrecio()),
-                String.valueOf(objInv.cantidad)
+                objInv.getNombre(),
+                objInv.getCodigo(),
+                String.valueOf(objInv.getPrecio()),
+                String.valueOf(objInv.getCantidad())
             };
             model.addRow(NewValor);
         }
