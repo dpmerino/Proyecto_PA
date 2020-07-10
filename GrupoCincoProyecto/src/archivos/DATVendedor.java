@@ -48,7 +48,7 @@ public class DATVendedor {
     }
     
     public boolean InsertarVendedor(Vendedor vendedor, int idLoc) {
-        String sql = "INSERT INTO vendedor (cedula, nombre, apellido, mail, clave, turno, sueldo, Local_idLocal) "
+        String sql = "INSERT INTO vendedor (cedula, nombre, apellido, mail, clave, turno, suledo, Local_idLocal) "
                 + "VALUES (?,?,?,?,?,?,?,?)";
         try {
             ps = con.AbrirConexion().prepareStatement(sql);
