@@ -21,7 +21,7 @@ public class DATFactura {
     PreparedStatement ps = null;
     
     public ResultSet ConsultarFactura() throws ClassNotFoundException, SQLException{
-        Statement st = con.AbirConexion().createStatement();
+        Statement st = con.AbrirConexion().createStatement();
         String sentencia = "SELECT * FROM Factura";
         rs = st.executeQuery(sentencia);
         return rs;

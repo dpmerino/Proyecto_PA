@@ -21,7 +21,7 @@ public class DATVendedor {
     PreparedStatement ps = null;
     
     public ResultSet ConsultarVendedor() throws ClassNotFoundException, SQLException{
-        Statement st = con.AbirConexion().createStatement();
+        Statement st = con.AbrirConexion().createStatement();
         String sentencia = "SELECT * FROM Vendedor";
         rs = st.executeQuery(sentencia);
         return rs;

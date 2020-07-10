@@ -20,7 +20,7 @@ public class DATLocal {
     PreparedStatement ps = null;
     
     public ResultSet ConsultarLocal() throws ClassNotFoundException, SQLException{
-        Statement st = con.AbirConexion().createStatement();
+        Statement st = con.AbrirConexion().createStatement();
         String sentencia = "SELECT * FROM Local";
         rs = st.executeQuery(sentencia);
         return rs;

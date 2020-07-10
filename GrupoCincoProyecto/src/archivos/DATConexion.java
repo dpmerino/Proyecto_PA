@@ -23,7 +23,7 @@ public class DATConexion {
         return DriverManager.getConnection(url, "grupo5", "St1k?HcX~9J0");
     }
 
-    public Connection AbirConexion() throws ClassNotFoundException, SQLException {
+    public Connection AbrirConexion() throws ClassNotFoundException, SQLException {
         con = getConnection();
         return con;
     }

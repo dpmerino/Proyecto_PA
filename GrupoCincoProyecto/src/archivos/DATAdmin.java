@@ -22,14 +22,14 @@ public class DATAdmin {
     PreparedStatement ps = null;
 
     public ResultSet ConsultarAdmins() throws ClassNotFoundException, SQLException {
-        Statement st = con.AbirConexion().createStatement();
+        Statement st = con.AbrirConexion().createStatement();
         String sentencia = "SELECT * from admin";
         rs = st.executeQuery(sentencia);
         return rs;
     }
     
     public ResultSet ConsultarAdminConCedula(String cedula) throws ClassNotFoundException, SQLException {
-        Statement st = con.AbirConexion().createStatement();
+        Statement st = con.AbrirConexion().createStatement();
         String sentencia = "SELECT * FROM admin WHERE cedula = " + cedula;
         rs = st.executeQuery(sentencia);
         return rs;
@@ -40,7 +40,7 @@ public class DATAdmin {
         String sql = "INSERT INTO admin (cedula, nombre, apellido, mail, clave) "
                 + "VALUES (?,?,?,?,?)";
         try {
-            ps = con.AbirConexion().prepareStatement(sql);
+            ps = con.AbrirConexion().prepareStatement(sql);
             ps.setString(1, admin.getCedula());
             ps.setString(2, admin.getNombre());
             ps.setString(3, admin.getApellido());

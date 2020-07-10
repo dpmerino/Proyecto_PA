@@ -21,7 +21,7 @@ public class DATCLiente {
     PreparedStatement ps = null;
 
     public ResultSet ConsultarCliente() throws ClassNotFoundException, SQLException {
-        Statement st = con.AbirConexion().createStatement();
+        Statement st = con.AbrirConexion().createStatement();
         String sentencia = "SELECT * FROM cliente";
         rs = st.executeQuery(sentencia);
         return rs;
@@ -32,7 +32,7 @@ public class DATCLiente {
         String sql = "INSERT INTO cliente (cedula, nombre, apellido, mail, clave, direccion) "
                 + "VALUES (?,?,?,?,?,?)";
         try {
-            ps = con.AbirConexion().prepareStatement(sql);
+            ps = con.AbrirConexion().prepareStatement(sql);
             ps.setString(1, ObjExterno.getCedula());
             ps.setString(2, ObjExterno.getNombre());
             ps.setString(3, ObjExterno.getApellido());
