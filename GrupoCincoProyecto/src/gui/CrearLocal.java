@@ -682,10 +682,15 @@ public class CrearLocal extends javax.swing.JFrame {
             
             ArrayFarmacias.add(objLocal);
             try {
-                LogicaLocal.EscribirLocalesDAT(ArrayFarmacias);
-            } catch (IOException ex) {
+                objLogLoc.InsertarLocal(objLocal);
+            } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(CrearLocal.class.getName()).log(Level.SEVERE, null, ex);
             }
+//            try {
+//                LogicaLocal.EscribirLocalesDAT(ArrayFarmacias);
+//            } catch (IOException ex) {
+//                Logger.getLogger(CrearLocal.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
 
 // TODO add your handling code here:

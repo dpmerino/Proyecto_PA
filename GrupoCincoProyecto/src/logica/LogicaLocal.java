@@ -5,16 +5,21 @@
  */
 package logica;
 
+import archivos.DATLocal;
 import clases.Inventario;
 import clases.Local;
 import clases.Producto;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class LogicaLocal {
 
     static String fichero = "archivos/locales.dat";
+    DATLocal objDatLoc = new DATLocal();
+    LogicaGerente objLogGer = new LogicaGerente();
+    LogicaBodeguero objLogBod = new LogicaBodeguero();
 
     public static void EscribirLocalesDAT(ArrayList ArrayObjetos) throws IOException {
         archivos.ArchivoGeneral.EscribirDAT(ArrayObjetos, fichero);
@@ -75,5 +80,14 @@ public class LogicaLocal {
         }
         return objLocal;
     }
-    
+    public void InsertarLocal(Local local) throws ClassNotFoundException, SQLException{
+        //Se insertan los objetos
+        objLogGer.InsertarGerente(local.getGerente());
+        objLogBod.InsertarBodeguero(local.getBodeguero());
+        //Se obtienen los ID
+        int idGer = objLogGer.ConsultarIDGerente(local.getGerente().getCedula());
+        int idBod = objLogBod.ConsultarIDBodeguero(local.getBodeguero().getCedula());
+        
+        objDatLoc.InsertarLocal(local, idGer, idBod);
+    }
 }

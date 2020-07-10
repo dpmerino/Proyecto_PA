@@ -6,7 +6,6 @@
 package logica;
 
 import archivos.DATGerente;
-import clases.Bodeguero;
 import clases.Gerente;
 import java.io.FileNotFoundException;
 import java.io.IOException;
