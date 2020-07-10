@@ -46,7 +46,7 @@ public class Pedido implements Serializable{
         this.productosPedidos = productosPedidos;
     }
 
-   
+   private int test;
     
     
 
