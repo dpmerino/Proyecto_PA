@@ -174,7 +174,6 @@ public class CrearAdmin extends javax.swing.JFrame {
                     this.jTextFieldClave.getText()
             );
             ArrayAdmins.add(objAdm);
-            System.out.println(objAdm);
             try {
                 objLogAdm.InsertarAdmin(objAdm);
 //            try {

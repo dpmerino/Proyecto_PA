@@ -27,6 +27,13 @@ public class DATAdmin {
         rs = st.executeQuery(sentencia);
         return rs;
     }
+    
+    public ResultSet ConsultarAdminConCedula(String cedula) throws ClassNotFoundException, SQLException {
+        Statement st = con.AbirConexion().createStatement();
+        String sentencia = "SELECT * FROM admin WHERE cedula = " + cedula;
+        rs = st.executeQuery(sentencia);
+        return rs;
+    }
 
     public boolean InsertarAdmin(Administrador admin) throws SQLException,
             ClassNotFoundException {
