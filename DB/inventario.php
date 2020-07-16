@@ -7,11 +7,11 @@ $database="grupo5";
 $username="grupo5";
 $password="Ue8e6SnY_x-L"
 $json=array();
-$cedula = $_GET['cedula'];
-    if(isset($cedula)){        
+$codigo = $_GET['codigo'];
+    if(isset($codigo)){        
         
         $conexion=mysqli_connect($hostname, $username, $password, $database);
-        $consulta= "SELECT * FROM inventario WHERE cedula = '$cedula'";
+        $consulta= "SELECT * FROM inventario WHERE codigo = '$codigo'";
         
         $resultado = mysqli_query($conexion, $consulta);
         
