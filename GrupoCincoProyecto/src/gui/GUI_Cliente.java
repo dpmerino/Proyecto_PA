@@ -36,6 +36,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
     ArrayList<Local> ArrayFarmacias = new ArrayList<>();
     ArrayList<Pedido> ArrayPedidos = new ArrayList<>();
     ArrayList<Inventario> InventarioLocal = new ArrayList<>();
+    ArrayList<Inventario> PedidoCliente = new ArrayList<>();
     
     LogicaLocal objLogLoc = new LogicaLocal();
     LogicaProducto objLogPro = new LogicaProducto();
@@ -45,6 +46,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
     String fecha;
     Cliente objCli;
     Local objLocal;
+    Pedido objPed;
     /**
      * Creates new form GUI_Cliente
      */
@@ -341,6 +343,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboFarmaciasActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
+        
         try {
             // TODO add your handling code here:
             LogicaLocal.LeerLocalesDAT(ArrayFarmacias);

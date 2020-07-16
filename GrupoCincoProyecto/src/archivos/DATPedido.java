@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  */
 public class DATPedido {
-    
+
     DATConexion con = new DATConexion();
     ResultSet rs;
     PreparedStatement ps = null;
@@ -32,12 +32,12 @@ public class DATPedido {
 
     public ResultSet ConsultarPedidosConCedula(String cedula) throws ClassNotFoundException, SQLException {
         Statement st = con.AbrirConexion().createStatement();
-        String sentencia = "SELECT fecha, estado, total FROM pedido, cliente WHERE cliente.cedula = '"+ cedula +"' and cliente.idCliente = pedido.idCli";
+        String sentencia = "SELECT fecha, estado, total FROM pedido, cliente WHERE cliente.cedula = '" + cedula + "' and cliente.idCliente = pedido.idCli";
         rs = st.executeQuery(sentencia);
         return rs;
     }
 
-       public boolean InsertarPedido(Pedido pedido, int idCli, int idLoc, int idVen) {
+    public boolean InsertarPedido(Pedido pedido, int idCli, int idLoc, int idVen) {
         String sql = "INSERT INTO pedido (fecha, estado, total, idCli, idLoc, idVen) "
                 + "VALUES (?,?,?,?,?,?)";
         try {
@@ -61,5 +61,5 @@ public class DATPedido {
             }
         }
     }
-
+    
 }

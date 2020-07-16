@@ -6,6 +6,7 @@
 package logica;
 
 import archivos.DATInventario;
+import clases.Cliente;
 import clases.Inventario;
 import clases.Local;
 import java.sql.ResultSet;
@@ -76,7 +77,7 @@ public class LogicaInventario {
                 if (columnName.equals("nombre")) {
                     objInven.setNombre(value);
                 }
-                if (columnName.equals("precio")){
+                if (columnName.equals("precio")) {
                     objInven.setPrecio(Double.parseDouble(value));
                 }
             }
@@ -88,5 +89,34 @@ public class LogicaInventario {
     public void InsertarInventario(Inventario inventario) throws ClassNotFoundException, SQLException {
         int idLoc = objLogLoc.ConsultarIDLocal(inventario.getLocal().getCodigo());
         objDatInv.InsertarInventario(inventario, idLoc);
+    }
+
+    public Inventario BuscarInventarioConCodigo(String codigo) throws ClassNotFoundException, SQLException {
+        Inventario objInv = new Inventario();
+        ResultSet rs = objDatInv.BuscarProducto(codigo);
+        ResultSetMetaData rm = rs.getMetaData();
+        //Recupera los campos de la tabla
+        int columnCount = rm.getColumnCount();
+        ArrayList<String> columnas = new ArrayList<>();
+        for (int i = 1; i <= columnCount; i++) {
+            String columnName = rm.getColumnName(i);
+            columnas.add(columnName);
+        }
+        //Envia los datos a la Clase
+        while (rs.next()) {
+            for (String columnName : columnas) {
+                String value = rs.getString(columnName);
+                if (columnName.equals("codigo")) {
+                    objInv.setCodigo(value);
+                }
+                if (columnName.equals("nombre")) {
+                    objInv.setNombre(value);
+                }
+                if (columnName.equals("apellido")) {
+                    objInv.setPrecio(Double.parseDouble(value));
+                }
+            }
+        }
+        return objInv;
     }
 }

@@ -29,13 +29,21 @@ public class DATInventario {
         rs = st.executeQuery(sentencia);
         return rs;
     }
-     public ResultSet ConsultarInventarioDeLocal(int idLoc) throws ClassNotFoundException, SQLException {
+
+    public ResultSet ConsultarInventarioDeLocal(int idLoc) throws ClassNotFoundException, SQLException {
         Statement st = con.AbrirConexion().createStatement();
         String sentencia = "SELECT * FROM inventario WHERE idLoc = " + idLoc;
         rs = st.executeQuery(sentencia);
         return rs;
     }
     
+    public ResultSet BuscarProducto (String codigo) throws ClassNotFoundException, SQLException{
+        Statement st = con.AbrirConexion().createStatement();
+        String sentencia = "SELECT * FROM inventario WHERE codigo =" + codigo;
+        rs = st.executeQuery(sentencia);
+        return rs;
+    } 
+
     public boolean InsertarInventario(Inventario inventario, int idLoc) {
         String sql = "INSERT INTO inventario (cantidad, codigo, nombre, precio, idLoc) "
                 + "VALUES (?,?,?,?,?)";
