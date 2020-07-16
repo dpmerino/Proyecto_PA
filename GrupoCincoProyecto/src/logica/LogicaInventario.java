@@ -112,7 +112,7 @@ public class LogicaInventario {
                 if (columnName.equals("nombre")) {
                     objInv.setNombre(value);
                 }
-                if (columnName.equals("apellido")) {
+                if (columnName.equals("precio")) {
                     objInv.setPrecio(Double.parseDouble(value));
                 }
             }

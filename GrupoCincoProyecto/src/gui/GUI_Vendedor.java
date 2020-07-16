@@ -241,7 +241,7 @@ public class GUI_Vendedor extends javax.swing.JFrame {
         for (Pedido objP : ArrayPed) {
             for(Inventario objInv : objP.productosPedidos){
                 String NewValor[] = {
-                objP.getFecha(),
+                //objP.getFecha(),
                 String.valueOf(objP.getEstado()),
                 String.valueOf(objP.getValor()),
                 objP.getCliente().getNombre(),

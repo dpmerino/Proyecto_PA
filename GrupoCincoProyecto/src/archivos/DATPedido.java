@@ -42,7 +42,7 @@ public class DATPedido {
                 + "VALUES (?,?,?,?,?,?)";
         try {
             ps = con.AbrirConexion().prepareStatement(sql);
-            ps.setString(1, pedido.getFecha());
+            ps.setDate(1, pedido.getFecha());
             ps.setInt(2, pedido.getEstado());
             ps.setDouble(3, pedido.getValor());
             ps.setInt(4, idCli);

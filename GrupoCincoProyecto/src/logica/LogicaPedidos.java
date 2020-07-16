@@ -47,8 +47,11 @@ public class LogicaPedidos {
 
     public void InsetarPedido(Pedido pedido) throws ClassNotFoundException, SQLException {
         int idCli = objLogCli.ConsultarIDCliente(pedido.getCliente().getCedula());
+        System.out.println(pedido.getFarmacia().getCodigo());
         int idLoc = objLogLoc.ConsultarIDLocal(pedido.getFarmacia().getCodigo());
-        int idVen = objLogicaVendedor.ConsultarIDVendedor(pedido.getVendedor().getCedula());
+        System.out.println(idLoc);
+        //int idVen = objLogicaVendedor.ConsultarIDVendedor(pedido.getVendedor().getCedula());
+        int idVen = 1;
         objDatPed.InsertarPedido(pedido, idCli, idLoc, idVen);
     }
 

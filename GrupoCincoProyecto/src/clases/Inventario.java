@@ -12,17 +12,14 @@ import java.io.Serializable;
 //  @ Author : Jean Chuquimarca - Diego Merino - Raul Condolo
 //
 //
+public class Inventario implements Serializable {
 
-
-
-
-public class Inventario implements Serializable{
-	public int cantidad;
-	public Producto producto;
-        public String codigo;
-	public String nombre;
-	public double precio;
-        public Local local;
+    public int cantidad;
+    public Producto producto;
+    public String codigo;
+    public String nombre;
+    public double precio;
+    public Local local;
 
     public Inventario(int cantidad, Producto producto) {
         this.cantidad = cantidad;
@@ -68,8 +65,7 @@ public class Inventario implements Serializable{
     public void setLocal(Local local) {
         this.local = local;
     }
-    
-    
+
     public Inventario() {
     }
 
@@ -93,6 +89,5 @@ public class Inventario implements Serializable{
     public String toString() {
         return "Inventario{" + "cantidad=" + cantidad + ", producto=" + producto + '}';
     }
-        
-        
+
 }

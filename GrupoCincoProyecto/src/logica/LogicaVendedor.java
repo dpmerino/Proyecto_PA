@@ -53,11 +53,11 @@ public class LogicaVendedor {
             return false;
         }
     }
-    
-    public void InsertarVendedor (Vendedor vendedor, int idLoc){
+
+    public void InsertarVendedor(Vendedor vendedor, int idLoc) {
         objDatVen.InsertarVendedor(vendedor, idLoc);
     }
-    
+
     public Vendedor ConsultarVendedorConCedula(String Cedula) throws ClassNotFoundException, SQLException {
         Vendedor objVendedor = new Vendedor();
         ResultSet rs = objDatVen.ConsultarVendedorCedula(Cedula);
