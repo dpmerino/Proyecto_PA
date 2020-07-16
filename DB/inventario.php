@@ -2,10 +2,10 @@
 <?PHP
 
 #Archivo usado para conectar con la base de datos, se define el tipo de conexion, l nombre de la base de datos, el usuario y la contraseña de la conexion
-$hostname="den1.mysql1.gear.host";
+$hostname="den1.mysql1.gear.host:3306";
 $database="grupo5";
 $username="grupo5";
-$password="Ue8e6SnY_x-L"
+$password="Ue8e6SnY_x-L";
 $json=array();
 $codigo = $_GET['codigo'];
     if(isset($codigo)){        
