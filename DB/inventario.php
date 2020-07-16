@@ -11,14 +11,14 @@ $cedula = $_GET['cedula'];
     if(isset($cedula)){        
         
         $conexion=mysqli_connect($hostname, $username, $password, $database);
-        $consulta= "SELECT * FROM jugador WHERE cedula = '$cedula'";
+        $consulta= "SELECT * FROM inventario WHERE cedula = '$cedula'";
         
         $resultado = mysqli_query($conexion, $consulta);
         
         if($consulta){ #Se procede a buscar el jugador, y si se encuentra, se envia un json.
             
             if($reg=mysqli_fetch_array($resultado)){
-                $json['jugador'][]=$reg;
+                $json['inventario'][]=$reg;
             }
             mysqli_close($conexion);
             echo json_encode($json);
