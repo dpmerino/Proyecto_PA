@@ -286,7 +286,6 @@ public class GUI_Cliente extends javax.swing.JFrame {
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarActionPerformed
@@ -469,7 +468,6 @@ public class GUI_Cliente extends javax.swing.JFrame {
         DefaultTableModel tb = new DefaultTableModel();
         tb.setRowCount(0);
         this.jTable1.setModel(tb);
-        ArrayFarmacias.removeAll(ArrayFarmacias);
         InventarioLocal.removeAll(InventarioLocal);
         int idLocal;
         try {
