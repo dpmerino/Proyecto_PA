@@ -9,7 +9,6 @@ import clases.Cliente;
 import clases.Inventario;
 import clases.Local;
 import clases.Pedido;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,19 +36,20 @@ public class GUI_Cliente extends javax.swing.JFrame {
     ArrayList<Pedido> ArrayPedidos = new ArrayList<>();
     ArrayList<Inventario> InventarioLocal = new ArrayList<>();
     ArrayList<Inventario> PedidoCliente = new ArrayList<>();
-    
+
     LogicaLocal objLogLoc = new LogicaLocal();
     LogicaProducto objLogPro = new LogicaProducto();
     LogicaInventario objLogInv = new LogicaInventario();
     LogicaPedidos objLogPed = new LogicaPedidos();
-    
+
     String fecha;
     Cliente objCli;
     Local objLocal;
     Inventario objInv;
     Pedido objPed;
-    
+
     double total = 0.0;
+
     /**
      * Creates new form GUI_Cliente
      */
@@ -58,7 +58,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         fecha = sdf.format(new Date());
         this.jTextFecha.setText(fecha);
-         
+
         try {
             try {
                 objLogLoc.LeerLocales(ArrayFarmacias);
@@ -321,7 +321,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         Object columnas[] = {
             "Nombre", "Codigo", "Precio", "Cantidad"
         };
@@ -351,11 +351,14 @@ public class GUI_Cliente extends javax.swing.JFrame {
         try {
             objInv = objLogInv.BuscarInventarioConCodigo(this.jTextCodigo.getText());
             objInv.setCantidad(Integer.parseInt(this.jTextCantidad.getText()));
-            total = total + (objInv.getCantidad()*objInv.getPrecio());
-            System.out.println("CAntidad "+objInv.getCantidad());
-            System.out.println("Precio "+objInv.getPrecio());
+            objInv.setLocal(objLocal);
+            total = total + (objInv.getCantidad() * objInv.getPrecio());
+            System.out.println("CAntidad " + objInv.getCantidad());
+            System.out.println("Precio " + objInv.getPrecio());
             System.out.println(total);
             PedidoCliente.add(objInv);
+            objLogInv.actulizarInventarioMediantePedido(objInv);
+            CargarInventario();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -381,14 +384,14 @@ public class GUI_Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-          java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
+        java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
         objPed = new Pedido();
-          objPed.setCliente(objCli);
-          objPed.setEstado(1);
-          objPed.setFecha(sqlDate);
-          objPed.setValor(total);
-          objPed.setFarmacia(objLocal);
-          objPed.setProductosPedidos(PedidoCliente);
+        objPed.setCliente(objCli);
+        objPed.setEstado(1);
+        objPed.setFecha(sqlDate);
+        objPed.setValor(total);
+        objPed.setFarmacia(objLocal);
+        objPed.setProductosPedidos(PedidoCliente);
         try {
             objLogPed.InsetarPedido(objPed);
             System.out.println("Pedido Insertado");
@@ -406,7 +409,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-          
+
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoClienteActionPerformed
@@ -422,7 +425,6 @@ public class GUI_Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        
 
 // TODO add your handling code here:
     }//GEN-LAST:event_formMouseClicked
@@ -460,6 +462,37 @@ public class GUI_Cliente extends javax.swing.JFrame {
                 new GUI_Cliente().setVisible(true);
             }
         });
+    }
+
+    public void CargarInventario() {
+        DefaultTableModel tb = new DefaultTableModel();
+        tb.setRowCount(0);
+        this.jTable1.setModel(tb);
+        ArrayFarmacias.removeAll(ArrayFarmacias);
+        InventarioLocal.removeAll(InventarioLocal);
+        int idLocal;
+        try {
+            idLocal = objLogLoc.ConsultarIDLocalConNombre(this.jComboFarmacias.getModel().getSelectedItem().toString());
+            objLogInv.LeerInventario(InventarioLocal, idLocal);
+            objLocal = objLogLoc.ConsultarLocalId(idLocal);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Object columnas[] = {
+            "Nombre", "Codigo", "Precio", "Cantidad"
+        };
+        DefaultTableModel model = new DefaultTableModel(null, columnas);
+        this.jTable1.setModel(model);
+        for (Inventario objInv : InventarioLocal) {
+            String NewValor[] = {
+                objInv.getNombre(),
+                objInv.getCodigo(),
+                String.valueOf(objInv.getPrecio()),
+                String.valueOf(objInv.getCantidad())
+            };
+            model.addRow(NewValor);
+        }
     }
 
     public void CargarCombo() {

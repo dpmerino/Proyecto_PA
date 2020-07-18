@@ -5,7 +5,6 @@
  */
 package archivos;
 
-import clases.Bodeguero;
 import clases.Local;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -119,4 +119,33 @@ public class LogicaInventario {
         }
         return objInv;
     }
+    
+    public int BuscarCantidadDeInventario (String codigo) throws ClassNotFoundException, SQLException{
+        int cantidad = 0;
+        ResultSet rs = objDatInv.BuscarProducto(codigo);
+        ResultSetMetaData rm = rs.getMetaData();
+        int columnCount = rm.getColumnCount();
+        ArrayList<String> columnas = new ArrayList<>();
+        for (int i = 1; i <= columnCount; i++){
+            String columnName = rm.getColumnName(i);
+            columnas.add(columnName);
+        }
+        while (rs.next()){
+            for (String colunmName : columnas){
+                String value = rs.getString(colunmName);
+                if (colunmName.equals("cantidad"))
+                    cantidad = Integer.valueOf(value);
+            }
+        }
+        return cantidad;
+    }
+    public void actulizarInventarioMediantePedido(Inventario objInv) throws ClassNotFoundException, SQLException{
+        System.out.println(objInv.getLocal().getCodigo());
+        int idLocal = objLogLoc.ConsultarIDLocal(objInv.getLocal().getCodigo());
+        int cantidadActual = BuscarCantidadDeInventario(objInv.getCodigo());
+        System.out.println("Actual "+ cantidadActual);
+        System.out.println("Objeto "+ objInv.getCantidad());
+        int cantidadNueva = cantidadActual - objInv.getCantidad();
+        objDatInv.ActualizarInventarioPedido(objInv, idLocal, cantidadNueva);
+    }
 }

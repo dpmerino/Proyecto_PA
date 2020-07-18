@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,13 +37,13 @@ public class DATInventario {
         rs = st.executeQuery(sentencia);
         return rs;
     }
-    
-    public ResultSet BuscarProducto (String codigo) throws ClassNotFoundException, SQLException{
+
+    public ResultSet BuscarProducto(String codigo) throws ClassNotFoundException, SQLException {
         Statement st = con.AbrirConexion().createStatement();
         String sentencia = "SELECT * FROM inventario WHERE codigo =" + codigo;
         rs = st.executeQuery(sentencia);
         return rs;
-    } 
+    }
 
     public boolean InsertarInventario(Inventario inventario, int idLoc) {
         String sql = "INSERT INTO inventario (cantidad, codigo, nombre, precio, idLoc) "
@@ -64,6 +65,28 @@ public class DATInventario {
                 con.CerrarConexion();
             } catch (SQLException ex) {
                 Logger.getLogger(DATGerente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public boolean ActualizarInventarioPedido(Inventario objInv, int idLocal, int cantidad) {
+        String sql = "UPDATE inventario SET cantidad = ? "
+                + "WHERE codigo = ? and inventario.idLoc = ?";
+        try {
+            ps = con.AbrirConexion().prepareStatement(sql);
+            ps.setInt(1, cantidad);
+            ps.setString(2, objInv.getCodigo());
+            ps.setInt(3, idLocal);
+            ps.execute();
+            return true;
+        } catch (ClassNotFoundException | SQLException e) {
+            System.err.println(e);
+            return false;
+        } finally {
+            try {
+                con.CerrarConexion();
+            } catch (SQLException e) {
+                System.err.println(3);
             }
         }
     }
