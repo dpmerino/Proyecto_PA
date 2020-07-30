@@ -57,7 +57,7 @@ public class DATCLiente {
             ps.execute();
             System.out.println("Cliente insertado");
             return true;
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.err.println(e);
             return false;
         } finally {
