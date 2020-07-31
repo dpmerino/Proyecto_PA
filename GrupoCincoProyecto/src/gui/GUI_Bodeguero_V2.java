@@ -38,7 +38,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
     LogicaLocal objLogLoc = new LogicaLocal();
     LogicaBodeguero objLogBod = new LogicaBodeguero();
     LogicaInventario objLogInv = new LogicaInventario();
-    
+
     Local local;
     Bodeguero bodeguero;
     int idLocal = 0;
@@ -210,7 +210,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
         producto.setPrecio(Double.parseDouble(this.jTextPrec.getText()));
         producto.setLocal(local);
         InventarioNuevo.add(producto);
-                Object columnas[] = {
+        Object columnas[] = {
             "Nombre", "Codigo", "Precio", "Cantidad"
         };
         DefaultTableModel model = new DefaultTableModel(null, columnas);
@@ -264,6 +264,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         try {
+            ArrayInventario.removeAll(ArrayLocales);
             // TODO add your handling code here:
             objLogInv.LeerInventario(ArrayInventario, idLocal);
         } catch (ClassNotFoundException | SQLException ex) {
@@ -275,18 +276,43 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(GUI_Bodeguero_V2.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (producto.getNombre() != null){
+        if (producto.getNombre() != null) {
             this.jTextNom.setText(producto.getNombre());
             this.jTextPrec.setText(String.valueOf(producto.getPrecio()));
             this.jTextCanti.setText(String.valueOf(producto.getCantidad()));
             this.jButtonAgregar.setEnabled(true);
-        } else this.jButtonAgregar.setEnabled(true);
-        
+        } else {
+            this.jButtonAgregar.setEnabled(true);
+        }
+
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        // TODO add your handling code here:
-        
+        Inventario objAuxInv = new Inventario();
+        for (Inventario objAux : InventarioNuevo) {
+            try {
+                // TODO add your handling code here:
+                objAuxInv = objLogInv.BuscarInventarioDelLocal(producto.getCodigo(), idLocal);
+                System.out.println(objAuxInv.getCodigo());
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(GUI_Bodeguero_V2.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (objAuxInv.getCodigo() == null) {
+                try {
+                    objLogInv.InsertarInventario(objAux);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(GUI_Bodeguero_V2.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                if (objAuxInv.getCodigo().equals(objAux.getCodigo())) {
+                    try {
+                        objLogInv.ActulizarInventarioBodeguero(objAux);
+                    } catch (ClassNotFoundException | SQLException ex) {
+                        Logger.getLogger(GUI_Bodeguero_V2.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     /**
@@ -325,7 +351,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
     }
 
     void CargarInventario() {
-        
+
         Object columnas[] = {
             "Codigo", "Nombre", "Cantidad", "Precio", "Vencimiento"
         };

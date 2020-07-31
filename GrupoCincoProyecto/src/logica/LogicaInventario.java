@@ -122,7 +122,7 @@ public class LogicaInventario {
 
     public Inventario BuscarInventarioDelLocal(String codigo, int idLoc) throws ClassNotFoundException, SQLException {
         Inventario objInv = new Inventario();
-        ResultSet rs = objDatInv.BuscarProducto(codigo);
+        ResultSet rs = objDatInv.BuscarProductoDelInventario(codigo, idLoc);
         ResultSetMetaData rm = rs.getMetaData();
         //Recupera los campos de la tabla
         int columnCount = rm.getColumnCount();
