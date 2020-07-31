@@ -44,9 +44,10 @@ public class DATInventario {
         rs = st.executeQuery(sentencia);
         return rs;
     }
-     public ResultSet BuscarProductoDelInventario(String codigo, int idLoc) throws ClassNotFoundException, SQLException {
+
+    public ResultSet BuscarProductoDelInventario(String codigo, int idLoc) throws ClassNotFoundException, SQLException {
         Statement st = con.AbrirConexion().createStatement();
-        String sentencia = "SELECT * FROM inventario WHERE codigo ='" + codigo+"' AND idLoc = '"+ idLoc + "'";
+        String sentencia = "SELECT * FROM inventario WHERE codigo ='" + codigo + "' AND idLoc = '" + idLoc + "'";
         rs = st.executeQuery(sentencia);
         return rs;
     }
@@ -96,8 +97,8 @@ public class DATInventario {
             }
         }
     }
-    
-        public boolean ActualizarInvetarioBodeguero(Inventario objInv, int idLocal) {
+
+    public boolean ActualizarInvetarioBodeguero(Inventario objInv, int idLocal) {
         String sql = "UPDATE inventario SET cantidad = ?, nombre = ?, precio = ?"
                 + "WHERE codigo = ? and inventario.idLoc = ?";
         try {
