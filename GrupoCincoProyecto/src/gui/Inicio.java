@@ -140,11 +140,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jButtonBodegueroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBodegueroActionPerformed
-        try {
-            new GUI_Bodeguero().setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        new GUI_Bodeguero_V2().setVisible(true);
         this.dispose();
 // TODO add your handling code here:
     }//GEN-LAST:event_jButtonBodegueroActionPerformed

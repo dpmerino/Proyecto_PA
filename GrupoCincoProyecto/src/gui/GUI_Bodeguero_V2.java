@@ -85,6 +85,8 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
         jTableInventario = new javax.swing.JTable();
         jButtonGuardar = new javax.swing.JButton();
         jButtonBuscar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jTextNombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -109,6 +111,12 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
 
         jLabel4.setText("Nombre");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 206, -1, -1));
+
+        jTextCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextCedulaKeyTyped(evt);
+            }
+        });
         getContentPane().add(jTextCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 44, 110, -1));
 
         jLabel5.setText("Precio");
@@ -128,7 +136,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
         getContentPane().add(jTextCod, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 203, 80, -1));
 
         jTextNombreLocal.setEnabled(false);
-        getContentPane().add(jTextNombreLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 137, 155, -1));
+        getContentPane().add(jTextNombreLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 155, -1));
 
         jTextNom.setEnabled(false);
         getContentPane().add(jTextNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(256, 203, 152, -1));
@@ -146,7 +154,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
         getContentPane().add(jTextPrec, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 203, 80, -1));
 
         jLabel9.setText("Local");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 140, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, -1, -1));
 
         jLabel10.setText("clave");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 76, -1, -1));
@@ -187,15 +195,22 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
                 jButtonGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(223, 510, -1, -1));
+        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 500, -1, -1));
 
         jButtonBuscar.setText("Buscar");
+        jButtonBuscar.setEnabled(false);
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBuscarActionPerformed(evt);
             }
         });
         getContentPane().add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 251, -1, -1));
+
+        jLabel6.setText("Bienvenido:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
+
+        jTextNombre.setEnabled(false);
+        getContentPane().add(jTextNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 110, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -243,12 +258,9 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
                 Logger.getLogger(GUI_Bodeguero_V2.class.getName()).log(Level.SEVERE, null, ex);
             }
             this.jTextNombreLocal.setText(local.getNombre());
-            this.jTextCanti.setEnabled(true);
+            this.jTextNombre.setText(bodeguero.getNombre());
             this.jTextCod.setEnabled(true);
-            this.jTextNom.setEnabled(true);
-            this.jTextPrec.setEnabled(true);
-            this.jTextCedula.setEnabled(false);
-            this.jPassword.setEnabled(false);
+            this.jButtonBuscar.setEnabled(true);
             CargarInventario();
         } else {
             JOptionPane.showMessageDialog(null, "No existe", "Error", JOptionPane.PLAIN_MESSAGE);
@@ -280,8 +292,18 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
             this.jTextPrec.setText(String.valueOf(producto.getPrecio()));
             this.jTextCanti.setText(String.valueOf(producto.getCantidad()));
             this.jButtonAgregar.setEnabled(true);
+            this.jTextCanti.setEnabled(true);
+            this.jTextNom.setEnabled(true);
+            this.jTextPrec.setEnabled(true);
+            this.jTextCedula.setEnabled(false);
+            this.jPassword.setEnabled(false);
         } else {
             this.jButtonAgregar.setEnabled(true);
+            this.jTextCanti.setEnabled(true);
+            this.jTextNom.setEnabled(true);
+            this.jTextPrec.setEnabled(true);
+            this.jTextCedula.setEnabled(false);
+            this.jPassword.setEnabled(false);
         }
 
     }//GEN-LAST:event_jButtonBuscarActionPerformed
@@ -312,7 +334,18 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
                 }
             }
         }
+        JOptionPane.showMessageDialog(null, "Inventario Ingresado");
     }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jTextCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCedulaKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "Ingrese solo numeros");
+        }
+    }//GEN-LAST:event_jTextCedulaKeyTyped
 
     /**
      * @param args the command line arguments
@@ -381,6 +414,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -391,6 +425,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
     private javax.swing.JTextField jTextCedula;
     private javax.swing.JTextField jTextCod;
     private javax.swing.JTextField jTextNom;
+    private javax.swing.JTextField jTextNombre;
     private javax.swing.JTextField jTextNombreLocal;
     private javax.swing.JTextField jTextPrec;
     // End of variables declaration//GEN-END:variables
