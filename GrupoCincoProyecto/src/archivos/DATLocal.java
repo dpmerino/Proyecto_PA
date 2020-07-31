@@ -48,7 +48,7 @@ public class DATLocal {
     public ResultSet ConsultarLocalConBodeguero(String cedula)
             throws ClassNotFoundException, SQLException {
         Statement st = con.AbrirConexion().createStatement();
-        String Sentencia = "SELECT nombre,codigo,direccion FROM local, bodeguero WHERE bodeguero.cedula = '" + cedula + "'"+"bodeguero.idBodeguero = local.idBog";
+        String Sentencia = "SELECT local.nombre,local.codigo,local.direccion FROM local, bodeguero WHERE bodeguero.cedula = '" + cedula + "'"+" AND bodeguero.idBodeguero = local.idBod";
         rs = st.executeQuery(Sentencia);
         return rs;
     }

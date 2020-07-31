@@ -5,6 +5,7 @@
  */
 package gui;
 
+import clases.Bodeguero;
 import clases.Inventario;
 import clases.Local;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import logica.LogicaLocal;
 import clases.Producto;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.LogicaBodeguero;
@@ -34,14 +36,15 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
 
     LogicaLocal objLogLoc = new LogicaLocal();
     LogicaBodeguero objLogBod = new LogicaBodeguero();
+    
+    Local local;
+    Bodeguero bodeguero;
 
     public GUI_Bodeguero_V2() {
         initComponents();
         try {
             LogicaLocal.LeerLocalesDAT(ArrayLocales);
-        } catch (IOException ex) {
-            Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -294,9 +297,21 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
 
     private void jButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarActionPerformed
         // TODO add your handling code here:
-        if (objLogBod.validarBodeguero(ArrayLocales, this.jTextCedula.getText(), String.valueOf(this.jPassword.getPassword()))) {
-            Local ObjLocal = ObjLogLoc.BuscarConBodeguero(ArrayLocales, jTextCedula.getText());
-            this.jTextNombreLocal.setText(ObjLocal.getNombre());
+        bodeguero = new Bodeguero();
+        try {
+            bodeguero = objLogBod.ConsultarBodegueroConCedula(this.jTextCedula.getText());
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(GUI_Bodeguero_V2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (bodeguero.getCedula().equals(this.jTextCedula.getText()) && bodeguero.getClave().equals(String.valueOf(this.jPassword.getPassword()))) {
+            //Local ObjLocal = ObjLogLoc.BuscarConBodeguero(ArrayLocales, jTextCedula.getText());
+            local = new Local();
+            try {
+                local = objLogLoc.ConsultarLocalIdConBodeguero(this.jTextCedula.getText());
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(GUI_Bodeguero_V2.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.jTextNombreLocal.setText(local.getNombre());
             this.jTextCanti.setEnabled(true);
             this.jTextCod.setEnabled(true);
             this.jTextNom.setEnabled(true);
@@ -307,7 +322,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
             this.jPassword.setEnabled(false);
             CargarInventario();
         } else {
-            JOptionPane.showMessageDialog(null, "No existe", "Erroe", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No existe", "Error", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_jButtonIngresarActionPerformed
 
