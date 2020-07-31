@@ -183,6 +183,11 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 308, 537, 154));
 
         jButtonGuardar.setText("Guardar Inventario");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(223, 510, -1, -1));
 
         jButtonBuscar.setText("Buscar");
@@ -198,17 +203,6 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-//        Local ObjLocal = LogicaLocal.BuscarConBodeguero(ArrayLocales, jTextCedula.getText());
-//        int indexLocal = ArrayLocales.indexOf(ObjLocal);
-//        //Producto ObjProd = new Producto(this.jTextCod.getText(), this.jTextNom.getText(), Double.parseDouble(this.jTextPrec.getText()), this.jTextVenc.getText());
-//        //Inventario objInv = new Inventario(Integer.parseInt(this.jTextCanti.getText()), ObjProd);
-//        //ObjLocal.AgregarInventario(Integer.parseInt(this.jTextCanti.getText()), ObjProd);
-//        ArrayLocales.add(indexLocal, ObjLocal);
-//        try {
-//            LogicaLocal.EscribirLocalesDAT(ArrayLocales);
-//        } catch (IOException ex) {
-//            Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
-//        }
         producto = new Inventario();
         producto.setCantidad(Integer.parseInt(this.jTextCanti.getText()));
         producto.setCodigo(this.jTextCod.getText());
@@ -289,6 +283,11 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
         } else this.jButtonAgregar.setEnabled(true);
         
     }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     /**
      * @param args the command line arguments

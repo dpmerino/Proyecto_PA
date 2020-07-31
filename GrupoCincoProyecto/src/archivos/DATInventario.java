@@ -96,4 +96,28 @@ public class DATInventario {
             }
         }
     }
+    
+        public boolean ActualizarInvetarioBodeguero(Inventario objInv, int idLocal) {
+        String sql = "UPDATE inventario SET cantidad = ?, nombre = ?, precio = ?"
+                + "WHERE codigo = ? and inventario.idLoc = ?";
+        try {
+            ps = con.AbrirConexion().prepareStatement(sql);
+            ps.setInt(1, objInv.getCantidad());
+            ps.setString(2, objInv.getNombre());
+            ps.setDouble(3, objInv.getPrecio());
+            ps.setString(4, objInv.getCodigo());
+            ps.setInt(5, idLocal);
+            ps.execute();
+            return true;
+        } catch (ClassNotFoundException | SQLException e) {
+            System.err.println(e);
+            return false;
+        } finally {
+            try {
+                con.CerrarConexion();
+            } catch (SQLException e) {
+                System.err.println(3);
+            }
+        }
+    }
 }
