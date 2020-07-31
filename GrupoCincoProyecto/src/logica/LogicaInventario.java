@@ -182,4 +182,9 @@ public class LogicaInventario {
         int cantidadNueva = cantidadActual - objInv.getCantidad();
         objDatInv.ActualizarInventarioPedido(objInv, idLocal, cantidadNueva);
     }
+    
+    public boolean ActulizarInventarioBodeguero(Inventario objInv) throws ClassNotFoundException, SQLException{
+        int idLocal = objLogLoc.ConsultarIDLocal(objInv.getLocal().getCodigo());
+        return objDatInv.ActualizarInvetarioBodeguero(objInv, idLocal);
+    }
 }
