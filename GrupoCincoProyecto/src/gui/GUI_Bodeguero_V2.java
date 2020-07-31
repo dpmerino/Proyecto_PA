@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.LogicaBodeguero;
+import logica.LogicaInventario;
 
 /**
  *
@@ -32,13 +33,16 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
 
     ArrayList<Local> ArrayLocales = new ArrayList<>();
     static ArrayList ArrayInventario = new ArrayList<Inventario>();
+    ArrayList<Inventario> InventarioNuevo = new ArrayList<>();
     static boolean HayLocales;
 
     LogicaLocal objLogLoc = new LogicaLocal();
     LogicaBodeguero objLogBod = new LogicaBodeguero();
+    LogicaInventario objLogInv = new LogicaInventario();
     
     Local local;
     Bodeguero bodeguero;
+    int idLocal = 0;
 
     public GUI_Bodeguero_V2() {
         initComponents();
@@ -82,7 +86,8 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
         jTextCanti = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableInventario = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jButtonGuardar = new javax.swing.JButton();
+        jButtonBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -160,7 +165,14 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
         jTableInventario.setEnabled(false);
         jScrollPane1.setViewportView(jTableInventario);
 
-        jButton1.setText("Guardar Inventario");
+        jButtonGuardar.setText("Guardar Inventario");
+
+        jButtonBuscar.setText("Buscar");
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -206,10 +218,9 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
                                                 .addGap(18, 18, 18)
                                                 .addComponent(jTextNom, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(jLabel6)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jTextVenc, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
+                                                .addGap(22, 22, 22)
+                                                .addComponent(jButtonBuscar)
+                                                .addGap(89, 89, 89)
                                                 .addComponent(jLabel7)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(jTextCanti, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -218,13 +229,16 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
                                     .addGap(18, 18, 18)
                                     .addComponent(jTextPrec, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTextVenc, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButtonAgregar)
                                     .addGap(63, 63, 63))
                                 .addComponent(jScrollPane1))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(223, 223, 223)
-                        .addComponent(jButton1)))
+                        .addComponent(jButtonGuardar)))
                 .addGap(0, 33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -265,15 +279,18 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextVenc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextCanti, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextCanti, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonAgregar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAgregar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(jTextVenc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
-                .addComponent(jButton1)
+                .addComponent(jButtonGuardar)
                 .addContainerGap(189, Short.MAX_VALUE))
         );
 
@@ -308,6 +325,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
             local = new Local();
             try {
                 local = objLogLoc.ConsultarLocalIdConBodeguero(this.jTextCedula.getText());
+                idLocal = objLogLoc.ConsultarIDLocal(local.getCodigo());
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(GUI_Bodeguero_V2.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -331,6 +349,11 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
         this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAtrasActionPerformed
+
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        // TODO add your handling code here:
+        objLogInv.
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -387,9 +410,10 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAgregar;
     private javax.swing.JButton jButtonAtras;
+    private javax.swing.JButton jButtonBuscar;
+    private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonIngresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

@@ -44,6 +44,12 @@ public class DATInventario {
         rs = st.executeQuery(sentencia);
         return rs;
     }
+     public ResultSet BuscarProductoDelInventario(String codigo, int idLoc) throws ClassNotFoundException, SQLException {
+        Statement st = con.AbrirConexion().createStatement();
+        String sentencia = "SELECT * FROM inventario WHERE codigo ='" + codigo+"' AND idLoc = '"+ idLoc + "'";
+        rs = st.executeQuery(sentencia);
+        return rs;
+    }
 
     public boolean InsertarInventario(Inventario inventario, int idLoc) {
         String sql = "INSERT INTO inventario (cantidad, codigo, nombre, precio, idLoc) "
