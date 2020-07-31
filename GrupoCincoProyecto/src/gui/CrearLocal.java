@@ -681,6 +681,7 @@ public class CrearLocal extends javax.swing.JFrame {
             ArrayFarmacias.add(objLocal);
             try {
                 objLogLoc.InsertarLocal(objLocal, objVendedor);
+                JOptionPane.showMessageDialog(null, "Local Creado");
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(CrearLocal.class.getName()).log(Level.SEVERE, null, ex);
             }
