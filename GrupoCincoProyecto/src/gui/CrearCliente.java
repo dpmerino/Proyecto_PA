@@ -5,7 +5,6 @@
  */
 package gui;
 
-import clases.Administrador;
 import clases.Cliente;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import logica.LogicaCliente;
 import logica.LogicaCliente;
 
 /**
@@ -23,6 +21,7 @@ public class CrearCliente extends javax.swing.JFrame {
 
     ArrayList<Cliente> ArrayClientes = new ArrayList<>();
     LogicaCliente objLogCliente = new LogicaCliente();
+
     /**
      * Creates new form CrearCliente
      */
@@ -33,7 +32,7 @@ public class CrearCliente extends javax.swing.JFrame {
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(CrearCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     /**
@@ -70,6 +69,11 @@ public class CrearCliente extends javax.swing.JFrame {
                 jTextFieldNombreActionPerformed(evt);
             }
         });
+        jTextFieldNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldNombreKeyTyped(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel1.setText("CREAR CLIENTE");
@@ -89,6 +93,11 @@ public class CrearCliente extends javax.swing.JFrame {
         jTextFieldCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCedulaActionPerformed(evt);
+            }
+        });
+        jTextFieldCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldCedulaKeyTyped(evt);
             }
         });
 
@@ -158,27 +167,28 @@ public class CrearCliente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
-                        .addGap(25, 25, 25)
+                        .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldMail)
-                            .addComponent(jTextFieldClave)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jTextFieldMail, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldClave, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldDireccion)
-                            .addComponent(jTextFieldApellido, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextFieldNombre))))
-                .addContainerGap())
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jTextFieldApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                                .addComponent(jTextFieldNombre, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(153, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,12 +255,12 @@ public class CrearCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ya existe el cliente", "Error", JOptionPane.PLAIN_MESSAGE);
         } else {
             Cliente objCliente = new Cliente(
-                this.jTextFieldDireccion.getText(),
-                this.jTextFieldCedula.getText(),
-                this.jTextFieldNombre.getText(),
-                this.jTextFieldApellido.getText(),
-                this.jTextFieldMail.getText(),
-                this.jTextFieldClave.getText()
+                    this.jTextFieldDireccion.getText(),
+                    this.jTextFieldCedula.getText(),
+                    this.jTextFieldNombre.getText(),
+                    this.jTextFieldApellido.getText(),
+                    this.jTextFieldMail.getText(),
+                    this.jTextFieldClave.getText()
             );
             ArrayClientes.add(objCliente);
             try {
@@ -273,6 +283,31 @@ public class CrearCliente extends javax.swing.JFrame {
         new Inicio().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonAtrasActionPerformed
+
+    private void jTextFieldCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCedulaKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "Ingrese solo numeros");
+        }
+    }//GEN-LAST:event_jTextFieldCedulaKeyTyped
+
+    private void jTextFieldNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "Ingrese solo letras");
+        }
+        if (Character.isLowerCase(validar)) {
+            String cad = ("" + validar).toUpperCase();
+            validar = cad.charAt(0);
+            evt.setKeyChar(validar);
+        }
+    }//GEN-LAST:event_jTextFieldNombreKeyTyped
 
     /**
      * @param args the command line arguments

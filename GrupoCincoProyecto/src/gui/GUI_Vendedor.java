@@ -5,12 +5,10 @@
  */
 package gui;
 
-import clases.Administrador;
 import clases.Inventario;
 import clases.Local;
 import clases.Pedido;
 import clases.Vendedor;
-import static gui.GUI_Bodeguero_V2.ObjLogLoc;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,20 +17,23 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.LogicaLocal;
+import logica.LogicaPedidos;
 import logica.LogicaVendedor;
 
 /**
  *
  */
 public class GUI_Vendedor extends javax.swing.JFrame {
-
+    
     ArrayList<Vendedor> ArrayVen = new ArrayList<>();
     ArrayList<Pedido> ArrayPed = new ArrayList<>();
     ArrayList<Local> Farmacias = new ArrayList<>();
-
+    ArrayList<Inventario> PedidosCliente = new ArrayList<>();
+    
     LogicaVendedor objLogVen = new LogicaVendedor();
     LogicaLocal objLogLoc = new LogicaLocal();
-
+    LogicaPedidos objLogPed = new LogicaPedidos();
+    
     Local local;
     Vendedor vendedor;
     int idLocal = 0;
@@ -83,6 +84,11 @@ public class GUI_Vendedor extends javax.swing.JFrame {
         jTextCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextCedulaActionPerformed(evt);
+            }
+        });
+        jTextCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextCedulaKeyTyped(evt);
             }
         });
 
@@ -151,10 +157,10 @@ public class GUI_Vendedor extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel30)))
                         .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextCedula, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordClave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                            .addComponent(jPasswordClave))
+                        .addGap(209, 209, 209)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButtonIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -213,12 +219,6 @@ public class GUI_Vendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAtrasActionPerformed
 
     private void jButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarActionPerformed
-//        try {
-//            // TODO add your handling code here:
-//            objLogVen.LeerVendedoresDAT(ArrayVen);
-//        } catch (IOException | ClassNotFoundException ex) {
-//            Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
-//        }
         vendedor = new Vendedor();
         try {
             vendedor = objLogVen.ConsultarVendedorConCedula(this.jTextCedula.getText());
@@ -227,6 +227,7 @@ public class GUI_Vendedor extends javax.swing.JFrame {
         }
         if (vendedor.getCedula().equals(this.jTextCedula.getText()) && vendedor.getClave().equals(String.valueOf(this.jPasswordClave.getPassword()))) {
             local = new Local();
+            this.jButtonListarPedidos.setEnabled(true);
             try {
                 local = objLogLoc.ConsultarLocalConVendedor(vendedor.getCedula());
                 idLocal = objLogLoc.ConsultarIDLocal(local.getCodigo());
@@ -237,38 +238,55 @@ public class GUI_Vendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonIngresarActionPerformed
 
     private void jButtonListarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListarPedidosActionPerformed
-
+        
         try {
-            Farmacias.removeAll(Farmacias);
-            LogicaLocal.LeerLocalesDAT(Farmacias);
-        } catch (IOException ex) {
-            Logger.getLogger(GUI_Vendedor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+//            Farmacias.removeAll(Farmacias);
+//            LogicaLocal.LeerLocalesDAT(Farmacias);
+            objLogPed.LeerPedidosLocal(ArrayPed, idLocal);
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(GUI_Vendedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         Object columnas[] = {
-            "Fecha", "Estado", "Valor", "Cliente", "Nombre Producto", "Cantidad", "Vencimiento", "Precio"
+            "Fecha", "Estado", "Valor"
         };
         DefaultTableModel model = new DefaultTableModel(null, columnas);
         this.jTableInventario.setModel(model);
-        for (Pedido objP : ArrayPed) {
-            for (Inventario objInv : objP.productosPedidos) {
-                String NewValor[] = {
-                    //objP.getFecha(),
-                    String.valueOf(objP.getEstado()),
-                    String.valueOf(objP.getValor()),
-                    objP.getCliente().getNombre(),
-                    objInv.getProducto().getNombre(),
-                    String.valueOf(objInv.getCantidad()),
-                    objInv.getProducto().getVencimiento(),
-                    String.valueOf(objP.getValor())
-                };
-                model.addRow(NewValor);
-            }
+        for (Pedido objPedido : ArrayPed) {
+            String NewValor[] = {
+                String.valueOf(objPedido.getFecha()),
+                String.valueOf(objPedido.getEstado()),
+                String.valueOf(objPedido.getValor())
+            };
+            model.addRow(NewValor);
         }
+//        for (Pedido objP : ArrayPed) {
+//            for (Inventario objInv : objP.productosPedidos) {
+//                String NewValor[] = {
+//                    //objP.getFecha(),
+//                    String.valueOf(objP.getEstado()),
+//                    String.valueOf(objP.getValor()),
+//                    objP.getCliente().getNombre(),
+//                    objInv.getProducto().getNombre(),
+//                    String.valueOf(objInv.getCantidad()),
+//                    objInv.getProducto().getVencimiento(),
+//                    String.valueOf(objP.getValor())
+//                };
+//                model.addRow(NewValor);
+//            }
+//        }
 
 // TODO add your handling code here:
     }//GEN-LAST:event_jButtonListarPedidosActionPerformed
+
+    private void jTextCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCedulaKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "Ingrese solo numeros");
+        }
+    }//GEN-LAST:event_jTextCedulaKeyTyped
 
     /**
      * @param args the command line arguments

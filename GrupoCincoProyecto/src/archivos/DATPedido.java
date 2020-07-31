@@ -30,6 +30,20 @@ public class DATPedido {
         return rs;
     }
 
+    public ResultSet ConsultarPedidosDelLocal(int idLocal) throws ClassNotFoundException, SQLException {
+        Statement st = con.AbrirConexion().createStatement();
+        String sentencia = "SELECT * FROM pedido WHERE idLoc = '" + idLocal + "'";
+        rs = st.executeQuery(sentencia);
+        return rs;
+    }
+
+    public ResultSet ConsultarPedidosDeCliente(int idCli) throws ClassNotFoundException, SQLException {
+        Statement st = con.AbrirConexion().createStatement();
+        String sentencia = "SELECT fecha, estado, total, nombre, direccion FROM pedido, local WHERE idCli = '" + idCli + "' and pedido.idCli = local.idLocal";
+        rs = st.executeQuery(sentencia);
+        return rs;
+    }
+
     public ResultSet ConsultarPedidosConCedula(String cedula) throws ClassNotFoundException, SQLException {
         Statement st = con.AbrirConexion().createStatement();
         String sentencia = "SELECT idPedido, fecha, estado, total FROM pedido, cliente WHERE cliente.cedula = '" + cedula + "' and cliente.idCliente = pedido.idCli";
@@ -61,5 +75,5 @@ public class DATPedido {
             }
         }
     }
-    
+
 }

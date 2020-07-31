@@ -38,6 +38,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
     ArrayList<Pedido> ArrayPedidos = new ArrayList<>();
     ArrayList<Inventario> InventarioLocal = new ArrayList<>();
     ArrayList<Inventario> PedidoCliente = new ArrayList<>();
+    ArrayList<Pedido> PedidosDelCliente = new ArrayList<>();
 
     LogicaLocal objLogLoc = new LogicaLocal();
     LogicaProducto objLogPro = new LogicaProducto();
@@ -50,6 +51,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
     Inventario objInv;
     Pedido objPed;
     int idLocal = 0;
+    int idCliente = 0;
 
     double total = 0.0;
 
@@ -67,8 +69,6 @@ public class GUI_Cliente extends javax.swing.JFrame {
         try {
             try {
                 objLogLoc.LeerLocales(ArrayFarmacias);
-                // this.jLabel1.setVisible(false);
-                //this.jComboFarmacias.setVisible(false);
             } catch (SQLException ex) {
                 Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -109,6 +109,12 @@ public class GUI_Cliente extends javax.swing.JFrame {
         jTablePedidos = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jTextTotal = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTablePedidosCliente = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        jButtonListarPedidos = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jTextNombreCliente = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -118,15 +124,9 @@ public class GUI_Cliente extends javax.swing.JFrame {
         });
 
         jTextCedula.setText("Cedula");
-
-        jPasswordClave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordClaveActionPerformed(evt);
-            }
-        });
-        jPasswordClave.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextCedula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jPasswordClaveKeyTyped(evt);
+                jTextCedulaKeyTyped(evt);
             }
         });
 
@@ -240,6 +240,32 @@ public class GUI_Cliente extends javax.swing.JFrame {
 
         jTextTotal.setEnabled(false);
 
+        jTablePedidosCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTablePedidosCliente);
+
+        jLabel6.setText("Lista de Pedidos");
+
+        jButtonListarPedidos.setText("Listar");
+        jButtonListarPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonListarPedidosActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Bienvenido");
+
+        jTextNombreCliente.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -249,26 +275,6 @@ public class GUI_Cliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jComboFarmacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButtonListar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTextFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(48, 48, 48))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(jPasswordClave, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(31, 31, 31)
-                                        .addComponent(jButtonIngresar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonNuevoCliente)))
-                                .addComponent(jButton1))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -281,64 +287,109 @@ public class GUI_Cliente extends javax.swing.JFrame {
                                         .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jTextCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jButtonAgregar)))
+                                    .addComponent(jButtonAgregar))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButtonGuardar)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jButtonGuardar)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jTextTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButtonListarPedidos)
+                                        .addGap(155, 155, 155))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(jPasswordClave, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(31, 31, 31)
+                                        .addComponent(jButtonIngresar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonNuevoCliente)
+                                        .addGap(0, 0, 0)
+                                        .addComponent(jButton1))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jComboFarmacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButtonListar)
+                                        .addGap(19, 19, 19)
+                                        .addComponent(jTextFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(48, 48, 48)
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel7)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(jTextNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(222, 222, 222))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(248, 248, 248)
                         .addComponent(jLabel4)))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPasswordClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonIngresar)
                     .addComponent(jButtonNuevoCliente)
                     .addComponent(jButton1))
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jComboFarmacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonListar)
-                    .addComponent(jTextFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(jTextNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonAgregar)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jTextCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jTextCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonAgregar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(64, 64, 64)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jTextTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(78, 78, 78)
+                                .addComponent(jButtonGuardar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jTextTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(78, 78, 78)
-                        .addComponent(jButtonGuardar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(68, 68, 68))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonListarPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(80, 80, 80))
         );
 
         pack();
@@ -352,7 +403,13 @@ public class GUI_Cliente extends javax.swing.JFrame {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (objCli.getCedula().equals(this.jTextCedula.getText()) && objCli.getClave().equals(String.valueOf(this.jPasswordClave.getPassword()))) {
+            try {
+                idCliente = objLogCli.ConsultarIDCliente(objCli.getCedula());
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
             CargarCombo();
+            this.jTextNombreCliente.setText(objCli.getNombre());
             this.jComboFarmacias.setEnabled(true);
             this.jButtonListar.setEnabled(true);
             this.jTable1.setEnabled(true);
@@ -393,10 +450,6 @@ public class GUI_Cliente extends javax.swing.JFrame {
             model.addRow(NewValor);
         }
     }//GEN-LAST:event_jButtonListarActionPerformed
-
-    private void jPasswordClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordClaveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordClaveActionPerformed
 
     private void jComboFarmaciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboFarmaciasActionPerformed
         // TODO add your handling code here:
@@ -461,16 +514,6 @@ public class GUI_Cliente extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_formMouseClicked
 
-    private void jPasswordClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordClaveKeyTyped
-        // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-            JOptionPane.showMessageDialog(rootPane, "Ingrese solo numeros");
-        }
-    }//GEN-LAST:event_jPasswordClaveKeyTyped
-
     private void jTextCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCantidadKeyTyped
         // TODO add your handling code here:
         char validar = evt.getKeyChar();
@@ -480,6 +523,43 @@ public class GUI_Cliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Ingrese solo numeros");
         }
     }//GEN-LAST:event_jTextCantidadKeyTyped
+
+    private void jButtonListarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListarPedidosActionPerformed
+        try {
+            PedidosDelCliente.removeAll(PedidosDelCliente);
+            // TODO add your handling code here:
+            objLogPed.LeerPedidosCliente(PedidosDelCliente, idCliente);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        DefaultTableModel tb = new DefaultTableModel();
+        tb.setRowCount(0);
+        this.jTablePedidosCliente.setModel(tb);
+        Object columnas[] = {
+            "estado", "total", "nombre", "direccion"
+        };
+        DefaultTableModel model = new DefaultTableModel(null, columnas);
+        this.jTablePedidosCliente.setModel(model);
+        for (Pedido objAuxPed : PedidosDelCliente) {
+            String NewValor[] = {
+                String.valueOf(objAuxPed.getEstado()),
+                String.valueOf(objAuxPed.getValor()),
+                objAuxPed.getFarmacia().getNombre(),
+                objAuxPed.getFarmacia().getDireccion()
+            };
+            model.addRow(NewValor);
+        }
+    }//GEN-LAST:event_jButtonListarPedidosActionPerformed
+
+    private void jTextCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCedulaKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "Ingrese solo numeros");
+        }
+    }//GEN-LAST:event_jTextCedulaKeyTyped
 
     /**
      * @param args the command line arguments
@@ -575,6 +655,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonIngresar;
     private javax.swing.JButton jButtonListar;
+    private javax.swing.JButton jButtonListarPedidos;
     private javax.swing.JButton jButtonNuevoCliente;
     private javax.swing.JComboBox<String> jComboFarmacias;
     private javax.swing.JLabel jLabel1;
@@ -582,15 +663,20 @@ public class GUI_Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPasswordField jPasswordClave;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollTabla;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTablePedidos;
+    private javax.swing.JTable jTablePedidosCliente;
     private javax.swing.JTextField jTextCantidad;
     private javax.swing.JTextField jTextCedula;
     private javax.swing.JTextField jTextCodigo;
     private javax.swing.JTextField jTextFecha;
+    private javax.swing.JTextField jTextNombreCliente;
     private javax.swing.JTextField jTextTotal;
     // End of variables declaration//GEN-END:variables
 }
