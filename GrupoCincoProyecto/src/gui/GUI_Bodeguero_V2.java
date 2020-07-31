@@ -43,6 +43,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
     Local local;
     Bodeguero bodeguero;
     int idLocal = 0;
+    Inventario inventario;
 
     public GUI_Bodeguero_V2() {
         initComponents();
@@ -351,8 +352,18 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAtrasActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        // TODO add your handling code here:
-        objLogInv.
+        try {
+            // TODO add your handling code here:
+            objLogInv.LeerInventario(ArrayInventario, idLocal);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(GUI_Bodeguero_V2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        inventario = new Inventario();
+        try {
+            inventario = objLogInv.BuscarInventarioDelLocal(this.jTextCod.getText(), idLocal);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(GUI_Bodeguero_V2.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     /**
