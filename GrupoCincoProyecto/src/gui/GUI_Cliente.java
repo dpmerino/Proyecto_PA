@@ -47,6 +47,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
     Local objLocal;
     Inventario objInv;
     Pedido objPed;
+    int idLocal = 0;
 
     double total = 0.0;
 
@@ -313,7 +314,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
     private void jButtonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListarActionPerformed
         // TODO add your handling code here:
         ArrayFarmacias.removeAll(ArrayFarmacias);
-        int idLocal;
+        idLocal = 0;
         try {
             idLocal = objLogLoc.ConsultarIDLocalConNombre(this.jComboFarmacias.getModel().getSelectedItem().toString());
             objLogInv.LeerInventario(InventarioLocal, idLocal);
@@ -349,12 +350,10 @@ public class GUI_Cliente extends javax.swing.JFrame {
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
         objInv = new Inventario();
         try {
-            objInv = objLogInv.BuscarInventarioConCodigo(this.jTextCodigo.getText());
+            objInv = objLogInv.BuscarInventarioDelLocal(this.jTextCodigo.getText(), idLocal);
             objInv.setCantidad(Integer.parseInt(this.jTextCantidad.getText()));
             objInv.setLocal(objLocal);
             total = total + (objInv.getCantidad() * objInv.getPrecio());
-            System.out.println("CAntidad " + objInv.getCantidad());
-            System.out.println("Precio " + objInv.getPrecio());
             System.out.println(total);
             PedidoCliente.add(objInv);
             objLogInv.actulizarInventarioMediantePedido(objInv);
@@ -362,25 +361,6 @@ public class GUI_Cliente extends javax.swing.JFrame {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        try {
-//            // TODO add your handling code here:
-//            LogicaLocal.LeerLocalesDAT(ArrayFarmacias);
-//        } catch (IOException ex) {
-//            Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        Local objLocal = objLogLoc.BuscarLocal(ArrayFarmacias, this.jComboFarmacias.getSelectedItem().toString());
-//        System.out.println(objLocal.inventarioGeneral);
-//        Inventario objInv = objLogInv.buscarPro(ArrayFarmacias, this.jTextCodigo.getText());
-//        System.out.println(objInv);
-//        if(Integer.parseInt(this.jTextCantidad.getText()) > objInv.cantidad){
-//            JOptionPane.showMessageDialog(null, "No hay cantidad suficiente", "Error", JOptionPane.PLAIN_MESSAGE);
-//        } else{
-//            InventarioLocal.add(new Inventario(Integer.parseInt(this.jTextCantidad.getText()), objInv.getProducto()));
-//            this.jTextCodigo.setText("");
-//            this.jTextCantidad.setText("");
-//        }
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -394,18 +374,11 @@ public class GUI_Cliente extends javax.swing.JFrame {
         objPed.setProductosPedidos(PedidoCliente);
         try {
             objLogPed.InsetarPedido(objPed);
+            int idPedido = objLogPed.ConsultarIDPedido(objCli.getCedula());
+            for (Inventario objAuxInv : PedidoCliente){
+                objLogInv.InsertarDetalle(objAuxInv, idPedido);
+            }
             System.out.println("Pedido Insertado");
-// TODO add your handling code here:
-//        double total = objLogInv.valor(InventarioLocal);
-//        Cliente objCli = objLogCli.cargarCliente(ArrayClientes, this.jTextCedula.getText());
-//        Local objLocal = objLogLoc.BuscarLocal(ArrayFarmacias, this.jComboFarmacias.getSelectedItem().toString());
-//        Pedido objPedido = new Pedido(fecha,0,total,objCli, InventarioLocal,objLocal);
-//        ArrayPedidos.add(objPedido);
-//        try {
-//            LogicaPedidos.EscribirPedidosDAT(ArrayPedidos);
-//        } catch (IOException ex) {
-//            Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
-//        }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -469,7 +442,6 @@ public class GUI_Cliente extends javax.swing.JFrame {
         tb.setRowCount(0);
         this.jTable1.setModel(tb);
         InventarioLocal.removeAll(InventarioLocal);
-        int idLocal;
         try {
             idLocal = objLogLoc.ConsultarIDLocalConNombre(this.jComboFarmacias.getModel().getSelectedItem().toString());
             objLogInv.LeerInventario(InventarioLocal, idLocal);

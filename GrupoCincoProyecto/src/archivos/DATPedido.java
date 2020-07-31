@@ -32,7 +32,7 @@ public class DATPedido {
 
     public ResultSet ConsultarPedidosConCedula(String cedula) throws ClassNotFoundException, SQLException {
         Statement st = con.AbrirConexion().createStatement();
-        String sentencia = "SELECT fecha, estado, total FROM pedido, cliente WHERE cliente.cedula = '" + cedula + "' and cliente.idCliente = pedido.idCli";
+        String sentencia = "SELECT idPedido, fecha, estado, total FROM pedido, cliente WHERE cliente.cedula = '" + cedula + "' and cliente.idCliente = pedido.idCli";
         rs = st.executeQuery(sentencia);
         return rs;
     }

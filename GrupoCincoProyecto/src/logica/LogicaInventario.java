@@ -90,6 +90,9 @@ public class LogicaInventario {
         int idLoc = objLogLoc.ConsultarIDLocal(inventario.getLocal().getCodigo());
         objDatInv.InsertarInventario(inventario, idLoc);
     }
+    public void InsertarDetalle(Inventario inventario, int idPed) throws ClassNotFoundException, SQLException{
+        objDatInv.InsertarDetalle(inventario, idPed);
+    }
 
     public Inventario BuscarInventarioConCodigo(String codigo) throws ClassNotFoundException, SQLException {
         Inventario objInv = new Inventario();
@@ -152,9 +155,9 @@ public class LogicaInventario {
         return objInv;
     }
 
-    public int BuscarCantidadDeInventario(String codigo) throws ClassNotFoundException, SQLException {
+    public int BuscarCantidadDeInventario(String codigo, int idLocal) throws ClassNotFoundException, SQLException {
         int cantidad = 0;
-        ResultSet rs = objDatInv.BuscarProducto(codigo);
+        ResultSet rs = objDatInv.BuscarProductoDelInventario(codigo, idLocal);
         ResultSetMetaData rm = rs.getMetaData();
         int columnCount = rm.getColumnCount();
         ArrayList<String> columnas = new ArrayList<>();
@@ -174,11 +177,8 @@ public class LogicaInventario {
     }
 
     public void actulizarInventarioMediantePedido(Inventario objInv) throws ClassNotFoundException, SQLException {
-        System.out.println(objInv.getLocal().getCodigo());
         int idLocal = objLogLoc.ConsultarIDLocal(objInv.getLocal().getCodigo());
-        int cantidadActual = BuscarCantidadDeInventario(objInv.getCodigo());
-        System.out.println("Actual " + cantidadActual);
-        System.out.println("Objeto " + objInv.getCantidad());
+        int cantidadActual = BuscarCantidadDeInventario(objInv.getCodigo(), idLocal);
         int cantidadNueva = cantidadActual - objInv.getCantidad();
         objDatInv.ActualizarInventarioPedido(objInv, idLocal, cantidadNueva);
     }

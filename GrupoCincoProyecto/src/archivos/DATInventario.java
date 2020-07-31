@@ -121,4 +121,28 @@ public class DATInventario {
             }
         }
     }
+    
+     public boolean InsertarDetalle(Inventario inventario, int idPed) {
+        String sql = "INSERT INTO detalle_pedido (cantidad, codigo, nombre, precio, idPed) "
+                + "VALUES (?,?,?,?,?)";
+        try {
+            ps = con.AbrirConexion().prepareStatement(sql);
+            ps.setInt(1, inventario.getCantidad());
+            ps.setString(2, inventario.getCodigo());
+            ps.setString(3, inventario.getNombre());
+            ps.setDouble(4, inventario.getPrecio());
+            ps.setInt(5, idPed);
+            ps.execute();
+            return true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DATGerente.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            try {
+                con.CerrarConexion();
+            } catch (SQLException ex) {
+                Logger.getLogger(DATGerente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }

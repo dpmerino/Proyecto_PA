@@ -10,7 +10,9 @@ import clases.Inventario;
 import clases.Local;
 import clases.Pedido;
 import clases.Vendedor;
+import static gui.GUI_Bodeguero_V2.ObjLogLoc;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,23 +25,27 @@ import logica.LogicaVendedor;
  *
  */
 public class GUI_Vendedor extends javax.swing.JFrame {
-    
+
     ArrayList<Vendedor> ArrayVen = new ArrayList<>();
-    LogicaVendedor objLogVen = new LogicaVendedor();
     ArrayList<Pedido> ArrayPed = new ArrayList<>();
     ArrayList<Local> Farmacias = new ArrayList<>();
+
+    LogicaVendedor objLogVen = new LogicaVendedor();
+    LogicaLocal objLogLoc = new LogicaLocal();
+
+    Local local;
+    Vendedor vendedor;
+    int idLocal = 0;
+    Inventario producto;
 
     /**
      * Creates new form GUI_Empleado
      */
     public GUI_Vendedor() {
         initComponents();
-        
         try {
             LogicaLocal.LeerLocalesDAT(Farmacias);
-        } catch (IOException ex) {
-            Logger.getLogger(GUI_Vendedor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(GUI_Vendedor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -62,7 +68,7 @@ public class GUI_Vendedor extends javax.swing.JFrame {
         jButtonAtras = new javax.swing.JButton();
         jButtonIngresar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableInventario = new javax.swing.JTable();
         jButtonListarPedidos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -104,7 +110,7 @@ public class GUI_Vendedor extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableInventario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -115,8 +121,8 @@ public class GUI_Vendedor extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setEnabled(false);
-        jScrollPane1.setViewportView(jTable1);
+        jTableInventario.setEnabled(false);
+        jScrollPane1.setViewportView(jTableInventario);
 
         jButtonListarPedidos.setText("Listar Pedidos");
         jButtonListarPedidos.setActionCommand("");
@@ -207,20 +213,26 @@ public class GUI_Vendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAtrasActionPerformed
 
     private void jButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarActionPerformed
+//        try {
+//            // TODO add your handling code here:
+//            objLogVen.LeerVendedoresDAT(ArrayVen);
+//        } catch (IOException | ClassNotFoundException ex) {
+//            Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        vendedor = new Vendedor();
         try {
-            // TODO add your handling code here:
-            objLogVen.LeerVendedoresDAT(ArrayVen);
-        } catch (IOException ex) {
-            Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUI_Cliente.class.getName()).log(Level.SEVERE, null, ex);
+            vendedor = objLogVen.ConsultarVendedorConCedula(this.jTextCedula.getText());
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(GUI_Vendedor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if (objLogVen.ValidarVendedor(Farmacias, jTextCedula.getText(), String.valueOf(this.jPasswordClave.getPassword()))){
-            this.jTable1.setEnabled(true);
-            this.jButtonListarPedidos.setEnabled(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Vendedor no existe");
+        if (vendedor.getCedula().equals(this.jTextCedula.getText()) && vendedor.getClave().equals(String.valueOf(this.jPasswordClave.getPassword()))) {
+            local = new Local();
+            try {
+                local = objLogLoc.ConsultarLocalConVendedor(vendedor.getCedula());
+                idLocal = objLogLoc.ConsultarIDLocal(local.getCodigo());
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(GUI_Vendedor.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jButtonIngresarActionPerformed
 
@@ -234,22 +246,22 @@ public class GUI_Vendedor extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUI_Vendedor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Object columnas [] = {
-            "Fecha","Estado","Valor","Cliente","Nombre Producto","Cantidad","Vencimiento","Precio"
+        Object columnas[] = {
+            "Fecha", "Estado", "Valor", "Cliente", "Nombre Producto", "Cantidad", "Vencimiento", "Precio"
         };
         DefaultTableModel model = new DefaultTableModel(null, columnas);
-        this.jTable1.setModel(model);
+        this.jTableInventario.setModel(model);
         for (Pedido objP : ArrayPed) {
-            for(Inventario objInv : objP.productosPedidos){
+            for (Inventario objInv : objP.productosPedidos) {
                 String NewValor[] = {
-                //objP.getFecha(),
-                String.valueOf(objP.getEstado()),
-                String.valueOf(objP.getValor()),
-                objP.getCliente().getNombre(),
-                objInv.getProducto().getNombre(),
-                String.valueOf(objInv.getCantidad()),
-                objInv.getProducto().getVencimiento(),
-                String.valueOf(objP.getValor())
+                    //objP.getFecha(),
+                    String.valueOf(objP.getEstado()),
+                    String.valueOf(objP.getValor()),
+                    objP.getCliente().getNombre(),
+                    objInv.getProducto().getNombre(),
+                    String.valueOf(objInv.getCantidad()),
+                    objInv.getProducto().getVencimiento(),
+                    String.valueOf(objP.getValor())
                 };
                 model.addRow(NewValor);
             }
@@ -294,6 +306,24 @@ public class GUI_Vendedor extends javax.swing.JFrame {
         });
     }
 
+//    void CargarInventario() {
+//
+//        Object columnas[] = {
+//            "Codigo", "Nombre", "Cantidad", "Precio"
+//        };
+//        DefaultTableModel model = new DefaultTableModel(null, columnas);
+//      //  Local objLocal = ObjLogLoc.BuscarConBodeguero(ArrayLocales, jTextCedula.getText());
+//        this.jTableInventario.setModel(model);
+//        for (Inventario objInv : objLocal.getInventarioGeneral()) {
+//            String NewValor[] = {
+//                objInv.getProducto().getCodigo(),
+//                objInv.getProducto().getNombre(),
+//                String.valueOf(objInv.getCantidad()),
+//                String.valueOf(objInv.getProducto().getPrecio()),
+//            };
+//            model.addRow(NewValor);
+//        }
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtras;
     private javax.swing.JButton jButtonIngresar;
@@ -304,7 +334,7 @@ public class GUI_Vendedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JPasswordField jPasswordClave;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableInventario;
     private javax.swing.JTextField jTextCedula;
     // End of variables declaration//GEN-END:variables
 }

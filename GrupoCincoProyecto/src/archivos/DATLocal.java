@@ -45,21 +45,23 @@ public class DATLocal {
         rs = st.executeQuery(Sentencia);
         return rs;
     }
+
     public ResultSet ConsultarLocalConBodeguero(String cedula)
             throws ClassNotFoundException, SQLException {
         Statement st = con.AbrirConexion().createStatement();
-        String Sentencia = "SELECT local.nombre,local.codigo,local.direccion FROM local, bodeguero WHERE bodeguero.cedula = '" + cedula + "'"+" AND bodeguero.idBodeguero = local.idBod";
+        String Sentencia = "SELECT local.nombre,local.codigo,local.direccion FROM local, bodeguero WHERE bodeguero.cedula = '" + cedula + "'" + " AND bodeguero.idBodeguero = local.idBod";
         rs = st.executeQuery(Sentencia);
         return rs;
     }
-    
+
     public ResultSet ConsultarLocalConVendedor(String cedula)
             throws ClassNotFoundException, SQLException {
         Statement st = con.AbrirConexion().createStatement();
-        String Sentencia = "SELECT local.nombre,local.codigo,local.direccion FROM local, vendedor WHERE vendedor.cedula = '" + cedula + "'"+" AND vendedor.idVendedor = local.idVen";
+        String Sentencia = "SELECT local.nombre,local.codigo,local.direccion FROM local, vendedor WHERE vendedor.cedula = '" + cedula + "'" + " AND vendedor.Local_idLocal = local.idLocal";
         rs = st.executeQuery(Sentencia);
         return rs;
     }
+
     public ResultSet ConsultarLocalID(int idLoc)
             throws ClassNotFoundException, SQLException {
         Statement st = con.AbrirConexion().createStatement();

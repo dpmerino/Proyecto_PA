@@ -258,7 +258,7 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
         ObjLogLoc = new LogicaLocal();
         try {
-            ObjLocal = ObjLogLoc.ConsultarLocalIdConBodeguero(jTextCedula.getText());
+            ObjLocal = ObjLogLoc.ConsultarLocalConBodeguero(jTextCedula.getText());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -284,7 +284,7 @@ public class GUI_Bodeguero extends javax.swing.JFrame {
 
         if (objBodeguero.getCedula().equals(this.jTextCedula.getText()) && objBodeguero.getClave().equals(String.valueOf(this.jPassword.getPassword()))) {
             try {
-                ObjLocal = ObjLogLoc.ConsultarLocalIdConBodeguero(jTextCedula.getText());
+                ObjLocal = ObjLogLoc.ConsultarLocalConBodeguero(jTextCedula.getText());
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
             }

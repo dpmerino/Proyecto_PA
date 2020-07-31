@@ -55,4 +55,27 @@ public class LogicaPedidos {
         objDatPed.InsertarPedido(pedido, idCli, idLoc, idVen);
     }
 
+    public int ConsultarIDPedido(String cedula) throws ClassNotFoundException, SQLException {
+        int id = 0;
+        ResultSet rs = objDatPed.ConsultarPedidosConCedula(cedula);
+        ResultSetMetaData rm = rs.getMetaData();
+        //Recupera los campos de la tabla
+        int columnCount = rm.getColumnCount();
+        ArrayList<String> columnas = new ArrayList<>();
+        for (int i = 1; i <= columnCount; i++) {
+            String columnName = rm.getColumnName(i);
+            columnas.add(columnName);
+        }
+        //Envia los datos a la Clase
+        while (rs.next()) {
+
+            for (String columnName : columnas) {
+                String value = rs.getString(columnName);
+                if (columnName.equals("idPedido")) {
+                    id = Integer.parseInt(value);
+                }
+            }
+        }
+        return id;
+    }
 }

@@ -33,7 +33,6 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
     ArrayList<Local> ArrayLocales = new ArrayList<>();
     static ArrayList ArrayInventario = new ArrayList<Inventario>();
     ArrayList<Inventario> InventarioNuevo = new ArrayList<>();
-    static boolean HayLocales;
 
     LogicaLocal objLogLoc = new LogicaLocal();
     LogicaBodeguero objLogBod = new LogicaBodeguero();
@@ -238,7 +237,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
             //Local ObjLocal = ObjLogLoc.BuscarConBodeguero(ArrayLocales, jTextCedula.getText());
             local = new Local();
             try {
-                local = objLogLoc.ConsultarLocalIdConBodeguero(this.jTextCedula.getText());
+                local = objLogLoc.ConsultarLocalConBodeguero(this.jTextCedula.getText());
                 idLocal = objLogLoc.ConsultarIDLocal(local.getCodigo());
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(GUI_Bodeguero_V2.class.getName()).log(Level.SEVERE, null, ex);
