@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import logica.LogicaCliente;
+import logica.validaciones;
 
 /**
  *
@@ -21,6 +22,7 @@ public class CrearCliente extends javax.swing.JFrame {
 
     ArrayList<Cliente> ArrayClientes = new ArrayList<>();
     LogicaCliente objLogCliente = new LogicaCliente();
+    validaciones validar = new validaciones();
 
     /**
      * Creates new form CrearCliente
@@ -263,18 +265,13 @@ public class CrearCliente extends javax.swing.JFrame {
                     this.jTextFieldClave.getText()
             );
             ArrayClientes.add(objCliente);
-            try {
-                objLogCliente.InsertarCliente(objCliente);
-//            try {
-//                LogicaCliente.EscribirClientesDAT(ArrayClientes);
-//            } catch (IOException ex) {
-//                Logger.getLogger(CrearCliente.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-            } catch (SQLException ex) {
-                Logger.getLogger(CrearCliente.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(CrearCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            if (validar.mailValido(this.jTextFieldMail.getText()) && validar.validadorDeCedula(this.jTextFieldCedula.getText())) {
+                try {
+                    objLogCliente.InsertarCliente(objCliente);
+                } catch (SQLException | ClassNotFoundException ex) {
+                    Logger.getLogger(CrearCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else JOptionPane.showMessageDialog(null, "Revise el mail o la cedula");
         }
     }//GEN-LAST:event_jButtonCrearActionPerformed
 
