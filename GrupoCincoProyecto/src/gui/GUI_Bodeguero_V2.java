@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logica.LogicaLocal;
-import clases.Producto;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -43,7 +42,7 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
     Local local;
     Bodeguero bodeguero;
     int idLocal = 0;
-    Inventario inventario;
+    Inventario producto;
 
     public GUI_Bodeguero_V2() {
         initComponents();
@@ -199,16 +198,37 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-        Local ObjLocal = ObjLogLoc.BuscarConBodeguero(ArrayLocales, jTextCedula.getText());
-        int indexLocal = ArrayLocales.indexOf(ObjLocal);
-        //Producto ObjProd = new Producto(this.jTextCod.getText(), this.jTextNom.getText(), Double.parseDouble(this.jTextPrec.getText()), this.jTextVenc.getText());
-        //Inventario objInv = new Inventario(Integer.parseInt(this.jTextCanti.getText()), ObjProd);
-        //ObjLocal.AgregarInventario(Integer.parseInt(this.jTextCanti.getText()), ObjProd);
-        ArrayLocales.add(indexLocal, ObjLocal);
-        try {
-            LogicaLocal.EscribirLocalesDAT(ArrayLocales);
-        } catch (IOException ex) {
-            Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
+//        Local ObjLocal = LogicaLocal.BuscarConBodeguero(ArrayLocales, jTextCedula.getText());
+//        int indexLocal = ArrayLocales.indexOf(ObjLocal);
+//        //Producto ObjProd = new Producto(this.jTextCod.getText(), this.jTextNom.getText(), Double.parseDouble(this.jTextPrec.getText()), this.jTextVenc.getText());
+//        //Inventario objInv = new Inventario(Integer.parseInt(this.jTextCanti.getText()), ObjProd);
+//        //ObjLocal.AgregarInventario(Integer.parseInt(this.jTextCanti.getText()), ObjProd);
+//        ArrayLocales.add(indexLocal, ObjLocal);
+//        try {
+//            LogicaLocal.EscribirLocalesDAT(ArrayLocales);
+//        } catch (IOException ex) {
+//            Logger.getLogger(GUI_Bodeguero.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        producto = new Inventario();
+        producto.setCantidad(Integer.parseInt(this.jTextCanti.getText()));
+        producto.setCodigo(this.jTextCod.getText());
+        producto.setNombre(this.jTextNom.getText());
+        producto.setPrecio(Double.parseDouble(this.jTextPrec.getText()));
+        producto.setLocal(local);
+        InventarioNuevo.add(producto);
+                Object columnas[] = {
+            "Nombre", "Codigo", "Precio", "Cantidad"
+        };
+        DefaultTableModel model = new DefaultTableModel(null, columnas);
+        this.jTableInventario.setModel(model);
+        for (Inventario objInv : InventarioNuevo) {
+            String NewValor[] = {
+                objInv.getNombre(),
+                objInv.getCodigo(),
+                String.valueOf(objInv.getPrecio()),
+                String.valueOf(objInv.getCantidad())
+            };
+            model.addRow(NewValor);
         }
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
@@ -255,16 +275,16 @@ public class GUI_Bodeguero_V2 extends javax.swing.JFrame {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(GUI_Bodeguero_V2.class.getName()).log(Level.SEVERE, null, ex);
         }
-        inventario = new Inventario();
+        producto = new Inventario();
         try {
-            inventario = objLogInv.BuscarInventarioDelLocal(this.jTextCod.getText(), idLocal);
+            producto = objLogInv.BuscarInventarioDelLocal(this.jTextCod.getText(), idLocal);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(GUI_Bodeguero_V2.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (inventario.getNombre() != null){
-            this.jTextNom.setText(inventario.getNombre());
-            this.jTextPrec.setText(String.valueOf(inventario.getPrecio()));
-            this.jTextCanti.setText(String.valueOf(inventario.getCantidad()));
+        if (producto.getNombre() != null){
+            this.jTextNom.setText(producto.getNombre());
+            this.jTextPrec.setText(String.valueOf(producto.getPrecio()));
+            this.jTextCanti.setText(String.valueOf(producto.getCantidad()));
             this.jButtonAgregar.setEnabled(true);
         } else this.jButtonAgregar.setEnabled(true);
         
