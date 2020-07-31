@@ -14,6 +14,7 @@ public class JIF_Log extends javax.swing.JInternalFrame {
     /**
      * Creates new form JIF_Log
      */
+    Main objMain = new Main();
     public JIF_Log() {
         initComponents();
     }
@@ -140,6 +141,7 @@ public class JIF_Log extends javax.swing.JInternalFrame {
 
     private void jButtonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdminActionPerformed
         new CrearLocal().setVisible(true);
+        
         this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAdminActionPerformed

@@ -9,6 +9,8 @@ import clases.Cliente;
 import clases.Inventario;
 import clases.Local;
 import clases.Pedido;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,6 +62,8 @@ public class GUI_Cliente extends javax.swing.JFrame {
         fecha = sdf.format(new Date());
         this.jTextFecha.setText(fecha);
 
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         try {
             try {
                 objLogLoc.LeerLocales(ArrayFarmacias);
@@ -290,7 +294,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(248, 248, 248)
                         .addComponent(jLabel4)))
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,7 +338,7 @@ public class GUI_Cliente extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(244, 244, 244))
+                .addGap(68, 68, 68))
         );
 
         pack();
